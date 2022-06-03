@@ -32,14 +32,18 @@ def isSameDistribution(index):
     sample_data_intern = np.float64(np.take(data[2:,index], getScenarios(interns)))
     sample_data_junior = np.float64(np.take(data[2:,index], getScenarios(juniors)))
     sample_data_senior = np.float64(np.take(data[2:,index], getScenarios(seniors)))
-    print(sample_data_intern)
-    print(sample_data_junior)
-    print(sample_data_senior)
+
+    no_nan_sample_data_intern = sample_data_intern[~np.isnan(sample_data_intern)]
+    no_nan_sample_data_junior = sample_data_junior[~np.isnan(sample_data_junior)]
+    no_nan_sample_data_senior = sample_data_senior[~np.isnan(sample_data_senior)]
+    print(no_nan_sample_data_intern)
+    print(no_nan_sample_data_junior)
+    print(no_nan_sample_data_senior)
     # sample_data = reject_outliers(sample_data)
 
-    print(sp.stats.kstest(sample_data_intern, sample_data_junior))
-    print(sp.stats.kstest(sample_data_intern, sample_data_senior))
-    print(sp.stats.kstest(sample_data_junior, sample_data_senior))
+    print(sp.stats.kstest(no_nan_sample_data_intern, no_nan_sample_data_junior))
+    print(sp.stats.kstest(no_nan_sample_data_intern, no_nan_sample_data_senior))
+    print(sp.stats.kstest(no_nan_sample_data_junior, no_nan_sample_data_senior))
 
     # my_histogram(sample_data_intern)
     # my_histogram(sample_data_junior)
@@ -83,6 +87,19 @@ def main():
     isSameDistribution(21)
     isSameDistribution(22)
     isSameDistribution(23)
+
+
+    #NASA-TLX
+    print("-------------- Preference ---------------")
+    isSameDistribution(24)
+    isSameDistribution(25)
+    isSameDistribution(26)
+    isSameDistribution(27)
+    isSameDistribution(28)
+    isSameDistribution(29)
+    isSameDistribution(30)
+    isSameDistribution(31)
+    isSameDistribution(32)
 
 if __name__ == "__main__":
     main()

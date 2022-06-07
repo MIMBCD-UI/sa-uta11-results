@@ -13,10 +13,8 @@ proactive = [1,3,4,5,9,11,14,16,17,21,22,24,27,28,29,32,34,36,37,39,40,42,44,47]
 
 reactive = [2,6,7,8,10,12,13,15,18,19,20,23,25,26,30,31,33,35,38,41,43,45,46,48]
 
-
 def getScenarios(clinicians):
     new_scenarios = []
     for i in clinicians:
         new_scenarios.extend([(i - 1) * 3, (i - 1) * 3 + 1, (i - 1) * 3 + 2])
-
     return new_scenarios

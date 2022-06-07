@@ -16,8 +16,193 @@ sys.path.append('../constants')
 sys.path.append('../methods')
 
 from sheets import data
-from groups import interns, juniors, seniors, getScenarios
+from groups import interns, juniors, seniors, assertive, non_assertive, proactive, reactive, getScenarios
 from outliers import reject_outliers
+
+def kruskalWallisBehaviour(firstIndex, lastIndex):
+    lastIndex += 1
+
+    mean_sample_data_intern_proactive = []
+    mean_sample_data_intern_reactive = []
+    mean_sample_data_junior_proactive = []
+    mean_sample_data_junior_reactive = []
+    mean_sample_data_senior_proactive = []
+    mean_sample_data_senior_reactive = []
+
+    for i in getScenarios(interns):
+
+        if(i+1 in proactive):
+
+            nan_outliers_sample_data_intern_proactive_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
+            outliers_sample_data_intern_proactive_i = nan_outliers_sample_data_intern_proactive_i[~np.isnan(nan_outliers_sample_data_intern_proactive_i)]
+            sample_data_intern_proactive_i = outliers_sample_data_intern_proactive_i
+
+            mean_sample_data_intern_proactive.append(np.mean(sample_data_intern_proactive_i))
+
+        if(i+1 in reactive):
+
+            nan_outliers_sample_data_intern_reactive_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
+            outliers_sample_data_intern_reactive_i = nan_outliers_sample_data_intern_reactive_i[~np.isnan(nan_outliers_sample_data_intern_reactive_i)]
+            sample_data_intern_reactive_i = outliers_sample_data_intern_reactive_i
+
+            mean_sample_data_intern_reactive.append(np.mean(sample_data_intern_reactive_i))
+
+    for i in getScenarios(juniors):
+
+        if(i+1 in proactive):
+
+            nan_outliers_sample_data_junior_proactive_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
+            outliers_sample_data_junior_proactive_i = nan_outliers_sample_data_junior_proactive_i[~np.isnan(nan_outliers_sample_data_junior_proactive_i)]
+            sample_data_junior_proactive_i = outliers_sample_data_junior_proactive_i
+
+            mean_sample_data_junior_proactive.append(np.mean(sample_data_junior_proactive_i))
+
+        if(i+1 in reactive):
+
+            nan_outliers_sample_data_junior_reactive_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
+            outliers_sample_data_junior_reactive_i = nan_outliers_sample_data_junior_reactive_i[~np.isnan(nan_outliers_sample_data_junior_reactive_i)]
+            sample_data_junior_reactive_i = outliers_sample_data_junior_reactive_i
+
+            mean_sample_data_junior_reactive.append(np.mean(sample_data_junior_reactive_i))
+
+    for i in getScenarios(seniors):
+
+        if(i+1 in proactive):
+
+            nan_outliers_sample_data_senior_proactive_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
+            outliers_sample_data_senior_proactive_i = nan_outliers_sample_data_senior_proactive_i[~np.isnan(nan_outliers_sample_data_senior_proactive_i)]
+            sample_data_senior_proactive_i = outliers_sample_data_senior_proactive_i
+
+            mean_sample_data_senior_proactive.append(np.mean(sample_data_senior_proactive_i))
+
+        if(i+1 in reactive):
+
+            nan_outliers_sample_data_senior_reactive_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
+            outliers_sample_data_senior_reactive_i = nan_outliers_sample_data_senior_reactive_i[~np.isnan(nan_outliers_sample_data_senior_reactive_i)]
+            sample_data_senior_reactive_i = outliers_sample_data_senior_reactive_i
+
+            mean_sample_data_senior_reactive.append(np.mean(sample_data_senior_reactive_i))
+    
+    print(mean_sample_data_intern_proactive)
+    print(mean_sample_data_intern_reactive)
+    print(mean_sample_data_junior_proactive)
+    print(mean_sample_data_junior_reactive)
+    print(mean_sample_data_senior_proactive)
+    print(mean_sample_data_senior_reactive)
+
+    print("---Intern Proactive vs Reactive---")
+    print(sp.stats.kruskal(mean_sample_data_intern_proactive, mean_sample_data_intern_reactive))
+    print("---Junior Proactive vs Reactive---")
+    print(sp.stats.kruskal(mean_sample_data_junior_proactive, mean_sample_data_junior_reactive))
+    print("---Senior Proactive vs Reactive---")
+    print(sp.stats.kruskal(mean_sample_data_senior_proactive, mean_sample_data_senior_reactive))
+
+    print("---Intern Proactive vs Junior Proactive---")
+    print(sp.stats.kruskal(mean_sample_data_intern_proactive, mean_sample_data_junior_proactive))
+    print("---Intern Proactive vs Senior Proactive---")
+    print(sp.stats.kruskal(mean_sample_data_intern_proactive, mean_sample_data_senior_proactive))
+    print("---Junior Proactive vs Senior Proactive---")
+    print(sp.stats.kruskal(mean_sample_data_junior_proactive, mean_sample_data_senior_proactive))
+    
+    print("---Intern Reactive vs Junior Reactive---")
+    print(sp.stats.kruskal(mean_sample_data_intern_reactive, mean_sample_data_junior_reactive))
+    print("---Intern Reactive vs Senior Reactive---")
+    print(sp.stats.kruskal(mean_sample_data_intern_reactive, mean_sample_data_senior_reactive))
+    print("---Junior Reactive vs Senior Reactive---")
+    print(sp.stats.kruskal(mean_sample_data_junior_reactive, mean_sample_data_senior_reactive))
+
+def kruskalWallisAssertiveness(firstIndex, lastIndex):
+    lastIndex += 1
+
+    mean_sample_data_intern_assertive = []
+    mean_sample_data_intern_non_assertive = []
+    mean_sample_data_junior_assertive = []
+    mean_sample_data_junior_non_assertive = []
+    mean_sample_data_senior_assertive = []
+    mean_sample_data_senior_non_assertive = []
+
+    for i in getScenarios(interns):
+
+        if(i+1 in assertive):
+
+            nan_outliers_sample_data_intern_assertive_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
+            outliers_sample_data_intern_assertive_i = nan_outliers_sample_data_intern_assertive_i[~np.isnan(nan_outliers_sample_data_intern_assertive_i)]
+            sample_data_intern_assertive_i = outliers_sample_data_intern_assertive_i
+
+            mean_sample_data_intern_assertive.append(np.mean(sample_data_intern_assertive_i))
+
+        if(i+1 in non_assertive):
+
+            nan_outliers_sample_data_intern_non_assertive_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
+            outliers_sample_data_intern_non_assertive_i = nan_outliers_sample_data_intern_non_assertive_i[~np.isnan(nan_outliers_sample_data_intern_non_assertive_i)]
+            sample_data_intern_non_assertive_i = outliers_sample_data_intern_non_assertive_i
+
+            mean_sample_data_intern_non_assertive.append(np.mean(sample_data_intern_non_assertive_i))
+
+    for i in getScenarios(juniors):
+
+        if(i+1 in assertive):
+
+            nan_outliers_sample_data_junior_assertive_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
+            outliers_sample_data_junior_assertive_i = nan_outliers_sample_data_junior_assertive_i[~np.isnan(nan_outliers_sample_data_junior_assertive_i)]
+            sample_data_junior_assertive_i = outliers_sample_data_junior_assertive_i
+
+            mean_sample_data_junior_assertive.append(np.mean(sample_data_junior_assertive_i))
+
+        if(i+1 in non_assertive):
+
+            nan_outliers_sample_data_junior_non_assertive_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
+            outliers_sample_data_junior_non_assertive_i = nan_outliers_sample_data_junior_non_assertive_i[~np.isnan(nan_outliers_sample_data_junior_non_assertive_i)]
+            sample_data_junior_non_assertive_i = outliers_sample_data_junior_non_assertive_i
+
+            mean_sample_data_junior_non_assertive.append(np.mean(sample_data_junior_non_assertive_i))
+
+    for i in getScenarios(seniors):
+
+        if(i+1 in assertive):
+
+            nan_outliers_sample_data_senior_assertive_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
+            outliers_sample_data_senior_assertive_i = nan_outliers_sample_data_senior_assertive_i[~np.isnan(nan_outliers_sample_data_senior_assertive_i)]
+            sample_data_senior_assertive_i = outliers_sample_data_senior_assertive_i
+
+            mean_sample_data_senior_assertive.append(np.mean(sample_data_senior_assertive_i))
+
+        if(i+1 in non_assertive):
+
+            nan_outliers_sample_data_senior_non_assertive_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
+            outliers_sample_data_senior_non_assertive_i = nan_outliers_sample_data_senior_non_assertive_i[~np.isnan(nan_outliers_sample_data_senior_non_assertive_i)]
+            sample_data_senior_non_assertive_i = outliers_sample_data_senior_non_assertive_i
+
+            mean_sample_data_senior_non_assertive.append(np.mean(sample_data_senior_non_assertive_i))
+    
+    print(mean_sample_data_intern_assertive)
+    print(mean_sample_data_intern_non_assertive)
+    print(mean_sample_data_junior_assertive)
+    print(mean_sample_data_junior_non_assertive)
+    print(mean_sample_data_senior_assertive)
+    print(mean_sample_data_senior_non_assertive)
+
+    print("---Intern Assertive vs Non Assertive---")
+    print(sp.stats.kruskal(mean_sample_data_intern_assertive, mean_sample_data_intern_non_assertive))
+    print("---Junior Assertive vs Non Assertive---")
+    print(sp.stats.kruskal(mean_sample_data_junior_assertive, mean_sample_data_junior_non_assertive))
+    print("---Senior Assertive vs Non Assertive---")
+    print(sp.stats.kruskal(mean_sample_data_senior_assertive, mean_sample_data_senior_non_assertive))
+
+    print("---Intern Assertive vs Junior Assertive---")
+    print(sp.stats.kruskal(mean_sample_data_intern_assertive, mean_sample_data_junior_assertive))
+    print("---Intern Assertive vs Senior Assertive---")
+    print(sp.stats.kruskal(mean_sample_data_intern_assertive, mean_sample_data_senior_assertive))
+    print("---Junior Assertive vs Senior Assertive---")
+    print(sp.stats.kruskal(mean_sample_data_junior_assertive, mean_sample_data_senior_assertive))
+    
+    print("---Intern Non Assertive vs Junior Non Assertive---")
+    print(sp.stats.kruskal(mean_sample_data_intern_non_assertive, mean_sample_data_junior_non_assertive))
+    print("---Intern Non Assertive vs Senior Non Assertive---")
+    print(sp.stats.kruskal(mean_sample_data_intern_non_assertive, mean_sample_data_senior_non_assertive))
+    print("---Junior Non Assertive vs Senior Non Assertive---")
+    print(sp.stats.kruskal(mean_sample_data_junior_non_assertive, mean_sample_data_senior_non_assertive))
+    
 
 def kruskalWallisInterval(firstIndex, lastIndex):
     lastIndex += 1
@@ -83,15 +268,15 @@ def kruskalWallis(index):
     
 def main():
 
-    #BIRADS
-    print("-------------- BIRADS ---------------")
-    kruskalWallis(3)
+    # #BIRADS
+    # print("-------------- BIRADS ---------------")
+    # kruskalWallis(3)
 
-    #Time
-    print("-------------- TIME ---------------")
-    kruskalWallis(4)
+    # #Time
+    # print("-------------- TIME ---------------")
+    # kruskalWallis(4)
 
-    # #DOTS
+    # # #DOTS
     # print("-------------- DOTS ---------------")
     # kruskalWallis(5)
     # kruskalWallis(6)
@@ -120,29 +305,47 @@ def main():
     # kruskalWallis(23)
 
 
-    #Preference
-    print("-------------- Preference ---------------")
-    kruskalWallis(24)
-    kruskalWallis(25)
-    kruskalWallis(26)
-    kruskalWallis(27)
-    kruskalWallis(28)
-    kruskalWallis(29)
-    kruskalWallis(30)
-    kruskalWallis(31)
-    kruskalWallis(32)
+    # #Preference
+    # print("-------------- Preference ---------------")
+    # kruskalWallis(24)
+    # kruskalWallis(25)
+    # kruskalWallis(26)
+    # kruskalWallis(27)
+    # kruskalWallis(28)
+    # kruskalWallis(29)
+    # kruskalWallis(30)
+    # kruskalWallis(31)
+    # kruskalWallis(32)
+
+    print("-------------- ASSERTIVENESS ---------------")
 
     #DOTS
     print("-------------- DOTS ---------------")
-    kruskalWallisInterval(5,7)
+    kruskalWallisAssertiveness(5,7)
 
     #SUS
     print("-------------- SUS ---------------")
-    kruskalWallisInterval(8,17)
+    kruskalWallisAssertiveness(8,17)
 
     #NASA-TLX
     print("-------------- NASA-TLX ---------------")
-    kruskalWallisInterval(18,23)
+    kruskalWallisAssertiveness(18,23)
+
+    print("-------------- BEHAVIOUR ---------------")
+    #DOTS
+    print("-------------- DOTS ---------------")
+    kruskalWallisBehaviour(5,7)
+
+    #SUS
+    print("-------------- SUS ---------------")
+    kruskalWallisBehaviour(8,17)
+
+    #NASA-TLX
+    print("-------------- NASA-TLX ---------------")
+    kruskalWallisBehaviour(18,23)
+    
+
+
 
 
 if __name__ == "__main__":

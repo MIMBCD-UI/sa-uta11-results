@@ -4,7 +4,7 @@ import numpy as np
 import datetime as dt
 
 
-loadData = pd.read_excel ("../results/mimbcdui_uta11_scenarios.xlsx", sheet_name="results_before", header=None)
+loadData = pd.read_excel ("../../data/mimbcdui_uta11_scenarios.xlsx", sheet_name="results_before", header=None)
 
 data = np.array(loadData)
 

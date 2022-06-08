@@ -9,6 +9,7 @@ import plotly.express as px
 import datetime as dt
 import statsmodels.api as sm
 import pylab
+import scikit_posthocs as sk
 
 import sys
 # sys.path is a list of absolute path strings
@@ -19,7 +20,7 @@ from sheets import data
 from groups import interns, juniors, seniors, assertive, non_assertive, proactive, reactive, getScenarios
 from outliers import reject_outliers
 
-def kruskalWallisPreference(firstIndex, lastIndex):
+def dunnTestPreference(firstIndex, lastIndex):
     lastIndex += 1
 
     mean_sample_data_intern = []
@@ -53,15 +54,11 @@ def kruskalWallisPreference(firstIndex, lastIndex):
     print(mean_sample_data_junior)
     print(mean_sample_data_senior)
 
-    print("---Intern vs Junior---")
-    print(sp.stats.kruskal(mean_sample_data_intern, mean_sample_data_junior))
-    print("---Intern vs Senior---")
-    print(sp.stats.kruskal(mean_sample_data_intern, mean_sample_data_senior))
-    print("---Junior vs Senior---")
-    print(sp.stats.kruskal(mean_sample_data_junior, mean_sample_data_senior))
+    print("---Intern vs Junior vs Senior---")
+    mean_sample_data = [mean_sample_data_intern, mean_sample_data_junior,mean_sample_data_senior]
+    print(sk.posthoc_dunn(mean_sample_data))
 
-
-def kruskalWallisBehaviour(firstIndex, lastIndex):
+def dunnTestBehaviour(firstIndex, lastIndex):
     lastIndex += 1
 
     mean_sample_data_intern_proactive = []
@@ -133,27 +130,24 @@ def kruskalWallisBehaviour(firstIndex, lastIndex):
     print(mean_sample_data_senior_reactive)
 
     print("---Intern Proactive vs Reactive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_proactive, mean_sample_data_intern_reactive))
+    mean_sample_data = [mean_sample_data_intern_proactive, mean_sample_data_intern_reactive]
+    print(sk.posthoc_dunn(mean_sample_data))
     print("---Junior Proactive vs Reactive---")
-    print(sp.stats.kruskal(mean_sample_data_junior_proactive, mean_sample_data_junior_reactive))
+    mean_sample_data = [mean_sample_data_junior_proactive, mean_sample_data_junior_reactive]
+    print(sk.posthoc_dunn(mean_sample_data))
     print("---Senior Proactive vs Reactive---")
-    print(sp.stats.kruskal(mean_sample_data_senior_proactive, mean_sample_data_senior_reactive))
+    mean_sample_data = [mean_sample_data_senior_proactive, mean_sample_data_senior_reactive]
+    print(sk.posthoc_dunn(mean_sample_data))
 
-    print("---Intern Proactive vs Junior Proactive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_proactive, mean_sample_data_junior_proactive))
-    print("---Intern Proactive vs Senior Proactive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_proactive, mean_sample_data_senior_proactive))
-    print("---Junior Proactive vs Senior Proactive---")
-    print(sp.stats.kruskal(mean_sample_data_junior_proactive, mean_sample_data_senior_proactive))
+    print("---Intern Proactive vs Junior Proactive vs Senior Proactive---")
+    mean_sample_data = [mean_sample_data_intern_proactive, mean_sample_data_junior_proactive, mean_sample_data_senior_proactive]
+    print(sk.posthoc_dunn(mean_sample_data))
     
-    print("---Intern Reactive vs Junior Reactive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_reactive, mean_sample_data_junior_reactive))
-    print("---Intern Reactive vs Senior Reactive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_reactive, mean_sample_data_senior_reactive))
-    print("---Junior Reactive vs Senior Reactive---")
-    print(sp.stats.kruskal(mean_sample_data_junior_reactive, mean_sample_data_senior_reactive))
+    print("---Intern Reactive vs Junior Reactive vs Senior Reactive---")
+    mean_sample_data = [mean_sample_data_intern_reactive, mean_sample_data_junior_reactive, mean_sample_data_senior_reactive]
+    print(sk.posthoc_dunn(mean_sample_data))
 
-def kruskalWallisAssertiveness(firstIndex, lastIndex):
+def dunnTestAssertiveness(firstIndex, lastIndex):
     lastIndex += 1
 
     mean_sample_data_intern_assertive = []
@@ -225,87 +219,24 @@ def kruskalWallisAssertiveness(firstIndex, lastIndex):
     print(mean_sample_data_senior_non_assertive)
 
     print("---Intern Assertive vs Non Assertive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_assertive, mean_sample_data_intern_non_assertive))
+    mean_sample_data = [mean_sample_data_intern_assertive, mean_sample_data_intern_non_assertive]
+    print(sk.posthoc_dunn(mean_sample_data))
     print("---Junior Assertive vs Non Assertive---")
-    print(sp.stats.kruskal(mean_sample_data_junior_assertive, mean_sample_data_junior_non_assertive))
+    mean_sample_data = [mean_sample_data_junior_assertive, mean_sample_data_junior_non_assertive]
+    print(sk.posthoc_dunn(mean_sample_data))
     print("---Senior Assertive vs Non Assertive---")
-    print(sp.stats.kruskal(mean_sample_data_senior_assertive, mean_sample_data_senior_non_assertive))
+    mean_sample_data = [mean_sample_data_senior_assertive, mean_sample_data_senior_non_assertive]
+    print(sk.posthoc_dunn(mean_sample_data))
 
-    print("---Intern Assertive vs Junior Assertive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_assertive, mean_sample_data_junior_assertive))
-    print("---Intern Assertive vs Senior Assertive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_assertive, mean_sample_data_senior_assertive))
-    print("---Junior Assertive vs Senior Assertive---")
-    print(sp.stats.kruskal(mean_sample_data_junior_assertive, mean_sample_data_senior_assertive))
+    print("---Intern Assertive vs Junior Assertive vs Senior Assertive---")
+    mean_sample_data = [mean_sample_data_intern_assertive, mean_sample_data_junior_assertive,mean_sample_data_senior_assertive]
+    print(sk.posthoc_dunn(mean_sample_data))
     
-    print("---Intern Non Assertive vs Junior Non Assertive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_non_assertive, mean_sample_data_junior_non_assertive))
-    print("---Intern Non Assertive vs Senior Non Assertive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_non_assertive, mean_sample_data_senior_non_assertive))
-    print("---Junior Non Assertive vs Senior Non Assertive---")
-    print(sp.stats.kruskal(mean_sample_data_junior_non_assertive, mean_sample_data_senior_non_assertive))
+    print("---Intern Non Assertive vs Junior Non Assertive vs Senior Non Assertive---")
+    mean_sample_data = [mean_sample_data_intern_non_assertive, mean_sample_data_junior_non_assertive, mean_sample_data_senior_non_assertive]
+    print(sk.posthoc_dunn(mean_sample_data))
     
 
-def kruskalWallisInterval(firstIndex, lastIndex):
-    lastIndex += 1
-
-    mean_sample_data_intern = []
-    mean_sample_data_junior = []
-    mean_sample_data_senior = []
-
-    for i in getScenarios(interns):
-        nan_outliers_sample_data_intern_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
-        outliers_sample_data_intern_i = nan_outliers_sample_data_intern_i[~np.isnan(nan_outliers_sample_data_intern_i)]
-        sample_data_intern_i = outliers_sample_data_intern_i
-
-        mean_sample_data_intern.append(np.mean(sample_data_intern_i))
-
-    for i in getScenarios(juniors):
-        nan_outliers_sample_data_junior_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
-        outliers_sample_data_junior_i = nan_outliers_sample_data_junior_i[~np.isnan(nan_outliers_sample_data_junior_i)]
-        sample_data_junior_i = outliers_sample_data_junior_i
-
-        mean_sample_data_junior.append(np.mean(sample_data_junior_i))
-
-    for i in getScenarios(seniors):
-        nan_outliers_sample_data_senior_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
-        outliers_sample_data_senior_i = nan_outliers_sample_data_senior_i[~np.isnan(nan_outliers_sample_data_senior_i)]
-        sample_data_senior_i = outliers_sample_data_senior_i
-
-        mean_sample_data_senior.append(np.mean(sample_data_senior_i))
-    
-    print(mean_sample_data_intern)
-    print(mean_sample_data_junior)
-    print(mean_sample_data_senior)
-    
-
-    print(sp.stats.kruskal(mean_sample_data_intern, mean_sample_data_junior,mean_sample_data_senior))
-    print(sp.stats.kruskal(mean_sample_data_intern, mean_sample_data_senior))
-    print(sp.stats.kruskal(mean_sample_data_junior, mean_sample_data_senior))
-
-def kruskalWallis(index):
-    nan_outliers_sample_data_intern = np.float64(np.take(data[2:,index], getScenarios(interns)))
-    nan_outliers_sample_data_junior = np.float64(np.take(data[2:,index], getScenarios(juniors)))
-    nan_outliers_sample_data_senior = np.float64(np.take(data[2:,index], getScenarios(seniors)))
-
-    outliers_sample_data_intern = nan_outliers_sample_data_intern[~np.isnan(nan_outliers_sample_data_intern)]
-    outliers_sample_data_junior = nan_outliers_sample_data_junior[~np.isnan(nan_outliers_sample_data_junior)]
-    outliers_sample_data_senior = nan_outliers_sample_data_senior[~np.isnan(nan_outliers_sample_data_senior)]
-
-    sample_data_intern = outliers_sample_data_intern
-    sample_data_junior = outliers_sample_data_junior
-    sample_data_senior = outliers_sample_data_senior
-
-    # sample_data_intern = reject_outliers(outliers_sample_data_intern)
-    # sample_data_junior = reject_outliers(outliers_sample_data_junior)
-    # sample_data_senior = reject_outliers(outliers_sample_data_senior)
-    
-    print(sample_data_intern)
-    print(sample_data_junior)
-    print(sample_data_senior)
-    
-
-    print(sp.stats.kruskal(sample_data_intern, sample_data_junior,sample_data_senior))
 
     
 def main():
@@ -324,38 +255,37 @@ def main():
 
     #DOTS
     print("-------------- DOTS ---------------")
-    kruskalWallisAssertiveness(5,7)
+    dunnTestAssertiveness(5,7)
 
     #SUS
     print("-------------- SUS ---------------")
-    kruskalWallisAssertiveness(8,17)
+    dunnTestAssertiveness(8,17)
 
     #NASA-TLX
     print("-------------- NASA-TLX ---------------")
-    kruskalWallisAssertiveness(18,23)
+    dunnTestAssertiveness(18,23)
 
     print("-------------- BEHAVIOUR ---------------")
     #DOTS
     print("-------------- DOTS ---------------")
-    kruskalWallisBehaviour(5,7)
+    dunnTestBehaviour(5,7)
 
     #SUS
     print("-------------- SUS ---------------")
-    kruskalWallisBehaviour(8,17)
+    dunnTestBehaviour(8,17)
 
     #NASA-TLX
     print("-------------- NASA-TLX ---------------")
-    kruskalWallisBehaviour(18,23)
+    dunnTestBehaviour(18,23)
     
+
     print("-------------- PREFERENCE ---------------")
 
     print("-------------- ASSERTIVENESS ---------------")
-    kruskalWallisPreference(24,26)
+    dunnTestPreference(24,26)
 
     print("-------------- BEHAVIOUR ---------------")
-    kruskalWallisPreference(27,29)
-
-
+    dunnTestPreference(27,29)
 
 
 if __name__ == "__main__":

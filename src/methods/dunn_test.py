@@ -56,7 +56,7 @@ def dunnTestPreference(firstIndex, lastIndex):
 
     print("---Intern vs Junior vs Senior---")
     mean_sample_data = [mean_sample_data_intern, mean_sample_data_junior,mean_sample_data_senior]
-    print(sk.posthoc_dunn(mean_sample_data))
+    print(sk.posthoc_dunn(mean_sample_data, sort=True))
 
 def dunnTestBehaviour(firstIndex, lastIndex):
     lastIndex += 1
@@ -131,21 +131,21 @@ def dunnTestBehaviour(firstIndex, lastIndex):
 
     print("---Intern Proactive vs Reactive---")
     mean_sample_data = [mean_sample_data_intern_proactive, mean_sample_data_intern_reactive]
-    print(sk.posthoc_dunn(mean_sample_data))
+    print(sk.posthoc_dunn(mean_sample_data, sort=True))
     print("---Junior Proactive vs Reactive---")
     mean_sample_data = [mean_sample_data_junior_proactive, mean_sample_data_junior_reactive]
-    print(sk.posthoc_dunn(mean_sample_data))
+    print(sk.posthoc_dunn(mean_sample_data, sort=True))
     print("---Senior Proactive vs Reactive---")
     mean_sample_data = [mean_sample_data_senior_proactive, mean_sample_data_senior_reactive]
-    print(sk.posthoc_dunn(mean_sample_data))
+    print(sk.posthoc_dunn(mean_sample_data, sort=True))
 
     print("---Intern Proactive vs Junior Proactive vs Senior Proactive---")
     mean_sample_data = [mean_sample_data_intern_proactive, mean_sample_data_junior_proactive, mean_sample_data_senior_proactive]
-    print(sk.posthoc_dunn(mean_sample_data))
+    print(sk.posthoc_dunn(mean_sample_data, sort=True))
     
     print("---Intern Reactive vs Junior Reactive vs Senior Reactive---")
     mean_sample_data = [mean_sample_data_intern_reactive, mean_sample_data_junior_reactive, mean_sample_data_senior_reactive]
-    print(sk.posthoc_dunn(mean_sample_data))
+    print(sk.posthoc_dunn(mean_sample_data, sort=True))
 
 def dunnTestAssertiveness(firstIndex, lastIndex):
     lastIndex += 1
@@ -220,21 +220,21 @@ def dunnTestAssertiveness(firstIndex, lastIndex):
 
     print("---Intern Assertive vs Non Assertive---")
     mean_sample_data = [mean_sample_data_intern_assertive, mean_sample_data_intern_non_assertive]
-    print(sk.posthoc_dunn(mean_sample_data))
+    print(sk.posthoc_dunn(mean_sample_data, sort=True))
     print("---Junior Assertive vs Non Assertive---")
     mean_sample_data = [mean_sample_data_junior_assertive, mean_sample_data_junior_non_assertive]
-    print(sk.posthoc_dunn(mean_sample_data))
+    print(sk.posthoc_dunn(mean_sample_data, sort=True))
     print("---Senior Assertive vs Non Assertive---")
     mean_sample_data = [mean_sample_data_senior_assertive, mean_sample_data_senior_non_assertive]
-    print(sk.posthoc_dunn(mean_sample_data))
+    print(sk.posthoc_dunn(mean_sample_data, sort=True))
 
     print("---Intern Assertive vs Junior Assertive vs Senior Assertive---")
     mean_sample_data = [mean_sample_data_intern_assertive, mean_sample_data_junior_assertive,mean_sample_data_senior_assertive]
-    print(sk.posthoc_dunn(mean_sample_data))
+    print(sk.posthoc_dunn(mean_sample_data, sort=True))
     
     print("---Intern Non Assertive vs Junior Non Assertive vs Senior Non Assertive---")
     mean_sample_data = [mean_sample_data_intern_non_assertive, mean_sample_data_junior_non_assertive, mean_sample_data_senior_non_assertive]
-    print(sk.posthoc_dunn(mean_sample_data))
+    print(sk.posthoc_dunn(mean_sample_data, sort=True))
     
 
 
@@ -245,9 +245,12 @@ def main():
     # print("-------------- BIRADS ---------------")
     # kruskalWallis(3)
 
-    # #Time
-    # print("-------------- TIME ---------------")
-    # kruskalWallis(4)
+    #Time
+    print("-------------- TIME ---------------")
+    print("-------------- ASSERTIVENESS ---------------")
+    dunnTestAssertiveness(4,4)
+    print("-------------- BEHAVIOUR ---------------")
+    dunnTestBehaviour(4,4)
 
     print("-------------- UX ---------------")
 
@@ -287,6 +290,11 @@ def main():
     print("-------------- BEHAVIOUR ---------------")
     dunnTestPreference(27,29)
 
+
+    #Q4
+    print("-------------- INFLUENCE ---------------")
+
+    dunnTestBehaviour(3,3)
 
 if __name__ == "__main__":
     main()

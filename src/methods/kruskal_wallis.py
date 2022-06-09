@@ -139,19 +139,11 @@ def kruskalWallisBehaviour(firstIndex, lastIndex):
     print("---Senior Proactive vs Reactive---")
     print(sp.stats.kruskal(mean_sample_data_senior_proactive, mean_sample_data_senior_reactive))
 
-    print("---Intern Proactive vs Junior Proactive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_proactive, mean_sample_data_junior_proactive))
-    print("---Intern Proactive vs Senior Proactive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_proactive, mean_sample_data_senior_proactive))
-    print("---Junior Proactive vs Senior Proactive---")
-    print(sp.stats.kruskal(mean_sample_data_junior_proactive, mean_sample_data_senior_proactive))
+    print("---Intern Proactive vs Junior Proactive vs Senior Proactive---")
+    print(sp.stats.kruskal(mean_sample_data_intern_proactive, mean_sample_data_junior_proactive, mean_sample_data_senior_proactive))
     
-    print("---Intern Reactive vs Junior Reactive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_reactive, mean_sample_data_junior_reactive))
-    print("---Intern Reactive vs Senior Reactive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_reactive, mean_sample_data_senior_reactive))
-    print("---Junior Reactive vs Senior Reactive---")
-    print(sp.stats.kruskal(mean_sample_data_junior_reactive, mean_sample_data_senior_reactive))
+    print("---Intern Reactive vs Junior Reactive vs Senior Reactive---")
+    print(sp.stats.kruskal(mean_sample_data_intern_reactive, mean_sample_data_junior_reactive, mean_sample_data_senior_reactive))
 
 def kruskalWallisAssertiveness(firstIndex, lastIndex):
     lastIndex += 1
@@ -231,19 +223,11 @@ def kruskalWallisAssertiveness(firstIndex, lastIndex):
     print("---Senior Assertive vs Non Assertive---")
     print(sp.stats.kruskal(mean_sample_data_senior_assertive, mean_sample_data_senior_non_assertive))
 
-    print("---Intern Assertive vs Junior Assertive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_assertive, mean_sample_data_junior_assertive))
-    print("---Intern Assertive vs Senior Assertive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_assertive, mean_sample_data_senior_assertive))
-    print("---Junior Assertive vs Senior Assertive---")
-    print(sp.stats.kruskal(mean_sample_data_junior_assertive, mean_sample_data_senior_assertive))
+    print("---Intern Assertive vs Junior Assertive vs Senior Assertive---")
+    print(sp.stats.kruskal(mean_sample_data_intern_assertive, mean_sample_data_junior_assertive, mean_sample_data_senior_assertive))
     
-    print("---Intern Non Assertive vs Junior Non Assertive---")
+    print("---Intern Non Assertive vs Junior Non Assertive vs Senior Non Assertive---")
     print(sp.stats.kruskal(mean_sample_data_intern_non_assertive, mean_sample_data_junior_non_assertive))
-    print("---Intern Non Assertive vs Senior Non Assertive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_non_assertive, mean_sample_data_senior_non_assertive))
-    print("---Junior Non Assertive vs Senior Non Assertive---")
-    print(sp.stats.kruskal(mean_sample_data_junior_non_assertive, mean_sample_data_senior_non_assertive))
     
 
 def kruskalWallisInterval(firstIndex, lastIndex):
@@ -314,9 +298,13 @@ def main():
     # print("-------------- BIRADS ---------------")
     # kruskalWallis(3)
 
-    # #Time
-    # print("-------------- TIME ---------------")
-    # kruskalWallis(4)
+    #Time
+    print("-------------- TIME ---------------")
+    print("-------------- ASSERTIVENESS ---------------")
+    kruskalWallisAssertiveness(4,4)
+    print("-------------- BEHAVIOUR ---------------")
+    kruskalWallisBehaviour(4,4)
+
 
     print("-------------- UX ---------------")
 
@@ -347,6 +335,8 @@ def main():
     print("-------------- NASA-TLX ---------------")
     kruskalWallisBehaviour(18,23)
     
+
+    #Q3
     print("-------------- PREFERENCE ---------------")
 
     print("-------------- ASSERTIVENESS ---------------")
@@ -355,6 +345,11 @@ def main():
     print("-------------- BEHAVIOUR ---------------")
     kruskalWallisPreference(27,29)
 
+
+    #Q4
+    print("-------------- INFLUENCE ---------------")
+
+    kruskalWallisBehaviour(3,3)
 
 
 

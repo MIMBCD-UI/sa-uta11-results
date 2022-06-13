@@ -21,6 +21,71 @@ from groups import interns, juniors, seniors, assertive, non_assertive, proactiv
 from outliers import reject_outliers, lower_bound, upper_bound
 
 
+def basicStatisticPreference(firstIndex, lastIndex):
+
+    lastIndex += 1
+    sample_data = np.float64(data[2:,firstIndex:lastIndex])
+    sample_data = sample_data[~np.isnan(sample_data)]
+
+    intern = np.subtract(interns, 1)
+    junior = np.subtract(juniors, 1)
+    senior = np.subtract(seniors, 1)
+
+    #Mean
+    print("--------- MEAN -------------")
+    print("--------- Intern Assertiveveness ------------")
+    print(np.mean(np.take(sample_data,intern)))
+
+    print("--------- Junior Assertiveveness ------------")
+    print(np.mean(np.take(sample_data,junior)))
+
+    print("--------- Senior Assertiveveness ------------")
+    print(np.mean(np.take(sample_data,senior)))
+
+
+    #Standard Deviation
+    print("--------- STANDARD DEVIATION -------------")
+    print("--------- Intern Assertiveveness ------------")
+    print(np.std(np.take(sample_data,intern)))
+
+    print("--------- Junior Assertiveveness ------------")
+    print(np.std(np.take(sample_data,junior)))
+
+    print("--------- Senior Assertiveveness ------------")
+    print(np.std(np.take(sample_data,senior)))
+
+    #Interval
+    print("--------- INTERVAL -------------")
+    print("--------- Intern Assertiveveness ------------")
+    print("(" + str(np.amin(np.take(sample_data,intern))) + "." + str(np.amax(np.take(sample_data,intern))) + ")")
+
+    print("--------- Junior Assertiveveness ------------")
+    print("(" + str(np.amin(np.take(sample_data,junior))) + "." + str(np.amax(np.take(sample_data,junior))) + ")")
+
+    print("--------- Senior Assertiveveness ------------")
+    print("(" + str(np.amin(np.take(sample_data,senior))) + "." + str(np.amax(np.take(sample_data,senior))) + ")")
+
+    #Lower Bound
+    print("--------- LOWER BOUND -------------")
+    print("--------- Intern Assertiveveness ------------")
+    print(lower_bound(np.take(sample_data,intern)))
+
+    print("--------- Junior Assertiveveness ------------")
+    print(lower_bound(np.take(sample_data,junior)))
+    print("--------- Senior Assertiveveness ------------")
+    print(lower_bound(np.take(sample_data,senior)))
+
+    #Upper Bound
+    print("--------- UPPER BOUND -------------")
+    print("--------- Intern Assertiveveness ------------")
+    print(upper_bound(np.take(sample_data,intern)))
+
+    print("--------- Junior Assertiveveness ------------")
+    print(upper_bound(np.take(sample_data,junior)))
+
+    print("--------- Senior Assertiveveness ------------")
+    print(upper_bound(np.take(sample_data,senior)))
+
 
 def basicStatistic(firstIndex, lastIndex):
 
@@ -196,51 +261,54 @@ def main():
     # print("-------------- BIRADS ---------------")
     # basicStatistic(3)
 
-    #Time
-    print("-------------- TIME ---------------")
-    basicStatistic(4,4)
+    # #Time
+    # print("-------------- TIME ---------------")
+    # basicStatistic(4,4)
 
 
-    print("-------------- UX ---------------")
+    # print("-------------- UX ---------------")
 
-    #DOTS
-    print("-------------- DOTS ---------------")
-    basicStatistic(5,5)
-    basicStatistic(6,6)
-    basicStatistic(7,7)
+    # #DOTS
+    # print("-------------- DOTS ---------------")
+    # basicStatistic(5,5)
+    # basicStatistic(6,6)
+    # basicStatistic(7,7)
 
-    #SUS
-    print("-------------- SUS ---------------")
-    basicStatistic(8,8)
-    basicStatistic(9,9)
-    basicStatistic(10,10)
-    basicStatistic(11,11)
-    basicStatistic(12,12)
-    basicStatistic(13,13)
-    basicStatistic(14,14)
-    basicStatistic(15,15)
-    basicStatistic(16,16)
-    basicStatistic(17,17)
+    # #SUS
+    # print("-------------- SUS ---------------")
+    # basicStatistic(8,8)
+    # basicStatistic(9,9)
+    # basicStatistic(10,10)
+    # basicStatistic(11,11)
+    # basicStatistic(12,12)
+    # basicStatistic(13,13)
+    # basicStatistic(14,14)
+    # basicStatistic(15,15)
+    # basicStatistic(16,16)
+    # basicStatistic(17,17)
 
-    #NASA-TLX
-    print("-------------- NASA-TLX ---------------")
-    basicStatistic(18,18)
-    basicStatistic(19,19)
-    basicStatistic(20,20)
-    basicStatistic(21,21)
-    basicStatistic(22,22)
-    basicStatistic(23,23)
+    # #NASA-TLX
+    # print("-------------- NASA-TLX ---------------")
+    # basicStatistic(18,18)
+    # basicStatistic(19,19)
+    # basicStatistic(20,20)
+    # basicStatistic(21,21)
+    # basicStatistic(22,22)
+    # basicStatistic(23,23)
 
     
-    # #Q3
-    # print("-------------- PREFERENCE ---------------")
+    #Q3
+    print("-------------- PREFERENCE ---------------")
 
-    # print("-------------- ASSERTIVENESS ---------------")
-    # basicStatisticPreference(24,26)
+    # print("-------------- Assertiveness ---------------")
+    # basicStatisticPreference(24,24)
+    # basicStatisticPreference(25,25)
+    # basicStatisticPreference(26,26)
 
-    # print("-------------- BEHAVIOUR ---------------")
-    # basicStatisticPreference(27,29)
-
+    print("-------------- Behaviour ---------------")
+    basicStatisticPreference(27,27)
+    basicStatisticPreference(28,28)
+    basicStatisticPreference(29,29)
 
     # #Q4
     # print("-------------- INFLUENCE ---------------")

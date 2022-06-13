@@ -349,7 +349,7 @@ def main():
     #Q4
     print("-------------- INFLUENCE ---------------")
 
-    kruskalWallisBehaviour(3,3)
+    # kruskalWallisBehaviour(3,3)
 
 
 

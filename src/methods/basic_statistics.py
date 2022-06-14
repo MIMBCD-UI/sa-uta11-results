@@ -16,74 +16,151 @@ import sys
 sys.path.append('../constants')
 sys.path.append('../methods')
 
-from sheets import data
+from sheets import data, scenarios, getScenariosPatients
 from groups import interns, juniors, seniors, assertive, non_assertive, proactive, reactive, getScenarios
 from outliers import reject_outliers, lower_bound, upper_bound
+from birads import assistant_birads, real_birads
 
+def  binomialTest(sample_data, iteration, birads_level):
+    intern = getScenarios(interns)
+    junior = getScenarios(juniors)
+    senior = getScenarios(seniors)
+
+    scenarios_patients = np.int32(getScenariosPatients())
+
+    proactive_scenarios = np.subtract(proactive, 1)
+    reactive_scenarios = np.subtract(reactive, 1)
+
+    intern_proactive = 0
+    intern_reactive = 0
+    junior_proactive = 0
+    junior_reactive = 0
+    senior_proactive = 0
+    senior_reactive = 0
+
+    intern_proactive_total = 0
+    intern_reactive_total = 0
+    junior_proactive_total = 0
+    junior_reactive_total = 0
+    senior_proactive_total = 0
+    senior_reactive_total = 0
+
+    for j,b in enumerate(sample_data[birads_level::iteration]):
+        i = j* iteration + birads_level
+        print(int(b), assistant_birads[scenarios_patients[i]], int(b) == assistant_birads[scenarios_patients[i]])
+        if(i in intern and i in proactive_scenarios):
+            intern_proactive_total += 1
+        elif (i in intern and i in reactive_scenarios):
+            intern_reactive_total += 1
+        elif (i in junior and i in proactive_scenarios):
+            junior_proactive_total += 1
+        elif (i in junior and i in reactive_scenarios):
+            junior_reactive_total += 1
+        elif (i in senior and i in proactive_scenarios):
+            senior_proactive_total += 1
+        elif (i in senior and i in reactive_scenarios):
+            senior_reactive_total += 1
+        if(int(b) == assistant_birads[scenarios_patients[i]]):
+            if(i in intern and i in proactive_scenarios):
+                intern_proactive += 1
+            elif (i in intern and i in reactive_scenarios):
+                intern_reactive += 1
+            elif (i in junior and i in proactive_scenarios):
+                junior_proactive += 1
+            elif (i in junior and i in reactive_scenarios):
+                junior_reactive += 1
+            elif (i in senior and i in proactive_scenarios):
+                senior_proactive += 1
+            elif (i in senior and i in reactive_scenarios):
+                senior_reactive += 1
+
+    print(sp.stats.binomtest(intern_proactive, intern_proactive_total, 1/5), sp.stats.binomtest(intern_reactive, intern_reactive_total, 1/5))
+    print(sp.stats.binomtest(junior_proactive, junior_proactive_total, 1/5), sp.stats.binomtest(junior_reactive, junior_reactive_total, 1/5))
+    print(sp.stats.binomtest(senior_proactive, senior_proactive_total, 1/5), sp.stats.binomtest(senior_reactive, senior_reactive_total, 1/5))
+
+def basicStatisticInfluence(index, birads):
+
+    if birads == 1:
+        birads = real_birads
+    else:
+        birads = assistant_birads
+
+    sample_data = np.float64(data[2:,index])
+
+    for i in range(3):
+        binomialTest(sample_data, 3, i)
+
+    binomialTest(sample_data, 1,0)
 
 def basicStatisticPreference(firstIndex, lastIndex):
 
     lastIndex += 1
+    interval = lastIndex - firstIndex
     sample_data = np.float64(data[2:,firstIndex:lastIndex])
     sample_data = sample_data[~np.isnan(sample_data)]
 
-    intern = np.subtract(interns, 1)
-    junior = np.subtract(juniors, 1)
-    senior = np.subtract(seniors, 1)
+    if(interval == 1):
+        intern = np.subtract(interns, 1)
+        junior = np.subtract(juniors, 1)
+        senior = np.subtract(seniors, 1)
+    else:
+        intern = getScenarios(interns)
+        junior = getScenarios(juniors)
+        senior = getScenarios(seniors)
 
     #Mean
     print("--------- MEAN -------------")
-    print("--------- Intern Assertiveveness ------------")
+    print("--------- Intern ------------")
     print(np.mean(np.take(sample_data,intern)))
 
-    print("--------- Junior Assertiveveness ------------")
+    print("--------- Junior ------------")
     print(np.mean(np.take(sample_data,junior)))
 
-    print("--------- Senior Assertiveveness ------------")
+    print("--------- Senior ------------")
     print(np.mean(np.take(sample_data,senior)))
 
 
     #Standard Deviation
     print("--------- STANDARD DEVIATION -------------")
-    print("--------- Intern Assertiveveness ------------")
+    print("--------- Intern ------------")
     print(np.std(np.take(sample_data,intern)))
 
-    print("--------- Junior Assertiveveness ------------")
+    print("--------- Junior ------------")
     print(np.std(np.take(sample_data,junior)))
 
-    print("--------- Senior Assertiveveness ------------")
+    print("--------- Senior ------------")
     print(np.std(np.take(sample_data,senior)))
 
     #Interval
     print("--------- INTERVAL -------------")
-    print("--------- Intern Assertiveveness ------------")
+    print("--------- Intern ------------")
     print("(" + str(np.amin(np.take(sample_data,intern))) + "." + str(np.amax(np.take(sample_data,intern))) + ")")
 
-    print("--------- Junior Assertiveveness ------------")
+    print("--------- Junior ------------")
     print("(" + str(np.amin(np.take(sample_data,junior))) + "." + str(np.amax(np.take(sample_data,junior))) + ")")
 
-    print("--------- Senior Assertiveveness ------------")
+    print("--------- Senior ------------")
     print("(" + str(np.amin(np.take(sample_data,senior))) + "." + str(np.amax(np.take(sample_data,senior))) + ")")
 
     #Lower Bound
     print("--------- LOWER BOUND -------------")
-    print("--------- Intern Assertiveveness ------------")
+    print("--------- Intern ------------")
     print(lower_bound(np.take(sample_data,intern)))
 
-    print("--------- Junior Assertiveveness ------------")
+    print("--------- Junior ------------")
     print(lower_bound(np.take(sample_data,junior)))
-    print("--------- Senior Assertiveveness ------------")
+    print("--------- Senior ------------")
     print(lower_bound(np.take(sample_data,senior)))
 
     #Upper Bound
     print("--------- UPPER BOUND -------------")
-    print("--------- Intern Assertiveveness ------------")
+    print("--------- Intern ------------")
     print(upper_bound(np.take(sample_data,intern)))
 
-    print("--------- Junior Assertiveveness ------------")
+    print("--------- Junior ------------")
     print(upper_bound(np.take(sample_data,junior)))
 
-    print("--------- Senior Assertiveveness ------------")
+    print("--------- Senior ------------")
     print(upper_bound(np.take(sample_data,senior)))
 
 
@@ -269,10 +346,11 @@ def main():
     # print("-------------- UX ---------------")
 
     # #DOTS
-    # print("-------------- DOTS ---------------")
+    print("-------------- DOTS ---------------")
     # basicStatistic(5,5)
     # basicStatistic(6,6)
     # basicStatistic(7,7)
+    basicStatistic(5,7)
 
     # #SUS
     # print("-------------- SUS ---------------")
@@ -286,34 +364,38 @@ def main():
     # basicStatistic(15,15)
     # basicStatistic(16,16)
     # basicStatistic(17,17)
+    # basicStatistic(8,17)
 
     # #NASA-TLX
-    # print("-------------- NASA-TLX ---------------")
+    print("-------------- NASA-TLX ---------------")
     # basicStatistic(18,18)
     # basicStatistic(19,19)
     # basicStatistic(20,20)
     # basicStatistic(21,21)
     # basicStatistic(22,22)
     # basicStatistic(23,23)
+    basicStatistic(18,23)
 
     
-    #Q3
+    # #Q3
     print("-------------- PREFERENCE ---------------")
 
-    # print("-------------- Assertiveness ---------------")
+    print("-------------- Assertiveness ---------------")
     # basicStatisticPreference(24,24)
     # basicStatisticPreference(25,25)
     # basicStatisticPreference(26,26)
+    basicStatisticPreference(24,26)
 
     print("-------------- Behaviour ---------------")
-    basicStatisticPreference(27,27)
-    basicStatisticPreference(28,28)
-    basicStatisticPreference(29,29)
+    # basicStatisticPreference(27,27)
+    # basicStatisticPreference(28,28)
+    # basicStatisticPreference(29,29)
+    basicStatisticPreference(27,29)
 
     # #Q4
     # print("-------------- INFLUENCE ---------------")
 
-    # # basicStatisticBehaviour(3,3)
+    # basicStatisticInfluence(3,2)
 
 
 if __name__ == "__main__":

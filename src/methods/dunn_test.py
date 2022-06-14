@@ -291,10 +291,10 @@ def main():
     dunnTestPreference(27,29)
 
 
-    #Q4
-    print("-------------- INFLUENCE ---------------")
+    # #Q4
+    # print("-------------- INFLUENCE ---------------")
 
-    dunnTestBehaviour(3,3)
+    # dunnTestBehaviour(3,3)
 
 if __name__ == "__main__":
     main()

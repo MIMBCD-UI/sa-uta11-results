@@ -17,4 +17,12 @@ for i,x in enumerate(data):
         if isinstance(y, dt.time):
             data[i][j] = y.hour * 60 + y.minute
 
-print(data)
+loadScenarios = pd.read_excel ("../../data/mimbcdui_uta11_scenarios.xlsx", sheet_name="scenarios", header=None)
+scenarios = np.array(loadScenarios)
+
+def getScenariosPatients():
+    new_scenarios_patients = np.array([])
+    for p in scenarios[1:,3]:
+        p = p.replace("p", "")
+        new_scenarios_patients = np.append(new_scenarios_patients, int(p) - 1)
+    return new_scenarios_patients

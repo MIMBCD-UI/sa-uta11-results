@@ -1,4 +1,5 @@
 
+from cmath import nan
 from glob import glob
 import numpy as np
 import matplotlib as mpl
@@ -21,7 +22,202 @@ from groups import interns, juniors, seniors, assertive, non_assertive, proactiv
 from outliers import reject_outliers, lower_bound, upper_bound
 from birads import assistant_birads, real_birads
 
-def  binomialTest(sample_data, iteration, birads_level):
+def getAccuracy(array):
+    TP = array[0]
+    TN = array[1]
+    FP = array[2]
+    FN = array[3]
+    return (TP+TN)/(TP+FP+FN+TN)
+
+def getPrecision(array):
+    TP = array[0]
+    TN = array[1]
+    FP = array[2]
+    FN = array[3]
+    if(TP + FP == 0):
+        return nan
+    return TP/(TP+FP)
+
+def getRecall (array):
+    TP = array[0]
+    TN = array[1]
+    FP = array[2]
+    FN = array[3]
+    if(TP+FN == 0):
+        return nan
+    return TP/(TP+FN)
+
+def getSpecificity(array):
+    TP = array[0]
+    TN = array[1]
+    FP = array[2]
+    FN = array[3]
+    if(TN+FP == 0):
+        return nan
+    return TN/(TN+FP)
+
+def biradsPrediction(real_birads, clincian_birads):
+    if(real_birads > 3 and clincian_birads > 3):
+        return 0 #True Positive
+    elif(real_birads <= 3 and clincian_birads <= 3):
+        return 1 #True Negative
+    elif(real_birads <= 3 and clincian_birads > 3):
+        return 2 #False Positive
+    elif(real_birads > 3 and clincian_birads <= 3):
+        return 3 #False Negative
+
+def performanceMetrics(sample_data, iteration, birads_level):
+    intern = getScenarios(interns)
+    junior = getScenarios(juniors)
+    senior = getScenarios(seniors)
+
+    scenarios_patients = np.int32(getScenariosPatients())
+
+    assertive_scenarios = np.subtract(proactive, 1)
+    non_assertive_scenarios = np.subtract(reactive, 1)
+    proactive_scenarios = np.subtract(proactive, 1)
+    reactive_scenarios = np.subtract(reactive, 1)
+
+    intern_assertive = [0,0,0,0]
+    intern_non_assertive = [0,0,0,0]
+    junior_assertive = [0,0,0,0]
+    junior_non_assertive = [0,0,0,0]
+    senior_assertive = [0,0,0,0]
+    senior_non_assertive = [0,0,0,0]
+
+    intern_proactive = [0,0,0,0]
+    intern_reactive = [0,0,0,0]
+    junior_proactive = [0,0,0,0]
+    junior_reactive = [0,0,0,0]
+    senior_proactive = [0,0,0,0]
+    senior_reactive = [0,0,0,0]
+
+    for j,b in enumerate(sample_data[birads_level::iteration]):
+        i = j* iteration + birads_level
+        real_birads_patient = real_birads[scenarios_patients[i]]
+        predcited_birads_patient = int(b)
+        if(i in intern and i in assertive_scenarios):
+            intern_assertive[biradsPrediction(real_birads_patient,predcited_birads_patient)] += 1
+        elif (i in intern and i in non_assertive_scenarios):
+            intern_non_assertive[biradsPrediction(real_birads_patient,predcited_birads_patient)] += 1
+        elif (i in junior and i in assertive_scenarios):
+            junior_assertive[biradsPrediction(real_birads_patient,predcited_birads_patient)] += 1
+        elif (i in junior and i in non_assertive_scenarios):
+            junior_non_assertive[biradsPrediction(real_birads_patient,predcited_birads_patient)] += 1
+        elif (i in senior and i in assertive_scenarios):
+            senior_assertive[biradsPrediction(real_birads_patient,predcited_birads_patient)] += 1
+        elif (i in senior and i in non_assertive_scenarios):
+            senior_non_assertive[biradsPrediction(real_birads_patient,predcited_birads_patient)] += 1
+        if(i in intern and i in proactive_scenarios):
+            intern_proactive[biradsPrediction(real_birads_patient,predcited_birads_patient)] += 1
+        elif (i in intern and i in reactive_scenarios):
+            intern_reactive[biradsPrediction(real_birads_patient,predcited_birads_patient)] += 1
+        elif (i in junior and i in proactive_scenarios):
+            junior_proactive[biradsPrediction(real_birads_patient,predcited_birads_patient)] += 1
+        elif (i in junior and i in reactive_scenarios):
+            junior_reactive[biradsPrediction(real_birads_patient,predcited_birads_patient)] += 1
+        elif (i in senior and i in proactive_scenarios):
+            senior_proactive[biradsPrediction(real_birads_patient,predcited_birads_patient)] += 1
+        elif (i in senior and i in reactive_scenarios):
+            senior_reactive[biradsPrediction(real_birads_patient,predcited_birads_patient)] += 1
+
+    print("------------ Intern Assertive --------------")
+    print(intern_assertive)
+    print("Accuracy: ", getAccuracy(intern_assertive))
+    print("Precision: ", getPrecision(intern_assertive))
+    print("Sensitivity/Recall: ", getRecall(intern_assertive))
+    print("Specificity: ", getSpecificity(intern_assertive))
+
+    print("------------ Intern Non Assertive --------------")
+    print(intern_non_assertive)
+    print("Accuracy: ", getAccuracy(intern_non_assertive))
+    print("Precision: ", getPrecision(intern_non_assertive))
+    print("Sensitivity/Recall: ", getRecall(intern_non_assertive))
+    print("Specificity: ", getSpecificity(intern_non_assertive))
+
+    print("------------ Intern Proactive --------------")
+    print(intern_proactive)
+    print("Accuracy: ", getAccuracy(intern_proactive))
+    print("Precision: ", getPrecision(intern_proactive))
+    print("Sensitivity/Recall: ", getRecall(intern_proactive))
+    print("Specificity: ", getSpecificity(intern_proactive))
+
+    print("------------ Intern Reactive --------------")
+    print(intern_reactive)
+    print("Accuracy: ", getAccuracy(intern_reactive))
+    print("Precision: ", getPrecision(intern_reactive))
+    print("Sensitivity/Recall: ", getRecall(intern_reactive))
+    print("Specificity: ", getSpecificity(intern_reactive))
+
+    print("------------ Junior Assertive --------------")
+    print(junior_assertive)
+    print("Accuracy: ", getAccuracy(junior_assertive))
+    print("Precision: ", getPrecision(junior_assertive))
+    print("Sensitivity/Recall: ", getRecall(junior_assertive))
+    print("Specificity: ", getSpecificity(junior_assertive))
+
+    print("------------ Junior Non Assertive --------------")
+    print(junior_non_assertive)
+    print("Accuracy: ", getAccuracy(junior_non_assertive))
+    print("Precision: ", getPrecision(junior_non_assertive))
+    print("Sensitivity/Recall: ", getRecall(junior_non_assertive))
+    print("Specificity: ", getSpecificity(junior_non_assertive))
+
+    print("------------ Junior Proactive --------------")
+    print(junior_proactive)
+    print("Accuracy: ", getAccuracy(junior_proactive))
+    print("Precision: ", getPrecision(junior_proactive))
+    print("Sensitivity/Recall: ", getRecall(junior_proactive))
+    print("Specificity: ", getSpecificity(junior_proactive))
+
+    print("------------ Junior Reactive --------------")
+    print(junior_reactive)
+    print("Accuracy: ", getAccuracy(junior_reactive))
+    print("Precision: ", getPrecision(junior_reactive))
+    print("Sensitivity/Recall: ", getRecall(junior_reactive))
+    print("Specificity: ", getSpecificity(junior_reactive))
+
+    print("------------ Senior Assertive --------------")
+    print(senior_assertive)
+    print("Accuracy: ", getAccuracy(senior_assertive))
+    print("Precision: ", getPrecision(senior_assertive))
+    print("Sensitivity/Recall: ", getRecall(senior_assertive))
+    print("Specificity: ", getSpecificity(senior_assertive))
+
+    print("------------ Senior Non Assertive --------------")
+    print(senior_non_assertive)
+    print("Accuracy: ", getAccuracy(senior_non_assertive))
+    print("Precision: ", getPrecision(senior_non_assertive))
+    print("Sensitivity/Recall: ", getRecall(senior_non_assertive))
+    print("Specificity: ", getSpecificity(senior_non_assertive))
+
+    print("------------ Senior Proactive --------------")
+    print(senior_proactive)
+    print("Accuracy: ", getAccuracy(senior_proactive))
+    print("Precision: ", getPrecision(senior_proactive))
+    print("Sensitivity/Recall: ", getRecall(senior_proactive))
+    print("Specificity: ", getSpecificity(senior_proactive))
+
+    print("------------ Senior Reactive --------------")
+    print(senior_reactive)
+    print("Accuracy: ", getAccuracy(senior_reactive))
+    print("Precision: ", getPrecision(senior_reactive))
+    print("Sensitivity/Recall: ", getRecall(senior_reactive))
+    print("Specificity: ", getSpecificity(senior_reactive))
+
+
+
+def basicStatisticBirads(index):
+
+    sample_data = np.float64(data[2:,index])
+
+    for i in range(3):
+        performanceMetrics(sample_data, 3, i)
+
+    performanceMetrics(sample_data, 1,0)
+    
+
+def binomialTest(sample_data, iteration, birads_level):
     intern = getScenarios(interns)
     junior = getScenarios(juniors)
     senior = getScenarios(seniors)
@@ -38,28 +234,16 @@ def  binomialTest(sample_data, iteration, birads_level):
     senior_proactive = 0
     senior_reactive = 0
 
-    intern_proactive_total = 0
-    intern_reactive_total = 0
-    junior_proactive_total = 0
-    junior_reactive_total = 0
-    senior_proactive_total = 0
-    senior_reactive_total = 0
+    intern_proactive_total = np.intersect1d(intern, proactive_scenarios).size
+    intern_reactive_total = np.intersect1d(intern, reactive_scenarios).size
+    junior_proactive_total = np.intersect1d(junior, proactive_scenarios).size
+    junior_reactive_total = np.intersect1d(junior, reactive_scenarios).size
+    senior_proactive_total = np.intersect1d(senior, proactive_scenarios).size
+    senior_reactive_total = np.intersect1d(senior, reactive_scenarios).size
 
     for j,b in enumerate(sample_data[birads_level::iteration]):
         i = j* iteration + birads_level
         print(int(b), assistant_birads[scenarios_patients[i]], int(b) == assistant_birads[scenarios_patients[i]])
-        if(i in intern and i in proactive_scenarios):
-            intern_proactive_total += 1
-        elif (i in intern and i in reactive_scenarios):
-            intern_reactive_total += 1
-        elif (i in junior and i in proactive_scenarios):
-            junior_proactive_total += 1
-        elif (i in junior and i in reactive_scenarios):
-            junior_reactive_total += 1
-        elif (i in senior and i in proactive_scenarios):
-            senior_proactive_total += 1
-        elif (i in senior and i in reactive_scenarios):
-            senior_reactive_total += 1
         if(int(b) == assistant_birads[scenarios_patients[i]]):
             if(i in intern and i in proactive_scenarios):
                 intern_proactive += 1
@@ -78,12 +262,7 @@ def  binomialTest(sample_data, iteration, birads_level):
     print(sp.stats.binomtest(junior_proactive, junior_proactive_total, 1/5), sp.stats.binomtest(junior_reactive, junior_reactive_total, 1/5))
     print(sp.stats.binomtest(senior_proactive, senior_proactive_total, 1/5), sp.stats.binomtest(senior_reactive, senior_reactive_total, 1/5))
 
-def basicStatisticInfluence(index, birads):
-
-    if birads == 1:
-        birads = real_birads
-    else:
-        birads = assistant_birads
+def basicStatisticInfluence(index):
 
     sample_data = np.float64(data[2:,index])
 
@@ -334,9 +513,9 @@ def basicStatistic(firstIndex, lastIndex):
 
 def main():
 
-    # #BIRADS
-    # print("-------------- BIRADS ---------------")
-    # basicStatistic(3)
+    #BIRADS
+    print("-------------- BIRADS ---------------")
+    basicStatisticBirads(3)
 
     # #Time
     # print("-------------- TIME ---------------")
@@ -346,11 +525,11 @@ def main():
     # print("-------------- UX ---------------")
 
     # #DOTS
-    print("-------------- DOTS ---------------")
+    # print("-------------- DOTS ---------------")
     # basicStatistic(5,5)
     # basicStatistic(6,6)
     # basicStatistic(7,7)
-    basicStatistic(5,7)
+    # basicStatistic(5,7)
 
     # #SUS
     # print("-------------- SUS ---------------")
@@ -367,35 +546,35 @@ def main():
     # basicStatistic(8,17)
 
     # #NASA-TLX
-    print("-------------- NASA-TLX ---------------")
+    # print("-------------- NASA-TLX ---------------")
     # basicStatistic(18,18)
     # basicStatistic(19,19)
     # basicStatistic(20,20)
     # basicStatistic(21,21)
     # basicStatistic(22,22)
     # basicStatistic(23,23)
-    basicStatistic(18,23)
+    # basicStatistic(18,23)
 
     
     # #Q3
-    print("-------------- PREFERENCE ---------------")
+    # print("-------------- PREFERENCE ---------------")
 
-    print("-------------- Assertiveness ---------------")
+    # print("-------------- Assertiveness ---------------")
     # basicStatisticPreference(24,24)
     # basicStatisticPreference(25,25)
     # basicStatisticPreference(26,26)
-    basicStatisticPreference(24,26)
+    # basicStatisticPreference(24,26)
 
-    print("-------------- Behaviour ---------------")
+    # print("-------------- Behaviour ---------------")
     # basicStatisticPreference(27,27)
     # basicStatisticPreference(28,28)
     # basicStatisticPreference(29,29)
-    basicStatisticPreference(27,29)
+    # basicStatisticPreference(27,29)
 
     # #Q4
     # print("-------------- INFLUENCE ---------------")
 
-    # basicStatisticInfluence(3,2)
+    # basicStatisticInfluence(3)
 
 
 if __name__ == "__main__":

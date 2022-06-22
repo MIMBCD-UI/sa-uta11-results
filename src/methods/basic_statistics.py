@@ -8,6 +8,7 @@ import scipy as sp
 from scipy import stats
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 import datetime as dt
 import statsmodels.api as sm
 import pylab
@@ -18,7 +19,7 @@ sys.path.append('../constants')
 sys.path.append('../methods')
 
 from sheets import data, scenarios, getScenariosPatients
-from groups import interns, juniors, seniors, assertive, non_assertive, proactive, reactive, getScenarios
+from groups import interns, juniors, seniors, assertive, non_assertive, proactive, reactive, groups_assertiveness, groups_behaviour, getScenarios
 from outliers import reject_outliers, lower_bound, upper_bound
 from birads import assistant_birads, real_birads
 
@@ -55,6 +56,25 @@ def getSpecificity(array):
     if(TN+FP == 0):
         return nan
     return TN/(TN+FP)
+
+def confusion_matrix(array):
+    TP = array[0]
+    TN = array[1]
+    FP = array[2]
+    FN = array[3]
+    fig = px.imshow([[TP, FP],
+                     [FN, TN]])
+    fig.show()
+
+def fpAndFnChart(data, groups):
+    fig = go.Figure()
+    fig.update_layout(
+    font_family = "Helvetica",
+    font_size=50
+    )
+    fig.add_trace(go.Histogram(histfunc="sum", y=data.loc[[2]].values[0], x=groups, name="False Positives"))
+    fig.add_trace(go.Histogram(histfunc="sum", y=data.loc[[3]].values[0], x=groups, name="False Negatives"))
+    fig.show()
 
 def biradsPrediction(real_birads, clincian_birads):
     if(real_birads > 3 and clincian_birads > 3):
@@ -120,6 +140,33 @@ def performanceMetrics(sample_data, iteration, birads_level):
             senior_proactive[biradsPrediction(real_birads_patient,predcited_birads_patient)] += 1
         elif (i in senior and i in reactive_scenarios):
             senior_reactive[biradsPrediction(real_birads_patient,predcited_birads_patient)] += 1
+
+
+
+    if(iteration == 1):
+        fpAndFnChart(pd.DataFrame(data={nums:l for l, nums in zip(np.vstack((intern_assertive, intern_non_assertive, 
+        junior_assertive, junior_non_assertive, 
+        senior_assertive, senior_non_assertive)), 
+        groups_assertiveness)}), groups_assertiveness)
+        fpAndFnChart(pd.DataFrame(data={nums:l for l, nums in zip(np.vstack((intern_proactive, intern_reactive, 
+        junior_proactive, junior_reactive, 
+        senior_proactive, senior_reactive)), 
+        groups_behaviour)}), groups_behaviour)
+
+        # confusion_matrix(intern_assertive)
+        # confusion_matrix(intern_non_assertive)
+        # confusion_matrix(junior_assertive)
+        # confusion_matrix(junior_non_assertive)
+        # confusion_matrix(senior_assertive)
+        # confusion_matrix(senior_non_assertive)
+
+        # confusion_matrix(intern_proactive)
+        # confusion_matrix(intern_reactive)
+        # confusion_matrix(junior_proactive)
+        # confusion_matrix(junior_reactive)
+        # confusion_matrix(senior_proactive)
+        # confusion_matrix(senior_reactive)
+        
 
     print("------------ Intern Assertive --------------")
     print(intern_assertive)

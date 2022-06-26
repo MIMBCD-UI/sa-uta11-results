@@ -1,3 +1,4 @@
+from cmath import nan
 from glob import glob
 import numpy as np
 import matplotlib as mpl
@@ -25,37 +26,49 @@ def dunnTestPreference(firstIndex, lastIndex):
 
     mean_sample_data_intern = []
     mean_sample_data_junior = []
+    mean_sample_data_novice = []
     mean_sample_data_senior = []
+
+    scenarios_novices = getScenarios(interns)[::3]
+
+    scenarios_novices.extend(getScenarios(juniors)[::3])
 
     for i in getScenarios(interns)[::3]:
 
-        nan_outliers_sample_data_intern_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
-        outliers_sample_data_intern_i = nan_outliers_sample_data_intern_i[~np.isnan(nan_outliers_sample_data_intern_i)]
-        sample_data_intern_i = outliers_sample_data_intern_i
-        mean_sample_data_intern.append(np.mean(sample_data_intern_i))
+        sample_data_intern_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
+        mean_sample_data_intern.append(np.nanmean(sample_data_intern_i))
 
     for i in getScenarios(juniors)[::3]:
 
-        nan_outliers_sample_data_junior_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
-        outliers_sample_data_junior_i = nan_outliers_sample_data_junior_i[~np.isnan(nan_outliers_sample_data_junior_i)]
-        sample_data_junior_i = outliers_sample_data_junior_i
+        sample_data_junior_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
+        mean_sample_data_junior.append(np.nanmean(sample_data_junior_i))
 
-        mean_sample_data_junior.append(np.mean(sample_data_junior_i))
+    for i in scenarios_novices:
+
+        sample_data_novice_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
+        mean_sample_data_novice.append(np.nanmean(sample_data_novice_i))
 
     for i in getScenarios(seniors)[::3]:
 
-        nan_outliers_sample_data_senior_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
-        outliers_sample_data_senior_i = nan_outliers_sample_data_senior_i[~np.isnan(nan_outliers_sample_data_senior_i)]
-        sample_data_senior_i = outliers_sample_data_senior_i
-
-        mean_sample_data_senior.append(np.mean(sample_data_senior_i))
+        sample_data_senior_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
+        mean_sample_data_senior.append(np.nanmean(sample_data_senior_i))
     
+    mean_sample_data_intern = [x for x in mean_sample_data_intern if str(x) != 'nan']
+    mean_sample_data_junior = [x for x in mean_sample_data_junior if str(x) != 'nan']
+    mean_sample_data_novice = [x for x in mean_sample_data_novice if str(x) != 'nan']
+    mean_sample_data_senior = [x for x in mean_sample_data_senior if str(x) != 'nan']
+
     print(mean_sample_data_intern)
     print(mean_sample_data_junior)
+    print(mean_sample_data_novice)
     print(mean_sample_data_senior)
 
     print("---Intern vs Junior vs Senior---")
     mean_sample_data = [mean_sample_data_intern, mean_sample_data_junior,mean_sample_data_senior]
+    print(sk.posthoc_dunn(mean_sample_data, sort=True))
+
+    print("---Novice vs Expert---")
+    mean_sample_data = [mean_sample_data_novice,mean_sample_data_senior]
     print(sk.posthoc_dunn(mean_sample_data, sort=True))
 
 def dunnTestBehaviour(firstIndex, lastIndex):
@@ -245,41 +258,41 @@ def main():
     # print("-------------- BIRADS ---------------")
     # kruskalWallis(3)
 
-    #Time
-    print("-------------- TIME ---------------")
-    print("-------------- ASSERTIVENESS ---------------")
-    dunnTestAssertiveness(4,4)
-    print("-------------- BEHAVIOUR ---------------")
-    dunnTestBehaviour(4,4)
+    # #Time
+    # print("-------------- TIME ---------------")
+    # print("-------------- ASSERTIVENESS ---------------")
+    # dunnTestAssertiveness(4,4)
+    # print("-------------- BEHAVIOUR ---------------")
+    # dunnTestBehaviour(4,4)
 
-    print("-------------- UX ---------------")
+    # print("-------------- UX ---------------")
 
-    print("-------------- ASSERTIVENESS ---------------")
+    # print("-------------- ASSERTIVENESS ---------------")
 
-    #DOTS
-    print("-------------- DOTS ---------------")
-    dunnTestAssertiveness(5,7)
+    # #DOTS
+    # print("-------------- DOTS ---------------")
+    # dunnTestAssertiveness(5,7)
 
-    #SUS
-    print("-------------- SUS ---------------")
-    dunnTestAssertiveness(8,17)
+    # #SUS
+    # print("-------------- SUS ---------------")
+    # dunnTestAssertiveness(8,17)
 
-    #NASA-TLX
-    print("-------------- NASA-TLX ---------------")
-    dunnTestAssertiveness(18,23)
+    # #NASA-TLX
+    # print("-------------- NASA-TLX ---------------")
+    # dunnTestAssertiveness(18,23)
 
-    print("-------------- BEHAVIOUR ---------------")
-    #DOTS
-    print("-------------- DOTS ---------------")
-    dunnTestBehaviour(5,7)
+    # print("-------------- BEHAVIOUR ---------------")
+    # #DOTS
+    # print("-------------- DOTS ---------------")
+    # dunnTestBehaviour(5,7)
 
-    #SUS
-    print("-------------- SUS ---------------")
-    dunnTestBehaviour(8,17)
+    # #SUS
+    # print("-------------- SUS ---------------")
+    # dunnTestBehaviour(8,17)
 
-    #NASA-TLX
-    print("-------------- NASA-TLX ---------------")
-    dunnTestBehaviour(18,23)
+    # #NASA-TLX
+    # print("-------------- NASA-TLX ---------------")
+    # dunnTestBehaviour(18,23)
     
 
     print("-------------- PREFERENCE ---------------")

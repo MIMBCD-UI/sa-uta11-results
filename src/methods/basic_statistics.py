@@ -1,6 +1,8 @@
 
 from cmath import nan
+import enum
 from glob import glob
+from xml.etree.ElementTree import QName
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -10,7 +12,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import datetime as dt
-import statsmodels.api as sm
+from statsmodels.stats.contingency_tables import mcnemar
 import pylab
 
 import sys
@@ -23,11 +25,19 @@ from groups import interns, juniors, seniors, assertive, non_assertive, proactiv
 from outliers import reject_outliers, lower_bound, upper_bound
 from birads import assistant_birads, real_birads
 
+table_assertive = ""
+table_non_assertive = ""
+table_proactive = ""
+table_reactive = ""
+question = 1
+
 def getAccuracy(array):
     TP = array[0]
     TN = array[1]
     FP = array[2]
     FN = array[3]
+    if(TP+FP+FN+TN == 0):
+        return nan
     return (TP+TN)/(TP+FP+FN+TN)
 
 def getPrecision(array):
@@ -57,6 +67,59 @@ def getSpecificity(array):
         return nan
     return TN/(TN+FP)
 
+def getF1Score(array):
+    return 2*((getPrecision(array)*getRecall(array))/(getPrecision(array)+getRecall(array)))
+
+def getPPV(array):
+    TP = array[0]
+    TN = array[1]
+    FP = array[2]
+    FN = array[3]
+    if(TP+FP == 0):
+        return nan
+    return TP/(TP+FP)
+
+def getNPV(array):
+    TP = array[0]
+    TN = array[1]
+    FP = array[2]
+    FN = array[3]
+    if(TN+FN == 0):
+        return nan
+    return TN/(TN+FN)
+
+def getLRplus(array):
+    return getRecall(array) / (1-getSpecificity(array)) 
+
+def getLRminus(array):
+    if(getSpecificity(array) == 0):
+        return nan
+    return (1-getRecall(array)) / getSpecificity(array) 
+
+def getDOR(array):
+    TP = array[0]
+    TN = array[1]
+    FP = array[2]
+    FN = array[3]
+    if(FN == 0 or TN == 0 or (FP/TN) == 0):
+        return nan
+    return (TP/FN)/(FP/TN)
+
+def getYouden(array):
+    return (getRecall(array) + getSpecificity(array) ) - 1
+
+def contingency_table(array_1, array_2):
+    TP1 = array_1[0]
+    TN1 = array_1[1]
+    FP1 = array_1[2]
+    FN1 = array_1[3]
+    TP2 = array_2[0]
+    TN2 = array_2[1]
+    FP2 = array_2[2]
+    FN2 = array_2[3]
+    return [[TP1 + TN1 + TP2 + TN2, TP1 + TN1 + FP2 + FN2],
+            [FP1 + FN1 + TP2 + TN2, FP1 + FN1 + FP2 + FN2]]
+
 def confusion_matrix(array):
     TP = array[0]
     TN = array[1]
@@ -77,18 +140,47 @@ def fpAndFnChart(data, groups):
     fig.show()
 
 def biradsPrediction(real_birads, clincian_birads):
-    if(real_birads > 3 and clincian_birads > 3):
+    if(real_birads == 1):
+        return 4
+    # ------- 1,2,3,4,5 BI-RADS -------
+    # if(real_birads > 1 and clincian_birads == real_birads and clincian_birads != 0):
+    #     return 0 #True Positive
+    # elif(real_birads <= 1 and clincian_birads == real_birads and clincian_birads != 0):
+    #     return 1 #True Negative
+    # elif(clincian_birads > real_birads and clincian_birads != 0):
+    #     return 2 #False Positive
+    # elif(clincian_birads < real_birads and clincian_birads != 0):
+    #     return 3 #False Negative
+        
+    # ------- Low, Medium, High BI-RADS -------
+    if(real_birads > 1 and (((real_birads == 2 or real_birads == 3) and real_birads == clincian_birads) 
+    or ((real_birads == 4 or real_birads == 5) and real_birads == clincian_birads)) and clincian_birads != 0):
         return 0 #True Positive
-    elif(real_birads <= 3 and clincian_birads <= 3):
+    elif(real_birads <= 1 and clincian_birads == real_birads and clincian_birads != 0):
         return 1 #True Negative
-    elif(real_birads <= 3 and clincian_birads > 3):
+    elif((real_birads == 1 and clincian_birads > 1) or
+        (((real_birads == 2 or real_birads == 3) and clincian_birads > 3))  and clincian_birads != 0):
         return 2 #False Positive
-    elif(real_birads > 3 and clincian_birads <= 3):
+    elif(((real_birads == 4 or real_birads == 5) and clincian_birads < 4) or
+        (((real_birads == 2 or real_birads == 3) and clincian_birads < 2))  and clincian_birads != 0):
         return 3 #False Negative
+
+
+    #------ Findings / No Findings ------
+    # if(real_birads > 1 and clincian_birads > 1 and clincian_birads != 0):
+    #     return 0 #True Positive
+    # elif(real_birads <= 1 and clincian_birads <= 1 and clincian_birads != 0):
+    #     return 1 #True Negative
+    # elif(real_birads <= 1 and clincian_birads > 1 and clincian_birads != 0):
+    #     return 2 #False Positive
+    # elif(real_birads > 1 and clincian_birads <= 1 and clincian_birads != 0):
+    #     return 3 #False Negative
+    return 4
 
 def performanceMetrics(sample_data, iteration, birads_level):
     intern = getScenarios(interns)
     junior = getScenarios(juniors)
+    intern = np.append(intern,junior)
     senior = getScenarios(seniors)
 
     scenarios_patients = np.int32(getScenariosPatients())
@@ -98,19 +190,19 @@ def performanceMetrics(sample_data, iteration, birads_level):
     proactive_scenarios = np.subtract(proactive, 1)
     reactive_scenarios = np.subtract(reactive, 1)
 
-    intern_assertive = [0,0,0,0]
-    intern_non_assertive = [0,0,0,0]
-    junior_assertive = [0,0,0,0]
-    junior_non_assertive = [0,0,0,0]
-    senior_assertive = [0,0,0,0]
-    senior_non_assertive = [0,0,0,0]
+    intern_assertive = [0,0,0,0,0]
+    intern_non_assertive = [0,0,0,0,0]
+    junior_assertive = [0,0,0,0,0]
+    junior_non_assertive = [0,0,0,0,0]
+    senior_assertive = [0,0,0,0,0]
+    senior_non_assertive = [0,0,0,0,0]
 
-    intern_proactive = [0,0,0,0]
-    intern_reactive = [0,0,0,0]
-    junior_proactive = [0,0,0,0]
-    junior_reactive = [0,0,0,0]
-    senior_proactive = [0,0,0,0]
-    senior_reactive = [0,0,0,0]
+    intern_proactive = [0,0,0,0,0]
+    intern_reactive = [0,0,0,0,0]
+    junior_proactive = [0,0,0,0,0]
+    junior_reactive = [0,0,0,0,0]
+    senior_proactive = [0,0,0,0,0]
+    senior_reactive = [0,0,0,0,0]
 
     for j,b in enumerate(sample_data[birads_level::iteration]):
         i = j* iteration + birads_level
@@ -145,11 +237,9 @@ def performanceMetrics(sample_data, iteration, birads_level):
 
     if(iteration == 1):
         fpAndFnChart(pd.DataFrame(data={nums:l for l, nums in zip(np.vstack((intern_assertive, intern_non_assertive, 
-        junior_assertive, junior_non_assertive, 
         senior_assertive, senior_non_assertive)), 
         groups_assertiveness)}), groups_assertiveness)
         fpAndFnChart(pd.DataFrame(data={nums:l for l, nums in zip(np.vstack((intern_proactive, intern_reactive, 
-        junior_proactive, junior_reactive, 
         senior_proactive, senior_reactive)), 
         groups_behaviour)}), groups_behaviour)
 
@@ -168,99 +258,72 @@ def performanceMetrics(sample_data, iteration, birads_level):
         # confusion_matrix(senior_reactive)
         
 
-    print("------------ Intern Assertive --------------")
-    print(intern_assertive)
-    print("Accuracy: ", getAccuracy(intern_assertive))
-    print("Precision: ", getPrecision(intern_assertive))
-    print("Sensitivity/Recall: ", getRecall(intern_assertive))
-    print("Specificity: ", getSpecificity(intern_assertive))
+    print("Accuracy: ", getAccuracy(intern_assertive), getAccuracy(intern_non_assertive),
+                        getAccuracy(senior_assertive), getAccuracy(senior_non_assertive))
+    print("Precision: ", getPrecision(intern_assertive), getPrecision(intern_non_assertive),
+                        getPrecision(senior_assertive), getPrecision(senior_non_assertive))
+    print("Sensitivity/Recall: ", getRecall(intern_assertive), getRecall(intern_non_assertive),
+                        getRecall(senior_assertive), getRecall(senior_non_assertive))
+    print("Specificity: ", getSpecificity(intern_assertive), getSpecificity(intern_non_assertive),
+                        getSpecificity(senior_assertive), getSpecificity(senior_non_assertive))
+    print("F1 Score: ", getF1Score(intern_assertive), getF1Score(intern_non_assertive),
+                        getF1Score(senior_assertive), getF1Score(senior_non_assertive))
+    print("Positive predictive value: ", getPPV(intern_assertive), getPPV(intern_non_assertive),
+                        getPPV(senior_assertive), getPPV(senior_non_assertive))
+    print("Negative predictive valu: ", getNPV(intern_assertive), getNPV(intern_non_assertive),
+                        getNPV(senior_assertive), getNPV(senior_non_assertive))
+    print("Likelihood+: ", getLRplus(intern_assertive), getLRplus(intern_non_assertive),
+                        getLRplus(senior_assertive), getLRplus(senior_non_assertive))
+    print("Likelihood-: ", getLRminus(intern_assertive), getLRminus(intern_non_assertive),
+                        getLRminus(senior_assertive), getLRminus(senior_non_assertive))
+    print("Diagnostic odds ratio: ", getDOR(intern_assertive), getDOR(intern_non_assertive),
+                        getDOR(senior_assertive), getDOR(senior_non_assertive))
+    print("Youden Index: ", getYouden(intern_assertive), getYouden(intern_non_assertive),
+                        getYouden(senior_assertive), getYouden(senior_non_assertive))
 
-    print("------------ Intern Non Assertive --------------")
-    print(intern_non_assertive)
-    print("Accuracy: ", getAccuracy(intern_non_assertive))
-    print("Precision: ", getPrecision(intern_non_assertive))
-    print("Sensitivity/Recall: ", getRecall(intern_non_assertive))
-    print("Specificity: ", getSpecificity(intern_non_assertive))
+    print(contingency_table(intern_assertive, intern_non_assertive))
+    print(contingency_table(senior_assertive, senior_non_assertive))
+    print(mcnemar(contingency_table(intern_assertive, intern_non_assertive), exact=True))
+    print(mcnemar(contingency_table(senior_assertive, senior_non_assertive), exact=True))
 
-    print("------------ Intern Proactive --------------")
-    print(intern_proactive)
-    print("Accuracy: ", getAccuracy(intern_proactive))
-    print("Precision: ", getPrecision(intern_proactive))
-    print("Sensitivity/Recall: ", getRecall(intern_proactive))
-    print("Specificity: ", getSpecificity(intern_proactive))
 
-    print("------------ Intern Reactive --------------")
-    print(intern_reactive)
-    print("Accuracy: ", getAccuracy(intern_reactive))
-    print("Precision: ", getPrecision(intern_reactive))
-    print("Sensitivity/Recall: ", getRecall(intern_reactive))
-    print("Specificity: ", getSpecificity(intern_reactive))
+    print("Accuracy: ", getAccuracy(intern_proactive), getAccuracy(intern_reactive),
+                        getAccuracy(senior_proactive), getAccuracy(senior_reactive))
+    print("Precision: ", getPrecision(intern_proactive), getPrecision(intern_reactive),
+                        getPrecision(senior_proactive), getPrecision(senior_reactive))
+    print("Sensitivity/Recall: ", getRecall(intern_proactive), getRecall(intern_reactive),
+                        getRecall(senior_proactive), getRecall(senior_reactive))
+    print("Specificity: ", getSpecificity(intern_proactive), getSpecificity(intern_reactive),
+                        getSpecificity(senior_proactive), getSpecificity(senior_reactive))
+    print("F1 Score: ", getF1Score(intern_proactive), getF1Score(intern_reactive),
+                        getF1Score(senior_proactive), getF1Score(senior_reactive))
+    print("Positive predictive value: ", getPPV(intern_proactive), getPPV(intern_reactive),
+                        getPPV(senior_proactive), getPPV(senior_reactive))
+    print("Negative predictive valu: ", getNPV(intern_proactive), getNPV(intern_reactive),
+                        getNPV(senior_proactive), getNPV(senior_reactive))
+    print("Likelihood+: ", getLRplus(intern_proactive), getLRplus(intern_reactive),
+                        getLRplus(senior_proactive), getLRplus(senior_reactive))
+    print("Likelihood-: ", getLRminus(intern_proactive), getLRminus(intern_reactive),
+                        getLRminus(senior_proactive), getLRminus(senior_reactive))
+    print("Diagnostic odds ratio: ", getDOR(intern_proactive), getDOR(intern_reactive),
+                        getDOR(senior_proactive), getDOR(senior_reactive))
+    print("Youden Index: ", getYouden(intern_proactive), getYouden(intern_reactive),
+                        getYouden(senior_proactive), getYouden(senior_reactive))
 
-    print("------------ Junior Assertive --------------")
-    print(junior_assertive)
-    print("Accuracy: ", getAccuracy(junior_assertive))
-    print("Precision: ", getPrecision(junior_assertive))
-    print("Sensitivity/Recall: ", getRecall(junior_assertive))
-    print("Specificity: ", getSpecificity(junior_assertive))
-
-    print("------------ Junior Non Assertive --------------")
-    print(junior_non_assertive)
-    print("Accuracy: ", getAccuracy(junior_non_assertive))
-    print("Precision: ", getPrecision(junior_non_assertive))
-    print("Sensitivity/Recall: ", getRecall(junior_non_assertive))
-    print("Specificity: ", getSpecificity(junior_non_assertive))
-
-    print("------------ Junior Proactive --------------")
-    print(junior_proactive)
-    print("Accuracy: ", getAccuracy(junior_proactive))
-    print("Precision: ", getPrecision(junior_proactive))
-    print("Sensitivity/Recall: ", getRecall(junior_proactive))
-    print("Specificity: ", getSpecificity(junior_proactive))
-
-    print("------------ Junior Reactive --------------")
-    print(junior_reactive)
-    print("Accuracy: ", getAccuracy(junior_reactive))
-    print("Precision: ", getPrecision(junior_reactive))
-    print("Sensitivity/Recall: ", getRecall(junior_reactive))
-    print("Specificity: ", getSpecificity(junior_reactive))
-
-    print("------------ Senior Assertive --------------")
-    print(senior_assertive)
-    print("Accuracy: ", getAccuracy(senior_assertive))
-    print("Precision: ", getPrecision(senior_assertive))
-    print("Sensitivity/Recall: ", getRecall(senior_assertive))
-    print("Specificity: ", getSpecificity(senior_assertive))
-
-    print("------------ Senior Non Assertive --------------")
-    print(senior_non_assertive)
-    print("Accuracy: ", getAccuracy(senior_non_assertive))
-    print("Precision: ", getPrecision(senior_non_assertive))
-    print("Sensitivity/Recall: ", getRecall(senior_non_assertive))
-    print("Specificity: ", getSpecificity(senior_non_assertive))
-
-    print("------------ Senior Proactive --------------")
-    print(senior_proactive)
-    print("Accuracy: ", getAccuracy(senior_proactive))
-    print("Precision: ", getPrecision(senior_proactive))
-    print("Sensitivity/Recall: ", getRecall(senior_proactive))
-    print("Specificity: ", getSpecificity(senior_proactive))
-
-    print("------------ Senior Reactive --------------")
-    print(senior_reactive)
-    print("Accuracy: ", getAccuracy(senior_reactive))
-    print("Precision: ", getPrecision(senior_reactive))
-    print("Sensitivity/Recall: ", getRecall(senior_reactive))
-    print("Specificity: ", getSpecificity(senior_reactive))
-
+    print(contingency_table(intern_proactive, intern_reactive))
+    print(contingency_table(senior_proactive, senior_reactive))
+    print(mcnemar(contingency_table(intern_proactive, intern_reactive), exact=True))
+    print(mcnemar(contingency_table(senior_proactive, senior_reactive), exact=True))
 
 
 def basicStatisticBirads(index):
 
     sample_data = np.float64(data[2:,index])
 
-    for i in range(3):
-        performanceMetrics(sample_data, 3, i)
+    # for i in range(3):
+    #     performanceMetrics(sample_data, 3, i)
 
+    # performanceMetrics(sample_data, 3, 1)
     performanceMetrics(sample_data, 1,0)
     
 
@@ -517,8 +580,8 @@ def basicStatistic(firstIndex, lastIndex):
     junior_assertive = np.intersect1d(getScenarios(juniors), np.subtract(assertive, 1))
     junior_non_assertive = np.intersect1d(getScenarios(juniors), np.subtract(non_assertive, 1))
     #Novice
-    # intern_assertive = np.append(intern_assertive, junior_assertive)
-    # intern_non_assertive = np.append(intern_non_assertive, junior_non_assertive)
+    intern_assertive = np.append(intern_assertive, junior_assertive)
+    intern_non_assertive = np.append(intern_non_assertive, junior_non_assertive)
     #-------
     senior_assertive = np.intersect1d(getScenarios(seniors), np.subtract(assertive, 1))
     senior_non_assertive = np.intersect1d(getScenarios(seniors), np.subtract(non_assertive, 1))
@@ -528,13 +591,13 @@ def basicStatistic(firstIndex, lastIndex):
     junior_proactive = np.intersect1d(getScenarios(juniors), np.subtract(proactive, 1))
     junior_reactive = np.intersect1d(getScenarios(juniors), np.subtract(reactive, 1))
     #Novice
-    # intern_proactive = np.append(intern_proactive, junior_proactive)
-    # intern_reactive = np.append(intern_reactive, junior_reactive)
+    intern_proactive = np.append(intern_proactive, junior_proactive)
+    intern_reactive = np.append(intern_reactive, junior_reactive)
     #-------
     senior_proactive = np.intersect1d(getScenarios(seniors), np.subtract(proactive, 1))
     senior_reactive = np.intersect1d(getScenarios(seniors), np.subtract(reactive, 1))
 
-    #Mean
+    # #Mean
     print("--------- MEAN -------------")
     print("--------- Intern Assertive ------------")
     print(np.nanmean(np.take(sample_data,intern_assertive, axis=0)))
@@ -593,111 +656,125 @@ def basicStatistic(firstIndex, lastIndex):
     print("--------- Senior Reactive ------------")
     print(np.std(np.take(sample_data,senior_reactive, axis=0)))
 
-    #Interval
-    print("--------- INTERVAL -------------")
-    print("--------- Intern Assertive ------------")
-    print("(" + str(np.amin(np.take(sample_data,intern_assertive, axis=0))) + "." + str(np.amax(np.take(sample_data,intern_assertive, axis=0))) + ")")
-    print("--------- Intern Non Assertive ------------")
-    print("(" + str(np.amin(np.take(sample_data,intern_non_assertive, axis=0))) + "." + str(np.amax(np.take(sample_data,intern_non_assertive, axis=0))) + ")")
-    print("--------- Intern Proactive ------------")
-    print("(" + str(np.amin(np.take(sample_data,intern_proactive, axis=0))) + "." + str(np.amax(np.take(sample_data,intern_proactive, axis=0))) + ")")
-    print("--------- Intern Reactive ------------")
-    print("(" + str(np.amin(np.take(sample_data,intern_reactive, axis=0))) + "." + str(np.amax(np.take(sample_data,intern_reactive, axis=0))) + ")")
+    # #Interval
+    # print("--------- INTERVAL -------------")
+    # print("--------- Intern Assertive ------------")
+    # print("(" + str(np.amin(np.take(sample_data,intern_assertive, axis=0))) + "." + str(np.amax(np.take(sample_data,intern_assertive, axis=0))) + ")")
+    # print("--------- Intern Non Assertive ------------")
+    # print("(" + str(np.amin(np.take(sample_data,intern_non_assertive, axis=0))) + "." + str(np.amax(np.take(sample_data,intern_non_assertive, axis=0))) + ")")
+    # print("--------- Intern Proactive ------------")
+    # print("(" + str(np.amin(np.take(sample_data,intern_proactive, axis=0))) + "." + str(np.amax(np.take(sample_data,intern_proactive, axis=0))) + ")")
+    # print("--------- Intern Reactive ------------")
+    # print("(" + str(np.amin(np.take(sample_data,intern_reactive, axis=0))) + "." + str(np.amax(np.take(sample_data,intern_reactive, axis=0))) + ")")
 
-    print("--------- Junior Assertive ------------")
-    print("(" + str(np.amin(np.take(sample_data,junior_assertive, axis=0))) + "." + str(np.amax(np.take(sample_data,junior_assertive, axis=0))) + ")")
-    print("--------- Junior Non Assertive ------------")
-    print("(" + str(np.amin(np.take(sample_data,junior_non_assertive, axis=0))) + "." + str(np.amax(np.take(sample_data,junior_non_assertive, axis=0))) + ")")
-    print("--------- Junior Proactive ------------")
-    print("(" + str(np.amin(np.take(sample_data,junior_proactive, axis=0))) + "." + str(np.amax(np.take(sample_data,junior_proactive, axis=0))) + ")")
-    print("--------- Junior Reactive ------------")
-    print("(" + str(np.amin(np.take(sample_data,junior_reactive, axis=0))) + "." + str(np.amax(np.take(sample_data,junior_reactive, axis=0))) + ")")
+    # print("--------- Junior Assertive ------------")
+    # print("(" + str(np.amin(np.take(sample_data,junior_assertive, axis=0))) + "." + str(np.amax(np.take(sample_data,junior_assertive, axis=0))) + ")")
+    # print("--------- Junior Non Assertive ------------")
+    # print("(" + str(np.amin(np.take(sample_data,junior_non_assertive, axis=0))) + "." + str(np.amax(np.take(sample_data,junior_non_assertive, axis=0))) + ")")
+    # print("--------- Junior Proactive ------------")
+    # print("(" + str(np.amin(np.take(sample_data,junior_proactive, axis=0))) + "." + str(np.amax(np.take(sample_data,junior_proactive, axis=0))) + ")")
+    # print("--------- Junior Reactive ------------")
+    # print("(" + str(np.amin(np.take(sample_data,junior_reactive, axis=0))) + "." + str(np.amax(np.take(sample_data,junior_reactive, axis=0))) + ")")
 
-    print("--------- Senior Assertive ------------")
-    print("(" + str(np.amin(np.take(sample_data,senior_assertive, axis=0))) + "." + str(np.amax(np.take(sample_data,senior_assertive, axis=0))) + ")")
-    print("--------- Senior Non Assertive ------------")
-    print("(" + str(np.amin(np.take(sample_data,senior_non_assertive, axis=0))) + "." + str(np.amax(np.take(sample_data,senior_non_assertive, axis=0))) + ")")
-    print("--------- Senior Proactive ------------")
-    print("(" + str(np.amin(np.take(sample_data,senior_proactive, axis=0))) + "." + str(np.amax(np.take(sample_data,senior_proactive, axis=0))) + ")")
-    print("--------- Senior Reactive ------------")
-    print("(" + str(np.amin(np.take(sample_data,senior_reactive, axis=0))) + "." + str(np.amax(np.take(sample_data,senior_reactive, axis=0))) + ")")
+    # print("--------- Senior Assertive ------------")
+    # print("(" + str(np.amin(np.take(sample_data,senior_assertive, axis=0))) + "." + str(np.amax(np.take(sample_data,senior_assertive, axis=0))) + ")")
+    # print("--------- Senior Non Assertive ------------")
+    # print("(" + str(np.amin(np.take(sample_data,senior_non_assertive, axis=0))) + "." + str(np.amax(np.take(sample_data,senior_non_assertive, axis=0))) + ")")
+    # print("--------- Senior Proactive ------------")
+    # print("(" + str(np.amin(np.take(sample_data,senior_proactive, axis=0))) + "." + str(np.amax(np.take(sample_data,senior_proactive, axis=0))) + ")")
+    # print("--------- Senior Reactive ------------")
+    # print("(" + str(np.amin(np.take(sample_data,senior_reactive, axis=0))) + "." + str(np.amax(np.take(sample_data,senior_reactive, axis=0))) + ")")
 
-    #Lower Bound
-    print("--------- LOWER BOUND -------------")
-    print("--------- Intern Assertive ------------")
-    print(lower_bound(np.take(sample_data,intern_assertive, axis=0)))
-    print("--------- Intern Non Assertive ------------")
-    print(lower_bound(np.take(sample_data,intern_non_assertive, axis=0)))
-    print("--------- Intern Proactive ------------")
-    print(lower_bound(np.take(sample_data,intern_proactive, axis=0)))
-    print("--------- Intern Reactive ------------")
-    print(lower_bound(np.take(sample_data,intern_reactive, axis=0)))
+    # #Lower Bound
+    # print("--------- LOWER BOUND -------------")
+    # print("--------- Intern Assertive ------------")
+    # print(lower_bound(np.take(sample_data,intern_assertive, axis=0)))
+    # print("--------- Intern Non Assertive ------------")
+    # print(lower_bound(np.take(sample_data,intern_non_assertive, axis=0)))
+    # print("--------- Intern Proactive ------------")
+    # print(lower_bound(np.take(sample_data,intern_proactive, axis=0)))
+    # print("--------- Intern Reactive ------------")
+    # print(lower_bound(np.take(sample_data,intern_reactive, axis=0)))
 
-    print("--------- Junior Assertive ------------")
-    print(lower_bound(np.take(sample_data,junior_assertive, axis=0)))
-    print("--------- Junior Non Assertive ------------")
-    print(lower_bound(np.take(sample_data,junior_non_assertive, axis=0)))
-    print("--------- Junior Proactive ------------")
-    print(lower_bound(np.take(sample_data,junior_proactive, axis=0)))
-    print("--------- Junior Reactive ------------")
-    print(lower_bound(np.take(sample_data,junior_reactive, axis=0)))
+    # print("--------- Junior Assertive ------------")
+    # print(lower_bound(np.take(sample_data,junior_assertive, axis=0)))
+    # print("--------- Junior Non Assertive ------------")
+    # print(lower_bound(np.take(sample_data,junior_non_assertive, axis=0)))
+    # print("--------- Junior Proactive ------------")
+    # print(lower_bound(np.take(sample_data,junior_proactive, axis=0)))
+    # print("--------- Junior Reactive ------------")
+    # print(lower_bound(np.take(sample_data,junior_reactive, axis=0)))
 
-    print("--------- Senior Assertive ------------")
-    print(lower_bound(np.take(sample_data,senior_assertive, axis=0)))
-    print("--------- Senior Non Assertive ------------")
-    print(lower_bound(np.take(sample_data,senior_non_assertive, axis=0)))
-    print("--------- Senior Proactive ------------")
-    print(lower_bound(np.take(sample_data,senior_proactive, axis=0)))
-    print("--------- Senior Reactive ------------")
-    print(lower_bound(np.take(sample_data,senior_reactive, axis=0)))
+    # print("--------- Senior Assertive ------------")
+    # print(lower_bound(np.take(sample_data,senior_assertive, axis=0)))
+    # print("--------- Senior Non Assertive ------------")
+    # print(lower_bound(np.take(sample_data,senior_non_assertive, axis=0)))
+    # print("--------- Senior Proactive ------------")
+    # print(lower_bound(np.take(sample_data,senior_proactive, axis=0)))
+    # print("--------- Senior Reactive ------------")
+    # print(lower_bound(np.take(sample_data,senior_reactive, axis=0)))
 
-    #Upper Bound
-    print("--------- UPPER BOUND -------------")
-    print("--------- Intern Assertive ------------")
-    print(upper_bound(np.take(sample_data,intern_assertive, axis=0)))
-    print("--------- Intern Non Assertive ------------")
-    print(upper_bound(np.take(sample_data,intern_non_assertive, axis=0)))
-    print("--------- Intern Proactive ------------")
-    print(upper_bound(np.take(sample_data,intern_proactive, axis=0)))
-    print("--------- Intern Reactive ------------")
-    print(upper_bound(np.take(sample_data,intern_reactive, axis=0)))
+    # #Upper Bound
+    # print("--------- UPPER BOUND -------------")
+    # print("--------- Intern Assertive ------------")
+    # print(upper_bound(np.take(sample_data,intern_assertive, axis=0)))
+    # print("--------- Intern Non Assertive ------------")
+    # print(upper_bound(np.take(sample_data,intern_non_assertive, axis=0)))
+    # print("--------- Intern Proactive ------------")
+    # print(upper_bound(np.take(sample_data,intern_proactive, axis=0)))
+    # print("--------- Intern Reactive ------------")
+    # print(upper_bound(np.take(sample_data,intern_reactive, axis=0)))
 
-    print("--------- Junior Assertive ------------")
-    print(upper_bound(np.take(sample_data,junior_assertive, axis=0)))
-    print("--------- Junior Non Assertive ------------")
-    print(upper_bound(np.take(sample_data,junior_non_assertive, axis=0)))
-    print("--------- Junior Proactive ------------")
-    print(upper_bound(np.take(sample_data,junior_proactive, axis=0)))
-    print("--------- Junior Reactive ------------")
-    print(upper_bound(np.take(sample_data,junior_reactive, axis=0)))
+    # print("--------- Junior Assertive ------------")
+    # print(upper_bound(np.take(sample_data,junior_assertive, axis=0)))
+    # print("--------- Junior Non Assertive ------------")
+    # print(upper_bound(np.take(sample_data,junior_non_assertive, axis=0)))
+    # print("--------- Junior Proactive ------------")
+    # print(upper_bound(np.take(sample_data,junior_proactive, axis=0)))
+    # print("--------- Junior Reactive ------------")
+    # print(upper_bound(np.take(sample_data,junior_reactive, axis=0)))
 
-    print("--------- Senior Assertive ------------")
-    print(upper_bound(np.take(sample_data,senior_assertive, axis=0)))
-    print("--------- Senior Non Assertive ------------")
-    print(upper_bound(np.take(sample_data,senior_non_assertive, axis=0)))
-    print("--------- Senior Proactive ------------")
-    print(upper_bound(np.take(sample_data,senior_proactive, axis=0)))
-    print("--------- Senior Reactive ------------")
-    print(upper_bound(np.take(sample_data,senior_reactive, axis=0)))
+    # print("--------- Senior Assertive ------------")
+    # print(upper_bound(np.take(sample_data,senior_assertive, axis=0)))
+    # print("--------- Senior Non Assertive ------------")
+    # print(upper_bound(np.take(sample_data,senior_non_assertive, axis=0)))
+    # print("--------- Senior Proactive ------------")
+    # print(upper_bound(np.take(sample_data,senior_proactive, axis=0)))
+    # print("--------- Senior Reactive ------------")
+    # print(upper_bound(np.take(sample_data,senior_reactive, axis=0)))
 
+    # global table_proactive, table_assertive, table_non_assertive, table_reactive, question
 
-    # print("& %.2f & %.2f & %.2f & %.2f \\\\" % (np.nanmean(np.take(sample_data,intern_reactive, axis=0)), 
+    # table_assertive += "\n\\hline\n\\textbf{Total} & %.2f & %.2f & %.2f & %.2f \\\\" % ( np.nanmean(np.take(sample_data,intern_assertive, axis=0)), 
+    # np.nanstd(np.take(sample_data,intern_assertive, axis=0)), np.nanmean(np.take(sample_data,senior_assertive, axis=0)),
+    # np.nanstd(np.take(sample_data,senior_assertive, axis=0)))
+
+    # table_non_assertive += "\n\\hline\n\\textbf{Total} & %.2f & %.2f & %.2f & %.2f \\\\" % ( np.nanmean(np.take(sample_data,intern_non_assertive, axis=0)), 
+    # np.nanstd(np.take(sample_data,intern_non_assertive, axis=0)), np.nanmean(np.take(sample_data,senior_non_assertive, axis=0)),
+    # np.nanstd(np.take(sample_data,senior_non_assertive, axis=0)))
+
+    # table_proactive += "\n\\hline\n\\textbf{Total} & %.2f & %.2f & %.2f & %.2f \\\\" % ( np.nanmean(np.take(sample_data,intern_proactive, axis=0)), 
+    # np.nanstd(np.take(sample_data,intern_proactive, axis=0)), np.nanmean(np.take(sample_data,senior_proactive, axis=0)),
+    # np.nanstd(np.take(sample_data,senior_proactive, axis=0)))
+
+    # table_reactive += "\n\\hline\n\\textbf{Total} & %.2f & %.2f & %.2f & %.2f \\\\" % ( np.nanmean(np.take(sample_data,intern_reactive, axis=0)), 
     # np.nanstd(np.take(sample_data,intern_reactive, axis=0)), np.nanmean(np.take(sample_data,senior_reactive, axis=0)),
-    # np.nanstd(np.take(sample_data,senior_reactive, axis=0))))
+    # np.nanstd(np.take(sample_data,senior_reactive, axis=0)))
 
+    # question += 1
 
 def main():
 
     #BIRADS
     # print("-------------- BIRADS ---------------")
-    # basicStatisticBirads(3)
+    basicStatisticBirads(3)
 
     # # Time
     # print("-------------- TIME ---------------")
     # basicStatistic(4,4)
 
 
-    print("-------------- UX ---------------")
+    # print("-------------- UX ---------------")
 
     # #DOTS
     # print("-------------- DOTS ---------------")
@@ -706,7 +783,7 @@ def main():
     # basicStatistic(7,7)
     # basicStatistic(5,7)
 
-    # #SUS
+    #SUS
     # print("-------------- SUS ---------------")
     # basicStatistic(8,8)
     # basicStatistic(9,9)
@@ -720,15 +797,20 @@ def main():
     # basicStatistic(17,17)
     # basicStatistic(8,17)
 
-    # #NASA-TLX
-    print("-------------- NASA-TLX ---------------")
-    basicStatistic(18,18)
-    basicStatistic(19,19)
-    basicStatistic(20,20)
-    basicStatistic(21,21)
-    basicStatistic(22,22)
-    basicStatistic(23,23)
-    basicStatistic(18,23)
+    # print(table_assertive)
+    # print(table_non_assertive)
+    # print(table_proactive)
+    # print(table_reactive)
+
+    # # #NASA-TLX
+    # print("-------------- NASA-TLX ---------------")
+    # basicStatistic(18,18)
+    # basicStatistic(19,19)
+    # basicStatistic(20,20)
+    # basicStatistic(21,21)
+    # basicStatistic(22,22)
+    # basicStatistic(23,23)
+    # basicStatistic(18,23)
 
     
     #Q3

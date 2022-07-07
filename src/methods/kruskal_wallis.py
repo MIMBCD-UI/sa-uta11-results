@@ -79,6 +79,10 @@ def kruskalWallisBehaviour(firstIndex, lastIndex):
             outliers_sample_data_intern_proactive_i = nan_outliers_sample_data_intern_proactive_i[~np.isnan(nan_outliers_sample_data_intern_proactive_i)]
             sample_data_intern_proactive_i = outliers_sample_data_intern_proactive_i
 
+            for k,y in enumerate(sample_data_intern_proactive_i):
+                if(k % 2 == 1):
+                    sample_data_intern_proactive_i[k] = 6 - y
+
             mean_sample_data_intern_proactive.append(np.mean(sample_data_intern_proactive_i))
 
         if(i+1 in reactive):
@@ -86,6 +90,10 @@ def kruskalWallisBehaviour(firstIndex, lastIndex):
             nan_outliers_sample_data_intern_reactive_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
             outliers_sample_data_intern_reactive_i = nan_outliers_sample_data_intern_reactive_i[~np.isnan(nan_outliers_sample_data_intern_reactive_i)]
             sample_data_intern_reactive_i = outliers_sample_data_intern_reactive_i
+
+            for k,y in enumerate(sample_data_intern_reactive_i):
+                if(k % 2 == 1):
+                    sample_data_intern_reactive_i[k] = 6 - y
 
             mean_sample_data_intern_reactive.append(np.mean(sample_data_intern_reactive_i))
 
@@ -97,6 +105,10 @@ def kruskalWallisBehaviour(firstIndex, lastIndex):
             outliers_sample_data_junior_proactive_i = nan_outliers_sample_data_junior_proactive_i[~np.isnan(nan_outliers_sample_data_junior_proactive_i)]
             sample_data_junior_proactive_i = outliers_sample_data_junior_proactive_i
 
+            for k,y in enumerate(sample_data_junior_proactive_i):
+                if(k % 2 == 1):
+                    sample_data_junior_proactive_i[k] = 6 - y
+
             mean_sample_data_junior_proactive.append(np.mean(sample_data_junior_proactive_i))
 
         if(i+1 in reactive):
@@ -104,6 +116,10 @@ def kruskalWallisBehaviour(firstIndex, lastIndex):
             nan_outliers_sample_data_junior_reactive_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
             outliers_sample_data_junior_reactive_i = nan_outliers_sample_data_junior_reactive_i[~np.isnan(nan_outliers_sample_data_junior_reactive_i)]
             sample_data_junior_reactive_i = outliers_sample_data_junior_reactive_i
+
+            for k,y in enumerate(sample_data_junior_reactive_i):
+                if(k % 2 == 1):
+                    sample_data_junior_reactive_i[k] = 6 - y
 
             mean_sample_data_junior_reactive.append(np.mean(sample_data_junior_reactive_i))
 
@@ -115,6 +131,10 @@ def kruskalWallisBehaviour(firstIndex, lastIndex):
             outliers_sample_data_senior_proactive_i = nan_outliers_sample_data_senior_proactive_i[~np.isnan(nan_outliers_sample_data_senior_proactive_i)]
             sample_data_senior_proactive_i = outliers_sample_data_senior_proactive_i
 
+            for k,y in enumerate(sample_data_senior_proactive_i):
+                if(k % 2 == 1):
+                    sample_data_senior_proactive_i[k] = 6 - y
+
             mean_sample_data_senior_proactive.append(np.mean(sample_data_senior_proactive_i))
 
         if(i+1 in reactive):
@@ -123,8 +143,15 @@ def kruskalWallisBehaviour(firstIndex, lastIndex):
             outliers_sample_data_senior_reactive_i = nan_outliers_sample_data_senior_reactive_i[~np.isnan(nan_outliers_sample_data_senior_reactive_i)]
             sample_data_senior_reactive_i = outliers_sample_data_senior_reactive_i
 
+            for k,y in enumerate(sample_data_senior_reactive_i):
+                if(k % 2 == 1):
+                    sample_data_senior_reactive_i[k] = 6 - y
+
             mean_sample_data_senior_reactive.append(np.mean(sample_data_senior_reactive_i))
     
+    mean_sample_data_novice_proactive = np.append(mean_sample_data_intern_proactive, mean_sample_data_junior_proactive)
+    mean_sample_data_novice_reactive = np.append(mean_sample_data_intern_reactive, mean_sample_data_junior_reactive)
+
     print(mean_sample_data_intern_proactive)
     print(mean_sample_data_intern_reactive)
     print(mean_sample_data_junior_proactive)
@@ -132,18 +159,25 @@ def kruskalWallisBehaviour(firstIndex, lastIndex):
     print(mean_sample_data_senior_proactive)
     print(mean_sample_data_senior_reactive)
 
-    print("---Intern Proactive vs Reactive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_proactive, mean_sample_data_intern_reactive))
-    print("---Junior Proactive vs Reactive---")
-    print(sp.stats.kruskal(mean_sample_data_junior_proactive, mean_sample_data_junior_reactive))
+    print("---Novice Proactive vs Reactive---")
+    print(sp.stats.kruskal(mean_sample_data_novice_proactive, mean_sample_data_novice_reactive))
     print("---Senior Proactive vs Reactive---")
     print(sp.stats.kruskal(mean_sample_data_senior_proactive, mean_sample_data_senior_reactive))
 
-    print("---Intern Proactive vs Junior Proactive vs Senior Proactive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_proactive, mean_sample_data_junior_proactive, mean_sample_data_senior_proactive))
     
-    print("---Intern Reactive vs Junior Reactive vs Senior Reactive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_reactive, mean_sample_data_junior_reactive, mean_sample_data_senior_reactive))
+
+    # print("---Intern Proactive vs Reactive---")
+    # print(sp.stats.kruskal(mean_sample_data_intern_proactive, mean_sample_data_intern_reactive))
+    # print("---Junior Proactive vs Reactive---")
+    # print(sp.stats.kruskal(mean_sample_data_junior_proactive, mean_sample_data_junior_reactive))
+    # print("---Senior Proactive vs Reactive---")
+    # print(sp.stats.kruskal(mean_sample_data_senior_proactive, mean_sample_data_senior_reactive))
+
+    # print("---Intern Proactive vs Junior Proactive vs Senior Proactive---")
+    # print(sp.stats.kruskal(mean_sample_data_intern_proactive, mean_sample_data_junior_proactive, mean_sample_data_senior_proactive))
+    
+    # print("---Intern Reactive vs Junior Reactive vs Senior Reactive---")
+    # print(sp.stats.kruskal(mean_sample_data_intern_reactive, mean_sample_data_junior_reactive, mean_sample_data_senior_reactive))
 
 def kruskalWallisAssertiveness(firstIndex, lastIndex):
     lastIndex += 1
@@ -163,6 +197,10 @@ def kruskalWallisAssertiveness(firstIndex, lastIndex):
             outliers_sample_data_intern_assertive_i = nan_outliers_sample_data_intern_assertive_i[~np.isnan(nan_outliers_sample_data_intern_assertive_i)]
             sample_data_intern_assertive_i = outliers_sample_data_intern_assertive_i
 
+            for k,y in enumerate(sample_data_intern_assertive_i):
+                if(k % 2 == 1):
+                    sample_data_intern_assertive_i[k] = 6 - y
+
             mean_sample_data_intern_assertive.append(np.mean(sample_data_intern_assertive_i))
 
         if(i+1 in non_assertive):
@@ -170,6 +208,10 @@ def kruskalWallisAssertiveness(firstIndex, lastIndex):
             nan_outliers_sample_data_intern_non_assertive_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
             outliers_sample_data_intern_non_assertive_i = nan_outliers_sample_data_intern_non_assertive_i[~np.isnan(nan_outliers_sample_data_intern_non_assertive_i)]
             sample_data_intern_non_assertive_i = outliers_sample_data_intern_non_assertive_i
+
+            for k,y in enumerate(sample_data_intern_non_assertive_i):
+                if(k % 2 == 1):
+                    sample_data_intern_non_assertive_i[k] = 6 - y
 
             mean_sample_data_intern_non_assertive.append(np.mean(sample_data_intern_non_assertive_i))
 
@@ -181,6 +223,10 @@ def kruskalWallisAssertiveness(firstIndex, lastIndex):
             outliers_sample_data_junior_assertive_i = nan_outliers_sample_data_junior_assertive_i[~np.isnan(nan_outliers_sample_data_junior_assertive_i)]
             sample_data_junior_assertive_i = outliers_sample_data_junior_assertive_i
 
+            for k,y in enumerate(sample_data_junior_assertive_i):
+                if(k % 2 == 1):
+                    sample_data_junior_assertive_i[k] = 6 - y
+        
             mean_sample_data_junior_assertive.append(np.mean(sample_data_junior_assertive_i))
 
         if(i+1 in non_assertive):
@@ -188,6 +234,10 @@ def kruskalWallisAssertiveness(firstIndex, lastIndex):
             nan_outliers_sample_data_junior_non_assertive_i = (np.float64(data[2:,firstIndex:lastIndex]))[i]
             outliers_sample_data_junior_non_assertive_i = nan_outliers_sample_data_junior_non_assertive_i[~np.isnan(nan_outliers_sample_data_junior_non_assertive_i)]
             sample_data_junior_non_assertive_i = outliers_sample_data_junior_non_assertive_i
+
+            for k,y in enumerate(sample_data_junior_non_assertive_i):
+                if(k % 2 == 1):
+                    sample_data_junior_non_assertive_i[k] = 6 - y
 
             mean_sample_data_junior_non_assertive.append(np.mean(sample_data_junior_non_assertive_i))
 
@@ -199,6 +249,10 @@ def kruskalWallisAssertiveness(firstIndex, lastIndex):
             outliers_sample_data_senior_assertive_i = nan_outliers_sample_data_senior_assertive_i[~np.isnan(nan_outliers_sample_data_senior_assertive_i)]
             sample_data_senior_assertive_i = outliers_sample_data_senior_assertive_i
 
+            for k,y in enumerate(sample_data_senior_assertive_i):
+                if(k % 2 == 1):
+                    sample_data_senior_assertive_i[k] = 6 - y
+
             mean_sample_data_senior_assertive.append(np.mean(sample_data_senior_assertive_i))
 
         if(i+1 in non_assertive):
@@ -207,8 +261,15 @@ def kruskalWallisAssertiveness(firstIndex, lastIndex):
             outliers_sample_data_senior_non_assertive_i = nan_outliers_sample_data_senior_non_assertive_i[~np.isnan(nan_outliers_sample_data_senior_non_assertive_i)]
             sample_data_senior_non_assertive_i = outliers_sample_data_senior_non_assertive_i
 
+            for k,y in enumerate(sample_data_senior_non_assertive_i):
+                if(k % 2 == 1):
+                    sample_data_senior_non_assertive_i[k] = 6 - y
+
             mean_sample_data_senior_non_assertive.append(np.mean(sample_data_senior_non_assertive_i))
     
+    mean_sample_data_novice_assertive = np.append(mean_sample_data_intern_assertive, mean_sample_data_junior_assertive)
+    mean_sample_data_novice_non_assertive = np.append(mean_sample_data_intern_non_assertive, mean_sample_data_junior_non_assertive)
+
     print(mean_sample_data_intern_assertive)
     print(mean_sample_data_intern_non_assertive)
     print(mean_sample_data_junior_assertive)
@@ -216,18 +277,20 @@ def kruskalWallisAssertiveness(firstIndex, lastIndex):
     print(mean_sample_data_senior_assertive)
     print(mean_sample_data_senior_non_assertive)
 
-    print("---Intern Assertive vs Non Assertive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_assertive, mean_sample_data_intern_non_assertive))
-    print("---Junior Assertive vs Non Assertive---")
-    print(sp.stats.kruskal(mean_sample_data_junior_assertive, mean_sample_data_junior_non_assertive))
+    print("---Novice Assertive vs Non Assertive---")
+    print(sp.stats.kruskal(mean_sample_data_novice_assertive, mean_sample_data_novice_non_assertive))
     print("---Senior Assertive vs Non Assertive---")
     print(sp.stats.kruskal(mean_sample_data_senior_assertive, mean_sample_data_senior_non_assertive))
 
-    print("---Intern Assertive vs Junior Assertive vs Senior Assertive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_assertive, mean_sample_data_junior_assertive, mean_sample_data_senior_assertive))
+    print("---Novice vs Senior---")
+    print(sp.stats.kruskal(np.append(mean_sample_data_novice_assertive, mean_sample_data_novice_non_assertive), 
+                            np.append(mean_sample_data_senior_assertive, mean_sample_data_senior_non_assertive)))
+
+    # print("---Intern Assertive vs Junior Assertive vs Senior Assertive---")
+    # print(sp.stats.kruskal(mean_sample_data_intern_assertive, mean_sample_data_junior_assertive, mean_sample_data_senior_assertive))
     
-    print("---Intern Non Assertive vs Junior Non Assertive vs Senior Non Assertive---")
-    print(sp.stats.kruskal(mean_sample_data_intern_non_assertive, mean_sample_data_junior_non_assertive))
+    # print("---Intern Non Assertive vs Junior Non Assertive vs Senior Non Assertive---")
+    # print(sp.stats.kruskal(mean_sample_data_intern_non_assertive, mean_sample_data_junior_non_assertive))
     
 
 def kruskalWallisInterval(firstIndex, lastIndex):
@@ -298,56 +361,94 @@ def main():
     # print("-------------- BIRADS ---------------")
     # kruskalWallis(3)
 
-    #Time
-    print("-------------- TIME ---------------")
-    print("-------------- ASSERTIVENESS ---------------")
+    # #Time
+    # print("-------------- TIME ---------------")
+    # print("-------------- ASSERTIVENESS ---------------")
     kruskalWallisAssertiveness(4,4)
-    print("-------------- BEHAVIOUR ---------------")
+    # print("-------------- BEHAVIOUR ---------------")
     kruskalWallisBehaviour(4,4)
 
 
-    print("-------------- UX ---------------")
+    # print("-------------- UX ---------------")
 
-    print("-------------- ASSERTIVENESS ---------------")
+    # print("-------------- ASSERTIVENESS ---------------")
 
-    #DOTS
-    print("-------------- DOTS ---------------")
-    kruskalWallisAssertiveness(5,7)
+    # #DOTS
+    # print("-------------- DOTS ---------------")
+    # kruskalWallisAssertiveness(5,5)
+    # kruskalWallisAssertiveness(6,6)
+    # kruskalWallisAssertiveness(7,7)
+    # kruskalWallisAssertiveness(5,7)
 
-    #SUS
-    print("-------------- SUS ---------------")
-    kruskalWallisAssertiveness(8,17)
+    # #SUS
+    # print("-------------- SUS ---------------")
+    # kruskalWallisAssertiveness(8,8)
+    # kruskalWallisAssertiveness(9,9)
+    # kruskalWallisAssertiveness(10,10)
+    # kruskalWallisAssertiveness(11,11)
+    # kruskalWallisAssertiveness(12,12)
+    # kruskalWallisAssertiveness(13,13)
+    # kruskalWallisAssertiveness(14,14)
+    # kruskalWallisAssertiveness(15,15)
+    # kruskalWallisAssertiveness(16,16)
+    # kruskalWallisAssertiveness(17,17)
+    # kruskalWallisAssertiveness(8,17)
 
-    #NASA-TLX
-    print("-------------- NASA-TLX ---------------")
-    kruskalWallisAssertiveness(18,23)
+    # #NASA-TLX
+    # print("-------------- NASA-TLX ---------------")
+    # kruskalWallisAssertiveness(18,18)
+    # kruskalWallisAssertiveness(19,19)
+    # kruskalWallisAssertiveness(20,20)
+    # kruskalWallisAssertiveness(21,21)
+    # kruskalWallisAssertiveness(22,22)
+    # kruskalWallisAssertiveness(23,23)
+    # kruskalWallisAssertiveness(18,23)
 
-    print("-------------- BEHAVIOUR ---------------")
-    #DOTS
-    print("-------------- DOTS ---------------")
-    kruskalWallisBehaviour(5,7)
+    # print("-------------- BEHAVIOUR ---------------")
+    # #DOTS
+    # print("-------------- DOTS ---------------")
+    # kruskalWallisBehaviour(5,5)
+    # kruskalWallisBehaviour(6,6)
+    # kruskalWallisBehaviour(7,7)
+    # kruskalWallisBehaviour(5,7)
 
-    #SUS
-    print("-------------- SUS ---------------")
-    kruskalWallisBehaviour(8,17)
+    # #SUS
+    # print("-------------- SUS ---------------")
+    # kruskalWallisBehaviour(8,8)
+    # kruskalWallisBehaviour(9,9)
+    # kruskalWallisBehaviour(10,10)
+    # kruskalWallisBehaviour(11,11)
+    # kruskalWallisBehaviour(12,12)
+    # kruskalWallisBehaviour(13,13)
+    # kruskalWallisBehaviour(14,14)
+    # kruskalWallisBehaviour(15,15)
+    # kruskalWallisBehaviour(16,16)
+    # kruskalWallisBehaviour(17,17)
+    # kruskalWallisBehaviour(8,17)
 
-    #NASA-TLX
-    print("-------------- NASA-TLX ---------------")
-    kruskalWallisBehaviour(18,23)
+    # #NASA-TLX
+    # print("-------------- NASA-TLX ---------------")
+    # kruskalWallisBehaviour(18,18)
+    # kruskalWallisBehaviour(19,19)
+    # kruskalWallisBehaviour(20,20)
+    # kruskalWallisBehaviour(21,21)
+    # kruskalWallisBehaviour(22,22)
+    # kruskalWallisBehaviour(23,23)
+    # kruskalWallisBehaviour(18,23)
     
 
-    #Q3
-    print("-------------- PREFERENCE ---------------")
+    # #Q3
+    # print("-------------- PREFERENCE ---------------")
 
-    print("-------------- ASSERTIVENESS ---------------")
-    kruskalWallisPreference(24,26)
+    # print("-------------- ASSERTIVENESS ---------------")
+    # kruskalWallisPreference(24,26)
 
-    print("-------------- BEHAVIOUR ---------------")
-    kruskalWallisPreference(27,29)
+    # print("-------------- BEHAVIOUR ---------------")
+    # kruskalWallisPreference(27,29)
 
 
-    #Q4
-    print("-------------- INFLUENCE ---------------")
+    # #Q4
+    # print("-------------- INFLUENCE ---------------")
 
     # kruskalWallisBehaviour(3,3)
 

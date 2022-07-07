@@ -29,6 +29,8 @@ def qq_plot(data):
 
 def isNormal(index):
     sample_data = np.float64(data[2:,index])
+    sample_data = sample_data[~np.isnan(sample_data)]
+
     # print(sample_data)
     # sample_data = reject_outliers(sample_data)
     # print(sample_data)
@@ -36,7 +38,7 @@ def isNormal(index):
     print(sp.stats.kstest(sample_data, 'norm'))
     print(sp.stats.anderson(sample_data))
 
-    my_histogram(sample_data)
+    # my_histogram(sample_data)
     # qq_plot(sample_data)
     
 def main():
@@ -77,6 +79,15 @@ def main():
     isNormal(22)
     isNormal(23)
 
+
+    #Preference
+    print("-------------- Preference ---------------")
+    isNormal(24)
+    isNormal(25)
+    isNormal(26)
+    isNormal(27)
+    isNormal(28)
+    isNormal(29)
     
 
 if __name__ == "__main__":

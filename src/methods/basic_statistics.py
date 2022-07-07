@@ -2,6 +2,8 @@
 from cmath import nan
 import enum
 from glob import glob
+import keyword
+from operator import le
 from xml.etree.ElementTree import QName
 import numpy as np
 import matplotlib as mpl
@@ -385,33 +387,38 @@ def likertChart(top_labels, colors, x_data, y_data):
 
     fig = go.Figure()
 
-    for i in range(0, len(x_data[0])):
-        legendBool = False
-        for xd, yd in zip(x_data, y_data):
-            if legendBool:
-                fig.add_trace(go.Bar(
-                    x=[xd[i]], y=[yd],
-                    orientation='h',
-                    showlegend = False,
-                    width = 0.4,
-                    marker=dict(
-                        color=colors[i],
-                        line=dict(color='rgb(248, 248, 249)', width=1)
-                    )
-                ))
-            else:
-                fig.add_trace(go.Bar(
-                    x=[xd[i]], y=[yd],
-                    orientation='h',
-                    name = top_labels[i],
-                    showlegend = True,
-                    width = 0.4,
-                    marker=dict(
-                        color=colors[i],
-                        line=dict(color='rgb(248, 248, 249)', width=1)
-                    )
-                ))
-                legendBool = True
+    legendBool = False
+    for j in range(len(x_data[0])):
+        for k in range(len(x_data[0][j])):
+            for i in range(len(x_data) -1, -1, -1):
+                xd = x_data[i][j][k]
+                yd = y_data[i][j]
+                if legendBool:
+                    fig.add_trace(go.Bar(
+                        x=[xd], y=[yd],
+                        orientation='h',
+                        showlegend = False,
+                        width = 0.4,
+                        marker=dict(
+                            color=colors[k],
+                            line=dict(color='rgb(248, 248, 249)', width=1)
+                        ),
+                        offset = 0.3
+                    ))
+                else:
+                    fig.add_trace(go.Bar(
+                        x=[xd], y=[yd],
+                        orientation='h',
+                        name = top_labels[k],
+                        showlegend = True,
+                        width = 0.4,
+                        marker=dict(
+                            color=colors[k],
+                            line=dict(color='rgb(248, 248, 249)', width=1)
+                        ),
+                        offset = 0.3
+                    ))
+        legendBool = True
 
     fig.update_layout(
         xaxis=dict(
@@ -442,7 +449,7 @@ def likertChart(top_labels, colors, x_data, y_data):
 
     annotations = []
 
-    for yd, xd in zip(y_data, x_data):
+    for yd, xd in zip(y_data[0], x_data[0]):
         # labeling the y-axis
         annotations.append(dict(xref='paper', yref='y',
                                 x=0.14, y=yd,
@@ -528,28 +535,35 @@ def basicStatisticPreference(firstIndex, lastIndex):
 
 
     if(firstIndex != lastIndex):
+        x_data = []
         for j in range(2):
             if(firstIndex == 24):
                 top_labels = ['Totally Non Assertive', 'Much more Non Assertive than Assertive', 'Slightly more Non Assertive than Assertive', 'Neutral', 
                 'Slightly more Assertive than Non Assertive','Much more Assertive than Non Assertive', 'Totally Assertive']
 
-                y_data = ['Which level<br>of assertiveness<br>was more reliable?',
+                y_data = [['Which level<br>of assertiveness<br>was more reliable?',
                     'Which level<br>of assertiveness<br>was more capable?',
-                    'Which level<br>of assertiveness<br>did you prefer overall?']
+                    'Which level of<br>assertiveness did<br>you prefer overall?'],
+                    ['Which level<br>of assertiveness<br>was more reliable?2',
+                    'Which level<br>of assertiveness<br>was more capable?2',
+                    'Which level<br>of assertiveness<br>did you prefer overall?2']]
             else:
                 top_labels = ['Totally Reactive', 'Much more Reactive than Proactive', 'Slightly more Reactive than Proactive', 'Neutral', 
                 'Slightly more Proactive than Reactive','Much more Proactive than Reactive', 'Totally Proactive']
 
-                y_data = ['Which behaviour<br>was more reliable?',
+                y_data = [['Which behaviour<br>was more reliable?',
                     'Which behaviour<br>was more capable?',
-                    'Which behaviour<br>did you prefer overall?']
+                    'Which behaviour<br>did you prefer overall?'],
+                    ['Which behaviour<br>was more reliable?2',
+                    'Which behaviour<br>was more capable?2',
+                    'Which behaviour<br>did you prefer overall?2']]
 
             colors = ['rgb(84,39,136)', 'rgb(153,142,195)',
                     'rgb(216,218,235)','rgb(223,223,223)','rgb(254,254,182)',
                     'rgb(241,163,64)','rgb(179,88,6)']
 
             
-            x_data = []
+            x_data_tmp = []
             for i in range(firstIndex, lastIndex):
                 data_tmp = np.float64(data[2:,i])
                 data_tmp = data_tmp[~np.isnan(data_tmp)]
@@ -559,15 +573,25 @@ def basicStatisticPreference(firstIndex, lastIndex):
                     sample_data_tmp = np.take(data_tmp, novices)
                 else:
                     sample_data_tmp = np.take(data_tmp, np.subtract(seniors, 1))
-                x_data.append([np.count_nonzero(sample_data_tmp == a) for a in range(1,8)])
+                x_data_tmp.append([np.count_nonzero(sample_data_tmp == a) for a in range(1,8)])
 
 
-            
 
-            x_data.reverse()
-            y_data.reverse()
+            x_data_tmp.reverse()
+            x_data.append(x_data_tmp)
+            y_data[0].reverse()
 
-            likertChart(top_labels, colors, x_data, y_data)
+        for i in range(len(x_data[0])):
+            for j in range(len(x_data[0][i])):
+                x_data[0][i][j] = x_data[0][i][j] * 6
+
+        for i in range(len(x_data[1])):
+            for j in range(len(x_data[1][i])):
+                x_data[1][i][j] = x_data[1][i][j] * 10
+
+
+        print(x_data)
+        likertChart(top_labels, colors, x_data, y_data)
 
 
 def basicStatistic(firstIndex, lastIndex):
@@ -767,7 +791,7 @@ def main():
 
     #BIRADS
     # print("-------------- BIRADS ---------------")
-    basicStatisticBirads(3)
+    # basicStatisticBirads(3)
 
     # # Time
     # print("-------------- TIME ---------------")
@@ -826,7 +850,7 @@ def main():
     # basicStatisticPreference(27,27)
     # basicStatisticPreference(28,28)
     # basicStatisticPreference(29,29)
-    # basicStatisticPreference(27,29)
+    basicStatisticPreference(27,29)
 
 
 

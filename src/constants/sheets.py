@@ -110,14 +110,14 @@ arr006 = arr_uta4_time_on_task_no_ai
 arr007 = arr_uta7_time_on_task_physician_assistant
 arr008 = arr_uta11_time_on_task_pysician_assistant_personalized
 
-print(arr001)
-print(arr002)
-print(arr003)
-print(arr004)
-print(arr005)
-print(arr006)
-print(arr007)
-print(arr008)
+# print(arr001)
+# print(arr002)
+# print(arr003)
+# print(arr004)
+# print(arr005)
+# print(arr006)
+# print(arr007)
+# print(arr008)
 
 # ============================== #
 # ============================== #
@@ -130,17 +130,120 @@ print(arr008)
 # ============================== #
 # ============================== #
 
-print(data_times_df)
+data_times_df_el_novice = data_times_df.loc[data_times_df[3] == 'Novice']
+data_times_df_el_expert = data_times_df.loc[data_times_df[3] == 'Expert']
 
-data_times_df = data_times_df.set_index('expertise_level')
+data_times_df_el_novice_low = data_times_df_el_novice.loc[data_times_df_el_novice[4] == 'low']
+data_times_df_el_novice_medium = data_times_df_el_novice.loc[data_times_df_el_novice[4] == 'medium']
+data_times_df_el_novice_high = data_times_df_el_novice.loc[data_times_df_el_novice[4] == 'high']
 
-df['price (kg)'] = np.where(
-  df['supplier'] == 'T & C Bro', 
-  tc_price.loc[df.index]['price (kg)'], 
-  jm_price.loc[df.index]['price (kg)']
-)
+data_times_df_el_expert_low = data_times_df_el_expert.loc[data_times_df_el_expert[4] == 'low']
+data_times_df_el_expert_medium = data_times_df_el_expert.loc[data_times_df_el_expert[4] == 'medium']
+data_times_df_el_expert_high = data_times_df_el_expert.loc[data_times_df_el_expert[4] == 'high']
 
-#args = df_price.loc[df_3.index]
+dt_df_enl_uta7 = data_times_df_el_novice_low[6]
+dt_df_enm_uta7 = data_times_df_el_novice_medium[6]
+dt_df_enh_uta7 = data_times_df_el_novice_high[6]
+
+dt_df_eel_uta7 = data_times_df_el_expert_low[6]
+dt_df_eem_uta7 = data_times_df_el_expert_medium[6]
+dt_df_eeh_uta7 = data_times_df_el_expert_high[6]
+
+dt_df_enl_uta11 = data_times_df_el_novice_low[7]
+dt_df_enm_uta11 = data_times_df_el_novice_medium[7]
+dt_df_enh_uta11 = data_times_df_el_novice_high[7]
+
+dt_df_eel_uta11 = data_times_df_el_expert_low[7]
+dt_df_eem_uta11 = data_times_df_el_expert_medium[7]
+dt_df_eeh_uta11 = data_times_df_el_expert_high[7]
+
+dt_df001 = dt_df_enl_uta7.to_numpy()
+dt_df002 = dt_df_enm_uta7.to_numpy()
+dt_df003 = dt_df_enh_uta7.to_numpy()
+
+dt_df004 = dt_df_eel_uta7.to_numpy()
+dt_df005 = dt_df_eem_uta7.to_numpy()
+dt_df006 = dt_df_eeh_uta7.to_numpy()
+
+dt_df007 = dt_df_enl_uta11.to_numpy()
+dt_df008 = dt_df_enm_uta11.to_numpy()
+dt_df009 = dt_df_enh_uta11.to_numpy()
+
+dt_df010 = dt_df_eel_uta11.to_numpy()
+dt_df011 = dt_df_eem_uta11.to_numpy()
+dt_df012 = dt_df_eeh_uta11.to_numpy()
+
+arr_concat001 = np.concatenate((dt_df001, dt_df004))
+arr_concat002 = np.concatenate((dt_df002, dt_df005))
+arr_concat003 = np.concatenate((dt_df003, dt_df006))
+
+arr_concat004 = np.concatenate((dt_df007, dt_df010))
+arr_concat005 = np.concatenate((dt_df008, dt_df011))
+arr_concat006 = np.concatenate((dt_df009, dt_df012))
+
+arr_concat007 = np.concatenate((arr_concat001, arr_concat004))
+arr_concat008 = np.concatenate((arr_concat002, arr_concat005))
+arr_concat009 = np.concatenate((arr_concat003, arr_concat006))
+
+dt_df_enl_uta7_n = data_times_df_el_novice_low[3]
+dt_df_enm_uta7_n = data_times_df_el_novice_medium[3]
+dt_df_enh_uta7_n = data_times_df_el_novice_high[3]
+
+dt_df_eel_uta7_e = data_times_df_el_expert_low[3]
+dt_df_eem_uta7_e = data_times_df_el_expert_medium[3]
+dt_df_eeh_uta7_e = data_times_df_el_expert_high[3]
+
+dt_df_enl_uta11_n = data_times_df_el_novice_low[3]
+dt_df_enm_uta11_n = data_times_df_el_novice_medium[3]
+dt_df_enh_uta11_n = data_times_df_el_novice_high[3]
+
+dt_df_eel_uta11_e = data_times_df_el_expert_low[3]
+dt_df_eem_uta11_e = data_times_df_el_expert_medium[3]
+dt_df_eeh_uta11_e = data_times_df_el_expert_high[3]
+
+dt_df013 = dt_df_enl_uta7_n.to_numpy()
+dt_df014 = dt_df_enm_uta7_n.to_numpy()
+dt_df015 = dt_df_enh_uta7_n.to_numpy()
+
+dt_df016 = dt_df_eel_uta7_e.to_numpy()
+dt_df017 = dt_df_eem_uta7_e.to_numpy()
+dt_df018 = dt_df_eeh_uta7_e.to_numpy()
+
+dt_df019 = dt_df_enl_uta11_n.to_numpy()
+dt_df020 = dt_df_enm_uta11_n.to_numpy()
+dt_df021 = dt_df_enh_uta11_n.to_numpy()
+
+dt_df022 = dt_df_eel_uta11_e.to_numpy()
+dt_df023 = dt_df_eem_uta11_e.to_numpy()
+dt_df024 = dt_df_eeh_uta11_e.to_numpy()
+
+arr_concat010 = np.concatenate((dt_df013, dt_df016))
+arr_concat011 = np.concatenate((dt_df014, dt_df017))
+arr_concat012 = np.concatenate((dt_df015, dt_df018))
+
+arr_concat013 = np.concatenate((dt_df019, dt_df022))
+arr_concat014 = np.concatenate((dt_df020, dt_df023))
+arr_concat015 = np.concatenate((dt_df021, dt_df024))
+
+arr_concat016 = np.concatenate((arr_concat010, arr_concat013))
+arr_concat017 = np.concatenate((arr_concat011, arr_concat014))
+arr_concat018 = np.concatenate((arr_concat012, arr_concat015))
+
+# print(dt_df001)
+# print(dt_df002)
+# print(dt_df003)
+
+# print(dt_df004)
+# print(dt_df005)
+# print(dt_df006)
+
+# print(dt_df007)
+# print(dt_df008)
+# print(dt_df009)
+
+# print(dt_df010)
+# print(dt_df011)
+# print(dt_df012)
 
 # ============================== #
 # ============================== #

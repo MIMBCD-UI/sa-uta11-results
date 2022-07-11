@@ -55,25 +55,23 @@ from sheets import *
 
 import plotly.graph_objects as go
 
-y = arr004
-
 fig = go.Figure()
 fig.add_trace(go.Box(
-    x=[0.2, 0.2, 0.6, 1.0, 0.5, 0.4, 0.2, 0.7, 0.9, 0.1, 0.5, 0.3],
-    y=y,
-    name='kale',
+    x=arr_concat007,
+    y=arr_concat016,
+    name='Low',
     marker_color='#3D9970'
 ))
 fig.add_trace(go.Box(
-    x=[0.6, 0.7, 0.3, 0.6, 0.0, 0.5, 0.7, 0.9, 0.5, 0.8, 0.7, 0.2],
-    y=y,
-    name='radishes',
+    x=arr_concat008,
+    y=arr_concat017,
+    name='Medium',
     marker_color='#FF4136'
 ))
 fig.add_trace(go.Box(
-    x=[0.1, 0.3, 0.1, 0.9, 0.6, 0.6, 0.9, 1.0, 0.3, 0.6, 0.8, 0.5],
-    y=y,
-    name='carrots',
+    x=arr_concat009,
+    y=arr_concat018,
+    name='High',
     marker_color='#FF851B'
 ))
 

@@ -157,21 +157,21 @@ dt_df_eel_uta11 = data_times_df_el_expert_low[7]
 dt_df_eem_uta11 = data_times_df_el_expert_medium[7]
 dt_df_eeh_uta11 = data_times_df_el_expert_high[7]
 
-dt_df001 = dt_df_enl_uta7.to_numpy()
-dt_df002 = dt_df_enm_uta7.to_numpy()
-dt_df003 = dt_df_enh_uta7.to_numpy()
+dt_df001 = np.array(dt_df_enl_uta7.to_numpy(), dtype=float)
+dt_df002 = np.array(dt_df_enm_uta7.to_numpy(), dtype=float)
+dt_df003 = np.array(dt_df_enh_uta7.to_numpy(), dtype=float)
 
-dt_df004 = dt_df_eel_uta7.to_numpy()
-dt_df005 = dt_df_eem_uta7.to_numpy()
-dt_df006 = dt_df_eeh_uta7.to_numpy()
+dt_df004 = np.array(dt_df_eel_uta7.to_numpy(), dtype=float)
+dt_df005 = np.array(dt_df_eem_uta7.to_numpy(), dtype=float)
+dt_df006 = np.array(dt_df_eeh_uta7.to_numpy(), dtype=float)
 
-dt_df007 = dt_df_enl_uta11.to_numpy()
-dt_df008 = dt_df_enm_uta11.to_numpy()
-dt_df009 = dt_df_enh_uta11.to_numpy()
+dt_df007 = np.array(dt_df_enl_uta11.to_numpy(), dtype=float)
+dt_df008 = np.array(dt_df_enm_uta11.to_numpy(), dtype=float)
+dt_df009 = np.array(dt_df_enh_uta11.to_numpy(), dtype=float)
 
-dt_df010 = dt_df_eel_uta11.to_numpy()
-dt_df011 = dt_df_eem_uta11.to_numpy()
-dt_df012 = dt_df_eeh_uta11.to_numpy()
+dt_df010 = np.array(dt_df_eel_uta11.to_numpy(), dtype=float)
+dt_df011 = np.array(dt_df_eem_uta11.to_numpy(), dtype=float)
+dt_df012 = np.array(dt_df_eeh_uta11.to_numpy(), dtype=float)
 
 arr_concat001 = np.concatenate((dt_df001, dt_df004))
 arr_concat002 = np.concatenate((dt_df002, dt_df005))

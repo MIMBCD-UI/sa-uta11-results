@@ -44,7 +44,45 @@ methodsAbsPath = os.path.abspath(methodsPath)
 sys.path.append(methodsAbsPath)
 sys.path.insert(0, methodsAbsPath)
 
-# Importing available methods
-print("Done!")
+# Appending constants path
+constantsPath = os.path.join(joinRepoSrcPath, 'constants')
+constantsAbsPath = os.path.abspath(constantsPath)
+sys.path.append(constantsAbsPath)
+sys.path.insert(0, constantsAbsPath)
+
+# Importing available constants
+from sheets import *
+
+import plotly.graph_objects as go
+
+y = arr004
+
+fig = go.Figure()
+fig.add_trace(go.Box(
+    x=[0.2, 0.2, 0.6, 1.0, 0.5, 0.4, 0.2, 0.7, 0.9, 0.1, 0.5, 0.3],
+    y=y,
+    name='kale',
+    marker_color='#3D9970'
+))
+fig.add_trace(go.Box(
+    x=[0.6, 0.7, 0.3, 0.6, 0.0, 0.5, 0.7, 0.9, 0.5, 0.8, 0.7, 0.2],
+    y=y,
+    name='radishes',
+    marker_color='#FF4136'
+))
+fig.add_trace(go.Box(
+    x=[0.1, 0.3, 0.1, 0.9, 0.6, 0.6, 0.9, 1.0, 0.3, 0.6, 0.8, 0.5],
+    y=y,
+    name='carrots',
+    marker_color='#FF851B'
+))
+
+fig.update_layout(
+    xaxis=dict(title='normalized moisture', zeroline=False),
+    boxmode='group'
+)
+
+fig.update_traces(orientation='h') # horizontal box plots
+fig.show()
 
 # ==================== END File ==================== #

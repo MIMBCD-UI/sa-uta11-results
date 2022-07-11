@@ -45,11 +45,6 @@ sys.path.append(methodsAbsPath)
 sys.path.insert(0, methodsAbsPath)
 
 # Importing available methods
-from classifiers import *
-
-def evalModelSpecific(df_real, df_pred):
-	ccm = classConfusionMatrix(df_real, df_pred)
-	cr = classReport(df_real, df_pred)
-	return cr, ccm
+print("Done!")
 
 # ==================== END File ==================== #

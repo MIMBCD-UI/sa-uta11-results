@@ -10,6 +10,7 @@ sheets.py: to read our data, we are using several datasets. For that,
 
 import os
 import sys
+import openpyxl
 
 from os import path
 
@@ -58,25 +59,25 @@ times_abs_path = os.path.abspath(times_dir)
 # ============================== #
 # ============================== #
 
-loadData = pd.read_excel (scenarios_abs_path, sheet_name="results_before", header=None)
+# loadData = pd.read_excel(scenarios_abs_path, engine='openpyxl', sheet_name="results_before", header=None)
 
-data = np.array(loadData)
+# data = np.array(loadData)
 
 # loadDataArray = np.delete(loadDataArray, np.argwhere(np.isnan(loadDataArray)))
 
 # loadDataArray = np.delete(loadDataArray, np.argwhere(isinstance(loadDataArray, str)))
 
-for i,x in enumerate(data):
-    for(j,y) in enumerate(x):
-        if isinstance(y, dt.time):
-            data[i][j] = y.hour * 60 + y.minute
+# for i,x in enumerate(data):
+#     for(j,y) in enumerate(x):
+#         if isinstance(y, dt.time):
+#             data[i][j] = y.hour * 60 + y.minute
 
-loadScenarios = pd.read_excel (scenarios_abs_path, sheet_name="scenarios", header=None)
-scenarios = np.array(loadScenarios)
+# loadScenarios = pd.read_excel (scenarios_abs_path, sheet_name="scenarios", header=None)
+# scenarios = np.array(loadScenarios)
 
-def getScenariosPatients():
-    new_scenarios_patients = np.array([])
-    for p in scenarios[1:,3]:
-        p = p.replace("p", "")
-        new_scenarios_patients = np.append(new_scenarios_patients, int(p) - 1)
-    return new_scenarios_patients
+# def getScenariosPatients():
+#     new_scenarios_patients = np.array([])
+#     for p in scenarios[1:,3]:
+#         p = p.replace("p", "")
+#         new_scenarios_patients = np.append(new_scenarios_patients, int(p) - 1)
+#     return new_scenarios_patients

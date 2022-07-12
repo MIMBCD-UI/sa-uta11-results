@@ -1,3 +1,25 @@
+#!/usr/bin/env python
+#coding=utf-8
+
+"""
+normality_test.py: this file has tests for normality
+"""
+
+__author__      = "João Fernandes"
+__maintainer__  = "Francisco Maria Calisto"
+__email__       = "francisco.calisto@tecnico.ulisboa.pt"
+__license__     = "MIT"
+__version__     = "1.0.0"
+__status__      = "Development"
+__copyright__   = "Copyright 2022, Instituto Superior Técnico (IST)"
+__credits__     = [
+  "Bruno Oliveira",
+  "Carlos Santiago",
+  "Jacinto C. Nascimento",
+  "Pedro Miraldo",
+  "Nuno Nunes"
+]
+
 from glob import glob
 import numpy as np
 import matplotlib as mpl

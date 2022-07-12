@@ -1,3 +1,25 @@
+#!/usr/bin/env python
+#coding=utf-8
+
+"""
+groups.py: this file has each clinician group and each scenario assertiveness and beahaviour
+"""
+
+__author__      = "João Fernandes"
+__maintainer__  = "Francisco Maria Calisto"
+__email__       = "francisco.calisto@tecnico.ulisboa.pt"
+__license__     = "MIT"
+__version__     = "1.0.0"
+__status__      = "Development"
+__copyright__   = "Copyright 2022, Instituto Superior Técnico (IST)"
+__credits__     = [
+  "Bruno Oliveira",
+  "Carlos Santiago",
+  "Jacinto C. Nascimento",
+  "Pedro Miraldo",
+  "Nuno Nunes"
+]
+
 interns = [1,2,3,4,8,10]
 
 juniors = [5,6,7,9]

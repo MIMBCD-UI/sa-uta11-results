@@ -1,4 +1,26 @@
 
+#!/usr/bin/env python
+#coding=utf-8
+
+"""
+basic_statistics.py: this file has means, SDs, Intervals, Upper and Lower Bounds of results obtained
+"""
+
+__author__      = "João Fernandes"
+__maintainer__  = "Francisco Maria Calisto"
+__email__       = "francisco.calisto@tecnico.ulisboa.pt"
+__license__     = "MIT"
+__version__     = "1.0.0"
+__status__      = "Development"
+__copyright__   = "Copyright 2022, Instituto Superior Técnico (IST)"
+__credits__     = [
+  "Bruno Oliveira",
+  "Carlos Santiago",
+  "Jacinto C. Nascimento",
+  "Pedro Miraldo",
+  "Nuno Nunes"
+]
+
 from cmath import nan
 import enum
 from glob import glob
@@ -400,7 +422,7 @@ def likertChart(top_labels, colors, x_data, y_data):
                         showlegend = False,
                         width = 0.4,
                         marker=dict(
-                            color=colors[k],
+                            color=colors[i][k],
                             line=dict(color='rgb(248, 248, 249)', width=1)
                         ),
                         offset = 0.3
@@ -409,11 +431,11 @@ def likertChart(top_labels, colors, x_data, y_data):
                     fig.add_trace(go.Bar(
                         x=[xd], y=[yd],
                         orientation='h',
-                        name = top_labels[k],
+                        name = top_labels[i][k],
                         showlegend = True,
                         width = 0.4,
                         marker=dict(
-                            color=colors[k],
+                            color=colors[i][k],
                             line=dict(color='rgb(248, 248, 249)', width=1)
                         ),
                         offset = 0.3
@@ -459,6 +481,18 @@ def likertChart(top_labels, colors, x_data, y_data):
                                         color='rgb(67, 67, 67)'),
                                 showarrow=False, align='right'))
     fig.update_layout(annotations=annotations)
+
+    levels = []
+    for i in range(len(x_data[0])):
+        for yd in ['N', 'E']:
+            levels.append(dict(xref='paper', yref='y',
+                                    x=0.99, y=yd,
+                                    xanchor='right',
+                                    text=str(yd),
+                                    font=dict(family='Helvetica', size=40,
+                                            color='rgb(67, 67, 67)'),
+                                    showarrow=False, align='right'))
+    fig.update_layout(annotations=levels)
 
     fig.show()
 
@@ -538,8 +572,10 @@ def basicStatisticPreference(firstIndex, lastIndex):
         x_data = []
         for j in range(2):
             if(firstIndex == 24):
-                top_labels = ['Totally Non Assertive', 'Much more Non Assertive than Assertive', 'Slightly more Non Assertive than Assertive', 'Neutral', 
-                'Slightly more Assertive than Non Assertive','Much more Assertive than Non Assertive', 'Totally Assertive']
+                top_labels = [['Totally Non Assertive (Novice)', 'Much more Non Assertive than Assertive (Novice)', 'Slightly more Non Assertive than Assertive (Novice)', 
+                'Neutral (Novice)','Slightly more Assertive than Non Assertive (Novice)','Much more Assertive than Non Assertive (Novice)', 'Totally Assertive (Novice)'],
+                ['Totally Non Assertive (Senior)', 'Much more Non Assertive than Assertive (Senior)', 'Slightly more Non Assertive than Assertive (Senior)', 'Neutral (Senior)', 
+                'Slightly more Assertive than Non Assertive (Senior)','Much more Assertive than Non Assertive (Senior)', 'Totally Assertive (Senior)']]
 
                 y_data = [['Which level<br>of assertiveness<br>was more reliable?',
                     'Which level<br>of assertiveness<br>was more capable?',
@@ -548,8 +584,10 @@ def basicStatisticPreference(firstIndex, lastIndex):
                     'Which level<br>of assertiveness<br>was more capable?2',
                     'Which level<br>of assertiveness<br>did you prefer overall?2']]
             else:
-                top_labels = ['Totally Reactive', 'Much more Reactive than Proactive', 'Slightly more Reactive than Proactive', 'Neutral', 
-                'Slightly more Proactive than Reactive','Much more Proactive than Reactive', 'Totally Proactive']
+                top_labels = [['Totally Reactive (Novice)', 'Much more Reactive than Proactive (Novice)', 'Slightly more Reactive than Proactive (Novice)', 'Neutral (Novice)', 
+                'Slightly more Proactive than Reactive (Novice)','Much more Proactive than Reactive (Novice)', 'Totally Proactive (Novice)'],
+                ['Totally Reactive (Senior)', 'Much more Reactive than Proactive (Senior)', 'Slightly more Reactive than Proactive (Senior)', 'Neutral (Senior)', 
+                'Slightly more Proactive than Reactive (Senior)','Much more Proactive than Reactive (Senior)', 'Totally Proactive (Senior)']]
 
                 y_data = [['Which behaviour<br>was more reliable?',
                     'Which behaviour<br>was more capable?',
@@ -558,9 +596,12 @@ def basicStatisticPreference(firstIndex, lastIndex):
                     'Which behaviour<br>was more capable?2',
                     'Which behaviour<br>did you prefer overall?2']]
 
-            colors = ['rgb(84,39,136)', 'rgb(153,142,195)',
-                    'rgb(216,218,235)','rgb(223,223,223)','rgb(254,254,182)',
-                    'rgb(241,163,64)','rgb(179,88,6)']
+            colors = [['#5B0176', '#834198',
+                    '#E591FE','rgb(223,223,223)','#FFFFBB',
+                    '#BFBF5A','#656501'],
+                    ['#013045', '#4289A7',
+                    '#B5E8FE','rgb(223,223,223)','#FED4C1',
+                    '#BF6A44','#401401']]
 
             
             x_data_tmp = []
@@ -844,13 +885,13 @@ def main():
     # basicStatisticPreference(24,24)
     # basicStatisticPreference(25,25)
     # basicStatisticPreference(26,26)
-    # basicStatisticPreference(24,26)
+    basicStatisticPreference(24,26)
 
     # print("-------------- Behaviour ---------------")
     # basicStatisticPreference(27,27)
     # basicStatisticPreference(28,28)
     # basicStatisticPreference(29,29)
-    basicStatisticPreference(27,29)
+    # basicStatisticPreference(27,29)
 
 
 

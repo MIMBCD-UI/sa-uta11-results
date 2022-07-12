@@ -10,11 +10,12 @@ __author__      = "Francisco Maria Calisto"
 __maintainer__  = "Francisco Maria Calisto"
 __email__       = "francisco.calisto@tecnico.ulisboa.pt"
 __license__     = "MIT"
-__version__     = "1.0.0"
+__version__     = "0.1.0"
 __status__      = "Development"
 __copyright__   = "Copyright 2022, Instituto Superior Técnico (IST)"
 __credits__     = [
   "João Fernandes",
+  "Miguel Bastos",
   "Bruno Oliveira",
   "Carlos Santiago",
   "Jacinto C. Nascimento",
@@ -146,7 +147,7 @@ fig.update_layout(
         size=18,
     ),
     legend=dict(font=dict(size = 18)),
-    legend_title=dict(font=dict(size = 18)),
+    legend_title=dict(font=dict(size = 12)),
     paper_bgcolor='rgb(243, 243, 243)',
     plot_bgcolor='rgb(243, 243, 243)',
     showlegend=True,

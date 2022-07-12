@@ -31,6 +31,7 @@ from os import path
 
 import plotly
 import plotly.graph_objects as go
+import plotly.io as pio
 
 # The current folder path.
 basePath = os.path.dirname(__file__)
@@ -138,30 +139,28 @@ fig.update_layout(
         dtick=1,
     ),
     margin=dict(
-        l=4,
-        r=3,
-        b=8,
-        t=10,
+        l=40,
+        r=30,
+        b=80,
+        t=100,
     ),
     font=dict(
         size=18,
     ),
-    legend=dict(font=dict(size = 18)),
-    legend_title=dict(font=dict(size = 12)),
+    legend=dict(font=dict(size = 12)),
+    legend_title=dict(font=dict(size = 18)),
     paper_bgcolor='rgb(243, 243, 243)',
     plot_bgcolor='rgb(243, 243, 243)',
     showlegend=True,
     boxmode='group'
 )
 
-fig.update_traces(orientation='h') # horizontal box plots
+fig.update_traces(orientation='h', boxpoints='suspectedoutliers') # horizontal box plots
 # fig.show()
-
-print(plotsAbsPath)
 
 fn_to_save_html = plotsAbsPath + '/' + file_name + '.html'
 fn_to_save_png = visAbsPath + '/' + file_name + '.png'
-plotly.offline.plot(fig, filename = fn_to_save_html, auto_open = False)
-fig.write_image(fn_to_save_png)
+plotly.offline.plot(fig, filename=fn_to_save_html, auto_open=False)
+pio.write_image(fig, fn_to_save_png)
 
 # ==================== END File ==================== #

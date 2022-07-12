@@ -72,6 +72,18 @@ plotsAbsPath = os.path.abspath(plotsPath)
 sys.path.append(plotsAbsPath)
 sys.path.insert(0, plotsAbsPath)
 
+# Appending stats path
+statsPath = os.path.join(joinRepoPath, 'stats')
+statsAbsPath = os.path.abspath(statsPath)
+sys.path.append(statsAbsPath)
+sys.path.insert(0, statsAbsPath)
+
+# Appending visualizations path
+visPath = os.path.join(statsPath, 'visualizations')
+visAbsPath = os.path.abspath(visPath)
+sys.path.append(visAbsPath)
+sys.path.insert(0, visAbsPath)
+
 # Importing available constants
 from sheets import *
 
@@ -146,7 +158,9 @@ fig.update_traces(orientation='h') # horizontal box plots
 
 print(plotsAbsPath)
 
-fn_to_save = plotsAbsPath + '/' + file_name + '.html'
-plotly.offline.plot(fig, filename = fn_to_save, auto_open = False)
+fn_to_save_html = plotsAbsPath + '/' + file_name + '.html'
+fn_to_save_png = visAbsPath + '/' + file_name + '.png'
+plotly.offline.plot(fig, filename = fn_to_save_html, auto_open = False)
+fig.write_image(fn_to_save_png)
 
 # ==================== END File ==================== #

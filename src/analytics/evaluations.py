@@ -84,42 +84,42 @@ fig = go.Figure()
 fig.add_trace(go.Box(
     x=arr_concat003,
     y=arr_concat012,
-    name='Conventional: High',
+    name='Conventional: High BIRADS',
     marker_color='#ff9944'
 ))
 fig.add_trace(go.Box(
     x=arr_concat006,
     y=arr_concat015,
-    name='Assertiveness-based: High',
+    name='Assertiveness-based: High BIRADS',
     marker_color='#eec400'
 ))
 fig.add_trace(go.Box(
     x=arr_concat002,
     y=arr_concat011,
-    name='Conventional: Medium',
+    name='Conventional: Medium BIRADS',
     marker_color='#0048ba'
 ))
 fig.add_trace(go.Box(
     x=arr_concat005,
     y=arr_concat014,
-    name='Assertiveness-based: Medium',
+    name='Assertiveness-based: Medium BIRADS',
     marker_color='#5ba8ff'
 ))
 fig.add_trace(go.Box(
     x=arr_concat001,
     y=arr_concat010,
-    name='Conventional: Low',
+    name='Conventional: Low BIRADS',
     marker_color='#166461'
 ))
 fig.add_trace(go.Box(
     x=arr_concat004,
     y=arr_concat013,
-    name='Assertiveness-based: Low',
+    name='Assertiveness-based: Low BIRADS',
     marker_color='#77aa77'
 ))
 
 fig.update_layout(
-    xaxis=dict(title='Diagnosing Time Performance', zeroline=False),
+    xaxis=dict(title='Diagnosing Time Performance (seconds)', zeroline=False),
     yaxis=dict(
         autorange=True,
         dtick=1,

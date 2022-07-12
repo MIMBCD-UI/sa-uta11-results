@@ -6,4 +6,4 @@ During this UTA11 study, we used several repositories to store the source code o
 
 ## Related Repositories
 
-- [`sa-uta8-utaut`](https://github.com/mida-project/sa-uta8-utaut
+- [`sa-uta8-utaut`](https://github.com/mida-project/sa-uta8-utaut)

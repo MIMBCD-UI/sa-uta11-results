@@ -19,8 +19,8 @@ __credits__     = [
   "Bruno Oliveira",
   "Carlos Santiago",
   "Jacinto C. Nascimento",
-  "Pedro Miraldo",
-  "Nuno Nunes"
+  "Nuno Nunes",
+  "Pedro Miraldo"
 ]
 
 import os
@@ -32,6 +32,12 @@ from os import path
 import plotly
 import plotly.graph_objects as go
 import plotly.io as pio
+
+# ============================== #
+# ============================== #
+#               PATH             #
+# ============================== #
+# ============================== #
 
 # The current folder path.
 basePath = os.path.dirname(__file__)
@@ -86,10 +92,21 @@ visAbsPath = os.path.abspath(visPath)
 sys.path.append(visAbsPath)
 sys.path.insert(0, visAbsPath)
 
+# ============================== #
+# ============================== #
+# ============================== #
+# ============================== #
+
 # Importing available constants
 from sheets import *
 
-file_name = "mimbcdui_uta7_uta11_results_curated_abimid_times"
+file_name_times = "mimbcdui_uta7_uta11_results_curated_abimid_times"
+
+# ============================== #
+# ============================== #
+#              TIMES             #
+# ============================== #
+# ============================== #
 
 # plotly.offline.init_notebook_mode()
 
@@ -158,9 +175,14 @@ fig.update_layout(
 fig.update_traces(orientation='h', boxpoints='suspectedoutliers') # horizontal box plots
 # fig.show()
 
-fn_to_save_html = plotsAbsPath + '/' + file_name + '.html'
-fn_to_save_png = visAbsPath + '/' + file_name + '.png'
+fn_to_save_html = plotsAbsPath + '/' + file_name_times + '.html'
+fn_to_save_png = visAbsPath + '/' + file_name_times + '.png'
 plotly.offline.plot(fig, filename=fn_to_save_html, auto_open=False)
 pio.write_image(fig, fn_to_save_png)
+
+# ============================== #
+# ============================== #
+# ============================== #
+# ============================== #
 
 # ==================== END File ==================== #

@@ -55,6 +55,10 @@ times_dir = os.path.join(srcDataAbsPath, 'mimbcdui_uta7_uta11_results_curated_ab
 sys.path.append(times_dir)
 times_abs_path = os.path.abspath(times_dir)
 
+severities_dir = os.path.join(srcDataAbsPath, 'mimbcdui_uta7_uta11_results_curated_abimid_severities.csv')
+sys.path.append(severities_dir)
+severities_abs_path = os.path.abspath(severities_dir)
+
 # ============================== #
 # ============================== #
 # ============================== #
@@ -89,6 +93,36 @@ times_abs_path = os.path.abspath(times_dir)
 # ============================== #
 # ============================== #
 
+# ============================== #
+#            ACCURACY            #
+# ============================== #
+
+data_severities_df = pd.read_csv(severities_abs_path, header=None)
+data_severities = data_severities_df.to_numpy()
+
+arr_birads_real = data_severities[1:, 5]
+arr_uta7_birads_physician_assistant = data_severities[1:, 7]
+arr_uta11_birads_pysician_assistant_personalized = data_severities[1:, 8]
+
+data_actual_df_br = arr_birads_real
+data_predicted_df_bpa = arr_uta7_birads_physician_assistant
+data_predicted_df_bpap = arr_uta11_birads_pysician_assistant_personalized
+
+ds_df001 = np.array(data_actual_df_br, dtype=int)
+ds_df002 = np.array(data_predicted_df_bpa, dtype=int)
+ds_df003 = np.array(data_predicted_df_bpap, dtype=int)
+
+# print(data_actual_df_br)
+# print(data_predicted_df_bpa)
+# print(data_predicted_df_bpap)
+
+# ============================== #
+# ============================== #
+
+# ============================== #
+#              TIMES             #
+# ============================== #
+
 data_times_df = pd.read_csv(times_abs_path, header=None)
 data_times = data_times_df.to_numpy()
 
@@ -118,6 +152,9 @@ arr008 = arr_uta11_time_on_task_pysician_assistant_personalized
 # print(arr006)
 # print(arr007)
 # print(arr008)
+
+# ============================== #
+# ============================== #
 
 # ============================== #
 # ============================== #

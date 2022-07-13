@@ -33,6 +33,12 @@ import plotly
 import plotly.graph_objects as go
 import plotly.io as pio
 
+import seaborn as sn
+import matplotlib.pyplot as plt
+
+from sklearn.metrics import confusion_matrix
+from pretty_confusion_matrix import pp_matrix
+
 # ============================== #
 # ============================== #
 #               PATH             #
@@ -107,6 +113,23 @@ file_name_times = "mimbcdui_uta7_uta11_results_curated_abimid_times"
 #            ACCURACY            #
 # ============================== #
 # ============================== #
+
+confusion_matrix_bpa = confusion_matrix(ds_df001, ds_df002, normalize='all')
+
+print(confusion_matrix_bpa)
+print(confusion_matrix_bpa[0:, 0])
+
+# print(ds_df001)
+# print(ds_df002)
+# print(confusion_matrix_bpa)
+
+df_cm_bpa = pd.DataFrame(confusion_matrix_bpa, columns=np.unique(ds_df001), index = np.unique(ds_df001))
+df_cm_bpa.index.name = 'Actual'
+df_cm_bpa.columns.name = 'Predicted'
+plt.figure(figsize = (10,7))
+sn.set(font_scale=1.4)#for label size
+sn.heatmap(df_cm_bpa, cmap="Blues", annot=True,annot_kws={"size": 16})# font size
+plt.show()
 
 # ============================== #
 # ============================== #

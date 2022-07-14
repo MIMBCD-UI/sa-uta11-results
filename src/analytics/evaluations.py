@@ -114,21 +114,32 @@ file_name_times = "mimbcdui_uta7_uta11_results_curated_abimid_times"
 # ============================== #
 # ============================== #
 
-confusion_matrix_bpa = confusion_matrix(ds_df001, ds_df002, normalize='all')
-
-print(confusion_matrix_bpa)
-print(confusion_matrix_bpa[0:, 0])
-
 # print(ds_df001)
 # print(ds_df002)
+
+confusion_matrix_bpa = confusion_matrix(ds_df001, ds_df002, normalize='all')
+confusion_matrix_bpap = confusion_matrix(ds_df001, ds_df003, normalize='all')
+
 # print(confusion_matrix_bpa)
+# print(confusion_matrix_bpa[0:, 0])
+
+# print(confusion_matrix_bpap)
+# print(confusion_matrix_bpap[0:, 0])
 
 df_cm_bpa = pd.DataFrame(confusion_matrix_bpa, columns=np.unique(ds_df001), index = np.unique(ds_df001))
 df_cm_bpa.index.name = 'Actual'
 df_cm_bpa.columns.name = 'Predicted'
 plt.figure(figsize = (10,7))
 sn.set(font_scale=1.4)#for label size
-sn.heatmap(df_cm_bpa, cmap="Blues", annot=True,annot_kws={"size": 16})# font size
+sn.heatmap(df_cm_bpa, vmin=0, vmax=1, cmap="Blues", annot=True,annot_kws={"size": 16})# font size
+plt.show()
+
+df_cm_bpap = pd.DataFrame(confusion_matrix_bpap, columns=np.unique(ds_df001), index = np.unique(ds_df001))
+df_cm_bpap.index.name = 'Actual'
+df_cm_bpap.columns.name = 'Predicted'
+plt.figure(figsize = (10,7))
+sn.set(font_scale=1.4)#for label size
+sn.heatmap(df_cm_bpap, vmin=0, vmax=1, cmap="Blues", annot=True,annot_kws={"size": 16})# font size
 plt.show()
 
 # ============================== #

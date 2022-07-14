@@ -55,6 +55,26 @@ table_proactive = ""
 table_reactive = ""
 question = 1
 
+novice_assertive_mean = []
+novice_non_assertive_mean = []
+senior_assertive_mean = []
+senior_non_assertive_mean = []
+
+novice_proactive_mean = []
+novice_reactive_mean = []
+senior_proactive_mean = []
+senior_reactive_mean = []
+
+novice_assertive_std = []
+novice_non_assertive_std = []
+senior_assertive_std = []
+senior_non_assertive_std = []
+
+novice_proactive_std = []
+novice_reactive_std = []
+senior_proactive_std = []
+senior_reactive_std = []
+
 def getAccuracy(array):
     TP = array[0]
     TN = array[1]
@@ -428,10 +448,19 @@ def likertChart(top_labels, colors, x_data, y_data):
                         offset = 0.3
                     ))
                 else:
+                    
+                    if("Novice" in top_labels[i][k]):
+                        print("a")
+                        legendgrouptitle = "Novice"
+                    else:
+                        print("b")
+                        legendgrouptitle = "Expert"
                     fig.add_trace(go.Bar(
                         x=[xd], y=[yd],
                         orientation='h',
-                        name = top_labels[i][k],
+                        legendgroup = legendgrouptitle,
+                        legendgrouptitle_text = legendgrouptitle,
+                        name = top_labels[i][k].split("(")[0],
                         showlegend = True,
                         width = 0.4,
                         marker=dict(
@@ -465,7 +494,9 @@ def likertChart(top_labels, colors, x_data, y_data):
             orientation="h",
             font_size = 25,
             font_family = "Helvetica",
-            traceorder = "reversed"
+            # traceorder = "reversed",
+            grouptitlefont_size = 30,
+            grouptitlefont_family = "Helvetica",
         )
     )
 
@@ -477,22 +508,10 @@ def likertChart(top_labels, colors, x_data, y_data):
                                 x=0.14, y=yd,
                                 xanchor='right',
                                 text=str(yd),
-                                font=dict(family='Helvetica', size=40,
+                                font=dict(family='Helvetica', size=24,
                                         color='rgb(67, 67, 67)'),
                                 showarrow=False, align='right'))
     fig.update_layout(annotations=annotations)
-
-    levels = []
-    for i in range(len(x_data[0])):
-        for yd in ['N', 'E']:
-            levels.append(dict(xref='paper', yref='y',
-                                    x=0.99, y=yd,
-                                    xanchor='right',
-                                    text=str(yd),
-                                    font=dict(family='Helvetica', size=40,
-                                            color='rgb(67, 67, 67)'),
-                                    showarrow=False, align='right'))
-    fig.update_layout(annotations=levels)
 
     fig.show()
 
@@ -572,10 +591,10 @@ def basicStatisticPreference(firstIndex, lastIndex):
         x_data = []
         for j in range(2):
             if(firstIndex == 24):
-                top_labels = [['Totally Non Assertive (Novice)', 'Much more Non Assertive than Assertive (Novice)', 'Slightly more Non Assertive than Assertive (Novice)', 
-                'Neutral (Novice)','Slightly more Assertive than Non Assertive (Novice)','Much more Assertive than Non Assertive (Novice)', 'Totally Assertive (Novice)'],
-                ['Totally Non Assertive (Senior)', 'Much more Non Assertive than Assertive (Senior)', 'Slightly more Non Assertive than Assertive (Senior)', 'Neutral (Senior)', 
-                'Slightly more Assertive than Non Assertive (Senior)','Much more Assertive than Non Assertive (Senior)', 'Totally Assertive (Senior)']]
+                top_labels = [['Totally Non Assertive(Novice)', 'Much more Non Assertive than Assertive(Novice)', 'Slightly more Non Assertive than Assertive(Novice)', 
+                'Neutral(Novice)','Slightly more Assertive than Non Assertive(Novice)','Much more Assertive than Non Assertive(Novice)', 'Totally Assertive(Novice)'],
+                ['Totally Non Assertive(Expert)', 'Much more Non Assertive than Assertive(Expert)', 'Slightly more Non Assertive than Assertive(Expert)', 'Neutral(Expert)', 
+                'Slightly more Assertive than Non Assertive(Expert)','Much more Assertive than Non Assertive(Expert)', 'Totally Assertive(Expert)']]
 
                 y_data = [['Which level<br>of assertiveness<br>was more reliable?',
                     'Which level<br>of assertiveness<br>was more capable?',
@@ -584,10 +603,10 @@ def basicStatisticPreference(firstIndex, lastIndex):
                     'Which level<br>of assertiveness<br>was more capable?2',
                     'Which level<br>of assertiveness<br>did you prefer overall?2']]
             else:
-                top_labels = [['Totally Reactive (Novice)', 'Much more Reactive than Proactive (Novice)', 'Slightly more Reactive than Proactive (Novice)', 'Neutral (Novice)', 
-                'Slightly more Proactive than Reactive (Novice)','Much more Proactive than Reactive (Novice)', 'Totally Proactive (Novice)'],
-                ['Totally Reactive (Senior)', 'Much more Reactive than Proactive (Senior)', 'Slightly more Reactive than Proactive (Senior)', 'Neutral (Senior)', 
-                'Slightly more Proactive than Reactive (Senior)','Much more Proactive than Reactive (Senior)', 'Totally Proactive (Senior)']]
+                top_labels = [['Totally Reactive(Novice)', 'Much more Reactive than Proactive(Novice)', 'Slightly more Reactive than Proactive(Novice)', 'Neutral(Novice)', 
+                'Slightly more Proactive than Reactive(Novice)','Much more Proactive than Reactive(Novice)', 'Totally Proactive(Novice)'],
+                ['Totally Reactive(Expert)', 'Much more Reactive than Proactive(Expert)', 'Slightly more Reactive than Proactive(Expert)', 'Neutral(Expert)', 
+                'Slightly more Proactive than Reactive(Expert)','Much more Proactive than Reactive(Expert)', 'Totally Proactive(Expert)']]
 
                 y_data = [['Which behaviour<br>was more reliable?',
                     'Which behaviour<br>was more capable?',
@@ -596,12 +615,12 @@ def basicStatisticPreference(firstIndex, lastIndex):
                     'Which behaviour<br>was more capable?2',
                     'Which behaviour<br>did you prefer overall?2']]
 
-            colors = [['#5B0176', '#834198',
-                    '#E591FE','rgb(223,223,223)','#FFFFBB',
-                    '#BFBF5A','#656501'],
-                    ['#013045', '#4289A7',
-                    '#B5E8FE','rgb(223,223,223)','#FED4C1',
-                    '#BF6A44','#401401']]
+            colors = [['#804D00', '#BF8D40',
+                    '#FFCC80','rgb(223,223,223)','#66B3FF',
+                    '#4073A6','#003366'],
+                    ['#803300', '#C07340',
+                    '#FFB380','rgb(223,223,223)','#66FCFF',
+                    '#40A6A7','#006466']]
 
             
             x_data_tmp = []
@@ -634,8 +653,98 @@ def basicStatisticPreference(firstIndex, lastIndex):
         print(x_data)
         likertChart(top_labels, colors, x_data, y_data)
 
+def sus_score(data):
+    sus_scores = []
+    for s in data:
+        X = 0
+        Y = 0
+        for q in range(len(s)):
+            if(q % 2 == 0):
+                X += s[q]
+            else:
+                Y += s[q]
+        sus_scores.append(((X - 5) + (25 - Y)) * 2.5)
 
-def basicStatistic(firstIndex, lastIndex):
+    return np.nanmean(sus_scores), np.nanstd(sus_scores)
+
+def nasa_score(data):
+    nasa_scores = []
+    for s in data:
+        total = 0
+        for q in s:
+            total += q
+        nasa_scores.append(total)
+
+    return np.nanmean(nasa_scores), np.nanstd(nasa_scores)
+
+def error_bar(x_bar):
+    fig = go.Figure()
+    fig.update_layout(
+        font_family = "Helvetica",
+        font_size=24,
+        yaxis_range=[0,12]
+    )
+    fig.add_trace(go.Bar(
+        name='Novice Assertive',
+        x=x_bar, y= novice_assertive_mean,
+        error_y=dict(type='data', array=novice_assertive_std),
+        marker_color = "#FD9900"
+    ))
+    fig.add_trace(go.Bar(
+        name='Novice Non Assertive',
+        x=x_bar, y= novice_non_assertive_mean,
+        error_y=dict(type='data', array=novice_non_assertive_std),
+        marker_color = "#0065CB"
+    ))
+    fig.add_trace(go.Bar(
+        name='Senior Assertive',
+        x=x_bar, y= senior_assertive_mean,
+        error_y=dict(type='data', array=senior_assertive_std),
+        marker_color = "#FF6600"
+    ))
+    fig.add_trace(go.Bar(
+        name='Senior Non Assertive',
+        x=x_bar, y= senior_non_assertive_mean,
+        error_y=dict(type='data', array=senior_non_assertive_std),
+        marker_color = "#00CCCE"
+    ))
+    fig.update_layout(barmode='group')
+    fig.show()
+
+    fig = go.Figure()
+    fig.update_layout(
+        font_family = "Helvetica",
+        font_size=24,
+        yaxis_range=[0,12]
+    )
+    fig.add_trace(go.Bar(
+        name='Novice Proactive',
+        x=x_bar, y= novice_proactive_mean,
+        error_y=dict(type='data', array=novice_proactive_std),
+        marker_color = "#FD9900"
+    ))
+    fig.add_trace(go.Bar(
+        name='Novice Reactive',
+        x=x_bar, y= novice_reactive_mean,
+        error_y=dict(type='data', array=novice_reactive_std),
+        marker_color = "#0065CB"
+    ))
+    fig.add_trace(go.Bar(
+        name='Senior Proactive',
+        x=x_bar, y= senior_proactive_mean,
+        error_y=dict(type='data', array=senior_proactive_std),
+        marker_color = "#FF6600"
+    ))
+    fig.add_trace(go.Bar(
+        name='Senior Reactive',
+        x=x_bar, y= senior_reactive_mean,
+        error_y=dict(type='data', array= senior_reactive_std),
+        marker_color = "#00CCCE"
+    ))
+    fig.update_layout(barmode='group')
+    fig.show()
+
+def basicStatistic(firstIndex, lastIndex, q_type):
 
     lastIndex += 1
     sample_data = np.float64(data[2:,firstIndex:lastIndex])
@@ -673,15 +782,6 @@ def basicStatistic(firstIndex, lastIndex):
     print("--------- Intern Reactive ------------")
     print(np.nanmean(np.take(sample_data,intern_reactive, axis=0)))
 
-    print("--------- Junior Assertive ------------")
-    print(np.mean(np.take(sample_data,junior_assertive, axis=0)))
-    print("--------- Junior Non Assertive ------------")
-    print(np.mean(np.take(sample_data,junior_non_assertive, axis=0)))
-    print("--------- Junior Proactive ------------")
-    print(np.mean(np.take(sample_data,junior_proactive, axis=0)))
-    print("--------- Junior Reactive ------------")
-    print(np.mean(np.take(sample_data,junior_reactive, axis=0)))
-
     print("--------- Senior Assertive ------------")
     print(np.mean(np.take(sample_data,senior_assertive, axis=0)))
     print("--------- Senior Non Assertive ------------")
@@ -690,7 +790,16 @@ def basicStatistic(firstIndex, lastIndex):
     print(np.mean(np.take(sample_data,senior_proactive, axis=0)))
     print("--------- Senior Reactive ------------")
     print(np.mean(np.take(sample_data,senior_reactive, axis=0)))
+    
+    novice_assertive_mean.append(np.nanmean(np.take(sample_data,intern_assertive, axis=0)))
+    novice_non_assertive_mean.append(np.nanmean(np.take(sample_data,intern_non_assertive, axis=0)))
+    senior_assertive_mean.append(np.nanmean(np.take(sample_data,senior_assertive, axis=0)))
+    senior_non_assertive_mean.append(np.nanmean(np.take(sample_data,senior_non_assertive, axis=0)))
 
+    novice_proactive_mean.append(np.nanmean(np.take(sample_data,intern_proactive, axis=0)))
+    novice_reactive_mean.append(np.nanmean(np.take(sample_data,intern_reactive, axis=0)))
+    senior_proactive_mean.append(np.nanmean(np.take(sample_data,senior_proactive, axis=0)))
+    senior_reactive_mean.append(np.nanmean(np.take(sample_data,senior_reactive, axis=0)))
 
     #Standard Deviation
     print("--------- STANDARD DEVIATION -------------")
@@ -703,110 +812,45 @@ def basicStatistic(firstIndex, lastIndex):
     print("--------- Intern Reactive ------------")
     print(np.nanstd(np.take(sample_data,intern_reactive, axis=0)))
 
-    print("--------- Junior Assertive ------------")
-    print(np.std(np.take(sample_data,junior_assertive, axis=0)))
-    print("--------- Junior Non Assertive ------------")
-    print(np.std(np.take(sample_data,junior_non_assertive, axis=0)))
-    print("--------- Junior Proactive ------------")
-    print(np.std(np.take(sample_data,junior_proactive, axis=0)))
-    print("--------- Junior Reactive ------------")
-    print(np.std(np.take(sample_data,junior_reactive, axis=0)))
-
     print("--------- Senior Assertive ------------")
-    print(np.std(np.take(sample_data,senior_assertive, axis=0)))
+    print(np.nanstd(np.take(sample_data,senior_assertive, axis=0)))
     print("--------- Senior Non Assertive ------------")
-    print(np.std(np.take(sample_data,senior_non_assertive, axis=0)))
+    print(np.nanstd(np.take(sample_data,senior_non_assertive, axis=0)))
     print("--------- Senior Proactive ------------")
-    print(np.std(np.take(sample_data,senior_proactive, axis=0)))
+    print(np.nanstd(np.take(sample_data,senior_proactive, axis=0)))
     print("--------- Senior Reactive ------------")
-    print(np.std(np.take(sample_data,senior_reactive, axis=0)))
+    print(np.nanstd(np.take(sample_data,senior_reactive, axis=0)))
 
-    # #Interval
-    # print("--------- INTERVAL -------------")
-    # print("--------- Intern Assertive ------------")
-    # print("(" + str(np.amin(np.take(sample_data,intern_assertive, axis=0))) + "." + str(np.amax(np.take(sample_data,intern_assertive, axis=0))) + ")")
-    # print("--------- Intern Non Assertive ------------")
-    # print("(" + str(np.amin(np.take(sample_data,intern_non_assertive, axis=0))) + "." + str(np.amax(np.take(sample_data,intern_non_assertive, axis=0))) + ")")
-    # print("--------- Intern Proactive ------------")
-    # print("(" + str(np.amin(np.take(sample_data,intern_proactive, axis=0))) + "." + str(np.amax(np.take(sample_data,intern_proactive, axis=0))) + ")")
-    # print("--------- Intern Reactive ------------")
-    # print("(" + str(np.amin(np.take(sample_data,intern_reactive, axis=0))) + "." + str(np.amax(np.take(sample_data,intern_reactive, axis=0))) + ")")
+    novice_assertive_std.append(np.nanstd(np.take(sample_data,intern_assertive, axis=0)))
+    novice_non_assertive_std.append(np.nanstd(np.take(sample_data,intern_non_assertive, axis=0)))
+    senior_assertive_std.append(np.nanstd(np.take(sample_data,senior_assertive, axis=0)))
+    senior_non_assertive_std.append(np.nanstd(np.take(sample_data,senior_non_assertive, axis=0)))
 
-    # print("--------- Junior Assertive ------------")
-    # print("(" + str(np.amin(np.take(sample_data,junior_assertive, axis=0))) + "." + str(np.amax(np.take(sample_data,junior_assertive, axis=0))) + ")")
-    # print("--------- Junior Non Assertive ------------")
-    # print("(" + str(np.amin(np.take(sample_data,junior_non_assertive, axis=0))) + "." + str(np.amax(np.take(sample_data,junior_non_assertive, axis=0))) + ")")
-    # print("--------- Junior Proactive ------------")
-    # print("(" + str(np.amin(np.take(sample_data,junior_proactive, axis=0))) + "." + str(np.amax(np.take(sample_data,junior_proactive, axis=0))) + ")")
-    # print("--------- Junior Reactive ------------")
-    # print("(" + str(np.amin(np.take(sample_data,junior_reactive, axis=0))) + "." + str(np.amax(np.take(sample_data,junior_reactive, axis=0))) + ")")
+    novice_proactive_std.append(np.nanstd(np.take(sample_data,intern_proactive, axis=0)))
+    novice_reactive_std.append(np.nanstd(np.take(sample_data,intern_reactive, axis=0)))
+    senior_proactive_std.append(np.nanstd(np.take(sample_data,senior_proactive, axis=0)))
+    senior_reactive_std.append(np.nanstd(np.take(sample_data,senior_reactive, axis=0)))
 
-    # print("--------- Senior Assertive ------------")
-    # print("(" + str(np.amin(np.take(sample_data,senior_assertive, axis=0))) + "." + str(np.amax(np.take(sample_data,senior_assertive, axis=0))) + ")")
-    # print("--------- Senior Non Assertive ------------")
-    # print("(" + str(np.amin(np.take(sample_data,senior_non_assertive, axis=0))) + "." + str(np.amax(np.take(sample_data,senior_non_assertive, axis=0))) + ")")
-    # print("--------- Senior Proactive ------------")
-    # print("(" + str(np.amin(np.take(sample_data,senior_proactive, axis=0))) + "." + str(np.amax(np.take(sample_data,senior_proactive, axis=0))) + ")")
-    # print("--------- Senior Reactive ------------")
-    # print("(" + str(np.amin(np.take(sample_data,senior_reactive, axis=0))) + "." + str(np.amax(np.take(sample_data,senior_reactive, axis=0))) + ")")
-
-    # #Lower Bound
-    # print("--------- LOWER BOUND -------------")
-    # print("--------- Intern Assertive ------------")
-    # print(lower_bound(np.take(sample_data,intern_assertive, axis=0)))
-    # print("--------- Intern Non Assertive ------------")
-    # print(lower_bound(np.take(sample_data,intern_non_assertive, axis=0)))
-    # print("--------- Intern Proactive ------------")
-    # print(lower_bound(np.take(sample_data,intern_proactive, axis=0)))
-    # print("--------- Intern Reactive ------------")
-    # print(lower_bound(np.take(sample_data,intern_reactive, axis=0)))
-
-    # print("--------- Junior Assertive ------------")
-    # print(lower_bound(np.take(sample_data,junior_assertive, axis=0)))
-    # print("--------- Junior Non Assertive ------------")
-    # print(lower_bound(np.take(sample_data,junior_non_assertive, axis=0)))
-    # print("--------- Junior Proactive ------------")
-    # print(lower_bound(np.take(sample_data,junior_proactive, axis=0)))
-    # print("--------- Junior Reactive ------------")
-    # print(lower_bound(np.take(sample_data,junior_reactive, axis=0)))
-
-    # print("--------- Senior Assertive ------------")
-    # print(lower_bound(np.take(sample_data,senior_assertive, axis=0)))
-    # print("--------- Senior Non Assertive ------------")
-    # print(lower_bound(np.take(sample_data,senior_non_assertive, axis=0)))
-    # print("--------- Senior Proactive ------------")
-    # print(lower_bound(np.take(sample_data,senior_proactive, axis=0)))
-    # print("--------- Senior Reactive ------------")
-    # print(lower_bound(np.take(sample_data,senior_reactive, axis=0)))
-
-    # #Upper Bound
-    # print("--------- UPPER BOUND -------------")
-    # print("--------- Intern Assertive ------------")
-    # print(upper_bound(np.take(sample_data,intern_assertive, axis=0)))
-    # print("--------- Intern Non Assertive ------------")
-    # print(upper_bound(np.take(sample_data,intern_non_assertive, axis=0)))
-    # print("--------- Intern Proactive ------------")
-    # print(upper_bound(np.take(sample_data,intern_proactive, axis=0)))
-    # print("--------- Intern Reactive ------------")
-    # print(upper_bound(np.take(sample_data,intern_reactive, axis=0)))
-
-    # print("--------- Junior Assertive ------------")
-    # print(upper_bound(np.take(sample_data,junior_assertive, axis=0)))
-    # print("--------- Junior Non Assertive ------------")
-    # print(upper_bound(np.take(sample_data,junior_non_assertive, axis=0)))
-    # print("--------- Junior Proactive ------------")
-    # print(upper_bound(np.take(sample_data,junior_proactive, axis=0)))
-    # print("--------- Junior Reactive ------------")
-    # print(upper_bound(np.take(sample_data,junior_reactive, axis=0)))
-
-    # print("--------- Senior Assertive ------------")
-    # print(upper_bound(np.take(sample_data,senior_assertive, axis=0)))
-    # print("--------- Senior Non Assertive ------------")
-    # print(upper_bound(np.take(sample_data,senior_non_assertive, axis=0)))
-    # print("--------- Senior Proactive ------------")
-    # print(upper_bound(np.take(sample_data,senior_proactive, axis=0)))
-    # print("--------- Senior Reactive ------------")
-    # print(upper_bound(np.take(sample_data,senior_reactive, axis=0)))
+ 
+    if q_type == 'SUS':
+        print(sus_score(np.take(sample_data,intern_assertive, axis=0)))
+        print(sus_score(np.take(sample_data,intern_non_assertive, axis=0)))
+        print(sus_score(np.take(sample_data,intern_proactive, axis=0)))
+        print(sus_score(np.take(sample_data,intern_reactive, axis=0)))
+        print(sus_score(np.take(sample_data,senior_assertive, axis=0)))
+        print(sus_score(np.take(sample_data,senior_non_assertive, axis=0)))
+        print(sus_score(np.take(sample_data,senior_proactive, axis=0)))
+        print(sus_score(np.take(sample_data,senior_reactive, axis=0)))
+    elif q_type == "NASA-TLX":
+        print(nasa_score(np.take(sample_data,intern_assertive, axis=0)))
+        print(nasa_score(np.take(sample_data,intern_non_assertive, axis=0)))
+        print(nasa_score(np.take(sample_data,intern_proactive, axis=0)))
+        print(nasa_score(np.take(sample_data,intern_reactive, axis=0)))
+        print(nasa_score(np.take(sample_data,senior_assertive, axis=0)))
+        print(nasa_score(np.take(sample_data,senior_non_assertive, axis=0)))
+        print(nasa_score(np.take(sample_data,senior_proactive, axis=0)))
+        print(nasa_score(np.take(sample_data,senior_reactive, axis=0)))
+        
 
     # global table_proactive, table_assertive, table_non_assertive, table_reactive, question
 
@@ -843,24 +887,27 @@ def main():
 
     # #DOTS
     # print("-------------- DOTS ---------------")
-    # basicStatistic(5,5)
-    # basicStatistic(6,6)
-    # basicStatistic(7,7)
-    # basicStatistic(5,7)
+    # basicStatistic(5,5, 'DOTS')
+    # basicStatistic(6,6, 'DOTS')
+    # basicStatistic(7,7, 'DOTS')
+    # basicStatistic(5,7, 'DOTS')    
+    # error_bar(['I understand what the system is thinking.', 'The system seems capable', 'The system seems benevolent', 'Total Score'])
+
 
     #SUS
     # print("-------------- SUS ---------------")
-    # basicStatistic(8,8)
-    # basicStatistic(9,9)
-    # basicStatistic(10,10)
-    # basicStatistic(11,11)
-    # basicStatistic(12,12)
-    # basicStatistic(13,13)
-    # basicStatistic(14,14)
-    # basicStatistic(15,15)
-    # basicStatistic(16,16)
-    # basicStatistic(17,17)
-    # basicStatistic(8,17)
+    # basicStatistic(8,8, np.NaN)
+    # basicStatistic(9,9, np.NaN)
+    # basicStatistic(10,10, np.NaN)
+    # basicStatistic(11,11, np.NaN)
+    # basicStatistic(12,12, np.NaN)
+    # basicStatistic(13,13, np.NaN)
+    # basicStatistic(14,14, np.NaN)
+    # basicStatistic(15,15, np.NaN)
+    # basicStatistic(16,16, np.NaN)
+    # basicStatistic(17,17, np.NaN)
+    # basicStatistic(8,17,'SUS')
+    # error_bar(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'])
 
     # print(table_assertive)
     # print(table_non_assertive)
@@ -869,13 +916,14 @@ def main():
 
     # # #NASA-TLX
     # print("-------------- NASA-TLX ---------------")
-    # basicStatistic(18,18)
-    # basicStatistic(19,19)
-    # basicStatistic(20,20)
-    # basicStatistic(21,21)
-    # basicStatistic(22,22)
-    # basicStatistic(23,23)
-    # basicStatistic(18,23)
+    # basicStatistic(18,18, np.NaN)
+    # basicStatistic(19,19, np.NaN)
+    # basicStatistic(20,20, np.NaN)
+    # basicStatistic(21,21, np.NaN)
+    # basicStatistic(22,22, np.NaN)
+    # basicStatistic(23,23, np.NaN)
+    # basicStatistic(18,23, "NASA-TLX")
+    # error_bar(['Mental Demand', 'Physical Demand', 'Temporal Demand', 'Performance', 'Effort', 'Frustration'])
 
     
     #Q3
@@ -885,7 +933,7 @@ def main():
     # basicStatisticPreference(24,24)
     # basicStatisticPreference(25,25)
     # basicStatisticPreference(26,26)
-    basicStatisticPreference(24,26)
+    # basicStatisticPreference(24,26)
 
     # print("-------------- Behaviour ---------------")
     # basicStatisticPreference(27,27)

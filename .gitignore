@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Data
+mimbcdui_uta7_uta11_results_curated_abimid_severities.csv
+mimbcdui_uta7_uta11_results_curated_abimid_times.csv

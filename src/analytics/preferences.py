@@ -115,15 +115,15 @@ colors = ['rgba(144, 12, 63, 1.0)',
           'rgba(42, 158, 113, 1.0)',
           'rgba(12, 144, 93, 1.0)']
 
-x_data = [[arr_p_q7_1, arr_p_q7_2, arr_p_q7_3, arr_p_q7_4, arr_p_q7_5, arr_p_q7_6, arr_p_q7_7],
+x_data = [[arr_p_q9_1, arr_p_q9_2, arr_p_q9_3, arr_p_q9_4, arr_p_q9_5, arr_p_q9_6, arr_p_q9_7],
           [arr_p_q8_1, arr_p_q8_2, arr_p_q8_3, arr_p_q8_4, arr_p_q8_5, arr_p_q8_6, arr_p_q8_7],
-          [arr_p_q9_1, arr_p_q9_2, arr_p_q9_3, arr_p_q9_4, arr_p_q9_5, arr_p_q9_6, arr_p_q9_7]]
+          [arr_p_q7_1, arr_p_q7_2, arr_p_q7_3, arr_p_q7_4, arr_p_q7_5, arr_p_q7_6, arr_p_q7_7]]
 
-y_data = ['The course was effectively<br>organized',
-          'The course developed my<br>abilities and skills ' +
-          'for<br>the subject',
-          'The course developed ' +
-          'my<br>ability to think critically about<br>the subject']
+y_data = ['Which system did<br>you prefer overall?',
+          'Which agent<br>was more capable?',
+          'Which agent<br>was more reliable?']
+
+print(x_data[0])
 
 fig = go.Figure()
 
@@ -167,14 +167,14 @@ for yd, xd in zip(y_data, x_data):
                             x=0.14, y=yd,
                             xanchor='right',
                             text=str(yd),
-                            font=dict(family='Arial', size=14,
+                            font=dict(family='Arial', size=22,
                                       color='rgb(67, 67, 67)'),
                             showarrow=False, align='right'))
     # labeling the first percentage of each bar (x_axis)
     annotations.append(dict(xref='x', yref='y',
                             x=xd[0] / 2, y=yd,
                             text=str(xd[0]) + '%',
-                            font=dict(family='Arial', size=14,
+                            font=dict(family='Arial', size=22,
                                       color='rgb(248, 248, 255)'),
                             showarrow=False))
     # labeling the first Likert scale (on the top)
@@ -182,7 +182,7 @@ for yd, xd in zip(y_data, x_data):
         annotations.append(dict(xref='x', yref='paper',
                                 x=xd[0] / 2, y=1.1,
                                 text=top_labels[0],
-                                font=dict(family='Arial', size=14,
+                                font=dict(family='Arial', size=18,
                                           color='rgb(67, 67, 67)'),
                                 showarrow=False))
     space = xd[0]
@@ -191,7 +191,7 @@ for yd, xd in zip(y_data, x_data):
             annotations.append(dict(xref='x', yref='y',
                                     x=space + (xd[i]/2), y=yd,
                                     text=str(xd[i]) + '%',
-                                    font=dict(family='Arial', size=14,
+                                    font=dict(family='Arial', size=22,
                                               color='rgb(248, 248, 255)'),
                                     showarrow=False))
             # labeling the Likert scale
@@ -199,7 +199,7 @@ for yd, xd in zip(y_data, x_data):
                 annotations.append(dict(xref='x', yref='paper',
                                         x=space + (xd[i]/2), y=1.1,
                                         text=top_labels[i],
-                                        font=dict(family='Arial', size=14,
+                                        font=dict(family='Arial', size=18,
                                                   color='rgb(67, 67, 67)'),
                                         showarrow=False))
             space += xd[i]

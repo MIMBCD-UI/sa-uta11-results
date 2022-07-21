@@ -7,7 +7,7 @@ evaluations.py: evaluate the models using both plots and
 """
 
 __author__      = "Francisco Maria Calisto"
-__maintainer__  = "Francisco Maria Calisto"
+__maintainer__  = "João Fernandes"
 __email__       = "francisco.calisto@tecnico.ulisboa.pt"
 __license__     = "MIT"
 __version__     = "0.1.0"
@@ -86,4 +86,4 @@ sys.path.insert(0, constantsAbsPath)
 # ============================== #
 # ============================== #
 
-# ==================== END File ==================== #
+# ========== END File ========== #

@@ -9,7 +9,7 @@ sheets.py: to read our data, we are using several datasets. For that,
 """
 
 __author__      = "Francisco Maria Calisto"
-__maintainer__  = "Francisco Maria Calisto"
+__maintainer__  = "João Fernandes"
 __email__       = "francisco.calisto@tecnico.ulisboa.pt"
 __license__     = "MIT"
 __version__     = "0.1.0"
@@ -87,12 +87,8 @@ preferences_abs_path = os.path.abspath(preferences_dir)
 
 # ============================== #
 # ============================== #
-#            VARIABLES           #
+#           ACCURACIES           #
 # ============================== #
-# ============================== #
-
-# ============================== #
-#            ACCURACY            #
 # ============================== #
 
 data_severities_df = pd.read_csv(severities_abs_path, header=None)
@@ -116,9 +112,13 @@ ds_df003 = np.array(data_predicted_df_bpap, dtype=int)
 
 # ============================== #
 # ============================== #
+# ============================== #
+# ============================== #
 
 # ============================== #
+# ============================== #
 #              TIMES             #
+# ============================== #
 # ============================== #
 
 data_times_df = pd.read_csv(times_abs_path, header=None)
@@ -150,9 +150,6 @@ arr008 = arr_uta11_time_on_task_pysician_assistant_personalized
 # print(arr006)
 # print(arr007)
 # print(arr008)
-
-# ============================== #
-# ============================== #
 
 # ============================== #
 # ============================== #
@@ -284,3 +281,16 @@ arr_concat018 = np.concatenate((arr_concat012, arr_concat015))
 # ============================== #
 # ============================== #
 # ============================== #
+
+# ============================== #
+# ============================== #
+#           PREFERENCES          #
+# ============================== #
+# ============================== #
+
+# ============================== #
+# ============================== #
+# ============================== #
+# ============================== #
+
+# ========== END File ========== #

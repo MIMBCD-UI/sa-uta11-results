@@ -6,7 +6,7 @@ accuracies.py: metrics for accuracy analysis.
 """
 
 __author__      = "Francisco Maria Calisto"
-__maintainer__  = "Francisco Maria Calisto"
+__maintainer__  = "João Fernandes"
 __email__       = "francisco.calisto@tecnico.ulisboa.pt"
 __license__     = "MIT"
 __version__     = "0.1.0"
@@ -110,4 +110,4 @@ plt.show()
 # ============================== #
 # ============================== #
 
-# ==================== END File ==================== #
+# ========== END File ========== #

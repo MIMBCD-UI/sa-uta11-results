@@ -119,7 +119,7 @@ x_data = [[arr_p_q9_1, arr_p_q9_2, arr_p_q9_3, arr_p_q9_4, arr_p_q9_5, arr_p_q9_
           [arr_p_q8_1, arr_p_q8_2, arr_p_q8_3, arr_p_q8_4, arr_p_q8_5, arr_p_q8_6, arr_p_q8_7],
           [arr_p_q7_1, arr_p_q7_2, arr_p_q7_3, arr_p_q7_4, arr_p_q7_5, arr_p_q7_6, arr_p_q7_7]]
 
-y_data = ['Which system did<br>you prefer overall?',
+y_data = ['Which agent did<br>you prefer overall?',
           'Which agent<br>was more capable?',
           'Which agent<br>was more reliable?']
 
@@ -153,7 +153,7 @@ fig.update_layout(
     barmode='stack',
     paper_bgcolor='rgb(248, 248, 255)',
     plot_bgcolor='rgb(248, 248, 255)',
-    margin=dict(l=120, r=10, t=140, b=80),
+    margin=dict(l=12, r=10, t=480, b=80),
     showlegend=False,
 )
 
@@ -178,7 +178,7 @@ for yd, xd in zip(y_data, x_data):
     # labeling the first Likert scale (on the top)
     if yd == y_data[-1]:
         annotations.append(dict(xref='x', yref='paper',
-                                x=xd[0] / 2, y=1.1,
+                                x=xd[0] / 2, y=1.2,
                                 text=top_labels[0],
                                 font=dict(family='Arial', size=18,
                                           color='rgb(67, 67, 67)'),
@@ -195,7 +195,7 @@ for yd, xd in zip(y_data, x_data):
             # labeling the Likert scale
             if yd == y_data[-1]:
                 annotations.append(dict(xref='x', yref='paper',
-                                        x=space + (xd[i]/2), y=1.1,
+                                        x=space + (xd[i]/2), y=1.2,
                                         text=top_labels[i],
                                         font=dict(family='Arial', size=18,
                                                   color='rgb(67, 67, 67)'),

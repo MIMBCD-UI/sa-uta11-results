@@ -59,6 +59,10 @@ severities_dir = os.path.join(srcDataAbsPath, 'mimbcdui_uta7_uta11_results_curat
 sys.path.append(severities_dir)
 severities_abs_path = os.path.abspath(severities_dir)
 
+preferences_dir = os.path.join(srcDataAbsPath, 'mimbcdui_uta7_uta11_results_curated_abimid_preferences.csv')
+sys.path.append(preferences_dir)
+preferences_abs_path = os.path.abspath(preferences_dir)
+
 # ============================== #
 # ============================== #
 # ============================== #

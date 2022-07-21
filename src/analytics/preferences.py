@@ -123,8 +123,6 @@ y_data = ['Which system did<br>you prefer overall?',
           'Which agent<br>was more capable?',
           'Which agent<br>was more reliable?']
 
-print(x_data[0])
-
 fig = go.Figure()
 
 for i in range(0, len(x_data[0])):

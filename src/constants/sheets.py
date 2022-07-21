@@ -29,6 +29,7 @@ import os
 import sys
 import openpyxl
 import csv
+import math
 
 from os import path
 
@@ -299,13 +300,22 @@ arr_p_q7 = np.array(arr_uta11_preferences_q7, dtype=int)
 arr_p_q8 = np.array(arr_uta11_preferences_q8, dtype=int)
 arr_p_q9 = np.array(arr_uta11_preferences_q9, dtype=int)
 
-arr_p_q7_1 = (arr_p_q7 == 1).sum()
-arr_p_q7_2 = (arr_p_q7 == 2).sum()
-arr_p_q7_3 = (arr_p_q7 == 3).sum()
-arr_p_q7_4 = (arr_p_q7 == 4).sum()
-arr_p_q7_5 = (arr_p_q7 == 5).sum()
-arr_p_q7_6 = (arr_p_q7 == 6).sum()
-arr_p_q7_7 = (arr_p_q7 == 7).sum()
+arr_p_q7_1_m = ((arr_p_q7 == 1).sum() / 155) * 100
+arr_p_q7_2_m = ((arr_p_q7 == 2).sum() / 155) * 100
+arr_p_q7_3_m = ((arr_p_q7 == 3).sum() / 155) * 100
+arr_p_q7_4_m = ((arr_p_q7 == 4).sum() / 155) * 100
+arr_p_q7_5_m = ((arr_p_q7 == 5).sum() / 155) * 100
+arr_p_q7_6_m = ((arr_p_q7 == 6).sum() / 155) * 100
+arr_p_q7_7_m = ((arr_p_q7 == 7).sum() / 155) * 100
+
+
+arr_p_q7_1 = math.trunc(arr_p_q7_1_m)
+arr_p_q7_2 = math.trunc(arr_p_q7_2_m)
+arr_p_q7_3 = math.trunc(arr_p_q7_3_m)
+arr_p_q7_4 = round(arr_p_q7_4_m)
+arr_p_q7_5 = round(arr_p_q7_5_m)
+arr_p_q7_6 = round(arr_p_q7_6_m)
+arr_p_q7_7 = math.ceil(arr_p_q7_7_m)
 
 # print(arr_p_q7_1)
 # print(arr_p_q7_2)
@@ -317,13 +327,21 @@ arr_p_q7_7 = (arr_p_q7 == 7).sum()
 
 # print("==============================")
 
-arr_p_q8_1 = (arr_p_q8 == 1).sum()
-arr_p_q8_2 = (arr_p_q8 == 2).sum()
-arr_p_q8_3 = (arr_p_q8 == 3).sum()
-arr_p_q8_4 = (arr_p_q8 == 4).sum()
-arr_p_q8_5 = (arr_p_q8 == 5).sum()
-arr_p_q8_6 = (arr_p_q8 == 6).sum()
-arr_p_q8_7 = (arr_p_q8 == 7).sum()
+arr_p_q8_1_m = ((arr_p_q8 == 1).sum() / 155) * 100
+arr_p_q8_2_m = ((arr_p_q8 == 2).sum() / 155) * 100
+arr_p_q8_3_m = ((arr_p_q8 == 3).sum() / 155) * 100
+arr_p_q8_4_m = ((arr_p_q8 == 4).sum() / 155) * 100
+arr_p_q8_5_m = ((arr_p_q8 == 5).sum() / 155) * 100
+arr_p_q8_6_m = ((arr_p_q8 == 6).sum() / 155) * 100
+arr_p_q8_7_m = ((arr_p_q8 == 7).sum() / 155) * 100
+
+arr_p_q8_1 = round(arr_p_q8_1_m)
+arr_p_q8_2 = round(arr_p_q8_2_m)
+arr_p_q8_3 = round(arr_p_q8_3_m)
+arr_p_q8_4 = round(arr_p_q8_4_m)
+arr_p_q8_5 = round(arr_p_q8_5_m)
+arr_p_q8_6 = round(arr_p_q8_6_m)
+arr_p_q8_7 = math.ceil(arr_p_q8_7_m)
 
 # print(arr_p_q8_1)
 # print(arr_p_q8_2)
@@ -335,13 +353,21 @@ arr_p_q8_7 = (arr_p_q8 == 7).sum()
 
 # print("==============================")
 
-arr_p_q9_1 = (arr_p_q9 == 1).sum()
-arr_p_q9_2 = (arr_p_q9 == 2).sum()
-arr_p_q9_3 = (arr_p_q9 == 3).sum()
-arr_p_q9_4 = (arr_p_q9 == 4).sum()
-arr_p_q9_5 = (arr_p_q9 == 5).sum()
-arr_p_q9_6 = (arr_p_q9 == 6).sum()
-arr_p_q9_7 = (arr_p_q9 == 7).sum()
+arr_p_q9_1_m = ((arr_p_q9 == 1).sum() / 155) * 100
+arr_p_q9_2_m = ((arr_p_q9 == 2).sum() / 155) * 100
+arr_p_q9_3_m = ((arr_p_q9 == 3).sum() / 155) * 100
+arr_p_q9_4_m = ((arr_p_q9 == 4).sum() / 155) * 100
+arr_p_q9_5_m = ((arr_p_q9 == 5).sum() / 155) * 100
+arr_p_q9_6_m = ((arr_p_q9 == 6).sum() / 155) * 100
+arr_p_q9_7_m = ((arr_p_q9 == 7).sum() / 155) * 100
+
+arr_p_q9_1 = math.trunc(arr_p_q9_1_m)
+arr_p_q9_2 = math.trunc(arr_p_q9_2_m)
+arr_p_q9_3 = round(arr_p_q9_3_m)
+arr_p_q9_4 = round(arr_p_q9_4_m)
+arr_p_q9_5 = round(arr_p_q9_5_m)
+arr_p_q9_6 = round(arr_p_q9_6_m)
+arr_p_q9_7 = round(arr_p_q9_7_m)
 
 # print(arr_p_q9_1)
 # print(arr_p_q9_2)

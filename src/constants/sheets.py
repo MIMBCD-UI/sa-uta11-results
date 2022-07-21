@@ -288,6 +288,71 @@ arr_concat018 = np.concatenate((arr_concat012, arr_concat015))
 # ============================== #
 # ============================== #
 
+data_preferences_df = pd.read_csv(preferences_abs_path, header=None)
+data_preferences = data_preferences_df.to_numpy()
+
+arr_uta11_preferences_q7 = data_preferences[1:, 11]
+arr_uta11_preferences_q8 = data_preferences[1:, 12]
+arr_uta11_preferences_q9 = data_preferences[1:, 13]
+
+arr_p_q7 = np.array(arr_uta11_preferences_q7, dtype=int)
+arr_p_q8 = np.array(arr_uta11_preferences_q8, dtype=int)
+arr_p_q9 = np.array(arr_uta11_preferences_q9, dtype=int)
+
+arr_p_q7_1 = (arr_p_q7 == 1).sum()
+arr_p_q7_2 = (arr_p_q7 == 2).sum()
+arr_p_q7_3 = (arr_p_q7 == 3).sum()
+arr_p_q7_4 = (arr_p_q7 == 4).sum()
+arr_p_q7_5 = (arr_p_q7 == 5).sum()
+arr_p_q7_6 = (arr_p_q7 == 6).sum()
+arr_p_q7_7 = (arr_p_q7 == 7).sum()
+
+# print(arr_p_q7_1)
+# print(arr_p_q7_2)
+# print(arr_p_q7_3)
+# print(arr_p_q7_4)
+# print(arr_p_q7_5)
+# print(arr_p_q7_6)
+# print(arr_p_q7_7)
+
+# print("==============================")
+
+arr_p_q8_1 = (arr_p_q8 == 1).sum()
+arr_p_q8_2 = (arr_p_q8 == 2).sum()
+arr_p_q8_3 = (arr_p_q8 == 3).sum()
+arr_p_q8_4 = (arr_p_q8 == 4).sum()
+arr_p_q8_5 = (arr_p_q8 == 5).sum()
+arr_p_q8_6 = (arr_p_q8 == 6).sum()
+arr_p_q8_7 = (arr_p_q8 == 7).sum()
+
+# print(arr_p_q8_1)
+# print(arr_p_q8_2)
+# print(arr_p_q8_3)
+# print(arr_p_q8_4)
+# print(arr_p_q8_5)
+# print(arr_p_q8_6)
+# print(arr_p_q8_7)
+
+# print("==============================")
+
+arr_p_q9_1 = (arr_p_q9 == 1).sum()
+arr_p_q9_2 = (arr_p_q9 == 2).sum()
+arr_p_q9_3 = (arr_p_q9 == 3).sum()
+arr_p_q9_4 = (arr_p_q9 == 4).sum()
+arr_p_q9_5 = (arr_p_q9 == 5).sum()
+arr_p_q9_6 = (arr_p_q9 == 6).sum()
+arr_p_q9_7 = (arr_p_q9 == 7).sum()
+
+# print(arr_p_q9_1)
+# print(arr_p_q9_2)
+# print(arr_p_q9_3)
+# print(arr_p_q9_4)
+# print(arr_p_q9_5)
+# print(arr_p_q9_6)
+# print(arr_p_q9_7)
+
+# print("==============================")
+
 # ============================== #
 # ============================== #
 # ============================== #

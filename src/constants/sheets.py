@@ -8,6 +8,23 @@ sheets.py: to read our data, we are using several datasets. For that,
            our datasets, provinding several variables to be used.
 """
 
+__author__      = "Francisco Maria Calisto"
+__maintainer__  = "Francisco Maria Calisto"
+__email__       = "francisco.calisto@tecnico.ulisboa.pt"
+__license__     = "MIT"
+__version__     = "0.1.0"
+__status__      = "Development"
+__copyright__   = "Copyright 2022, Instituto Superior Técnico (IST)"
+__credits__     = [
+  "João Fernandes",
+  "Miguel Bastos",
+  "Bruno Oliveira",
+  "Carlos Santiago",
+  "Jacinto C. Nascimento",
+  "Nuno Nunes",
+  "Pedro Miraldo"
+]
+
 import os
 import sys
 import openpyxl
@@ -67,29 +84,6 @@ preferences_abs_path = os.path.abspath(preferences_dir)
 # ============================== #
 # ============================== #
 # ============================== #
-
-# loadData = pd.read_excel(scenarios_abs_path, engine='openpyxl', sheet_name="results_before", header=None)
-
-# data = np.array(loadData)
-
-# loadDataArray = np.delete(loadDataArray, np.argwhere(np.isnan(loadDataArray)))
-
-# loadDataArray = np.delete(loadDataArray, np.argwhere(isinstance(loadDataArray, str)))
-
-# for i,x in enumerate(data):
-#     for(j,y) in enumerate(x):
-#         if isinstance(y, dt.time):
-#             data[i][j] = y.hour * 60 + y.minute
-
-# loadScenarios = pd.read_excel (scenarios_abs_path, sheet_name="scenarios", header=None)
-# scenarios = np.array(loadScenarios)
-
-# def getScenariosPatients():
-#     new_scenarios_patients = np.array([])
-#     for p in scenarios[1:,3]:
-#         p = p.replace("p", "")
-#         new_scenarios_patients = np.append(new_scenarios_patients, int(p) - 1)
-#     return new_scenarios_patients
 
 # ============================== #
 # ============================== #

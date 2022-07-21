@@ -2,8 +2,7 @@
 #coding=utf-8
 
 """
-evaluations.py: evaluate the models using both plots and
-                performance metrics.
+accuracies.py: metrics for accuracy analysis.
 """
 
 __author__      = "Francisco Maria Calisto"
@@ -37,7 +36,7 @@ from pretty_confusion_matrix import pp_matrix
 
 # ============================== #
 # ============================== #
-#               PATH             #
+#              PATHS             #
 # ============================== #
 # ============================== #
 

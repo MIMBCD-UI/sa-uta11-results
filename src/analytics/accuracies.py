@@ -83,11 +83,11 @@ from sheets import *
 confusion_matrix_bpa = confusion_matrix(ds_df001, ds_df002, normalize='all')
 confusion_matrix_bpap = confusion_matrix(ds_df001, ds_df003, normalize='all')
 
-# print(confusion_matrix_bpa)
-# print(confusion_matrix_bpa[0:, 0])
+print(confusion_matrix_bpa)
+print(confusion_matrix_bpa[0:, 0])
 
-# print(confusion_matrix_bpap)
-# print(confusion_matrix_bpap[0:, 0])
+print(confusion_matrix_bpap)
+print(confusion_matrix_bpap[0:, 0])
 
 df_cm_bpa = pd.DataFrame(confusion_matrix_bpa, columns=np.unique(ds_df001), index = np.unique(ds_df001))
 df_cm_bpa.index.name = 'Actual'

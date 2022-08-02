@@ -107,9 +107,9 @@ ds_df001 = np.array(data_actual_df_br, dtype=int)
 ds_df002 = np.array(data_predicted_df_bpa, dtype=int)
 ds_df003 = np.array(data_predicted_df_bpap, dtype=int)
 
-# print(data_actual_df_br)
-# print(data_predicted_df_bpa)
-# print(data_predicted_df_bpap)
+print(data_actual_df_br)
+print(data_predicted_df_bpa)
+print(data_predicted_df_bpap)
 
 # ============================== #
 # ============================== #

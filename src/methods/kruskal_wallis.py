@@ -83,7 +83,7 @@ def kruskalWallisPreference(firstIndex, lastIndex):
     print(sp.stats.kruskal(mean_sample_data_junior, mean_sample_data_senior))
 
 
-def kruskalWallisBehaviour(firstIndex, lastIndex):
+def kruskalWallisBehaviour(firstIndex, lastIndex, q_type):
     lastIndex += 1
 
     mean_sample_data_intern_proactive = []
@@ -101,11 +101,12 @@ def kruskalWallisBehaviour(firstIndex, lastIndex):
             outliers_sample_data_intern_proactive_i = nan_outliers_sample_data_intern_proactive_i[~np.isnan(nan_outliers_sample_data_intern_proactive_i)]
             sample_data_intern_proactive_i = outliers_sample_data_intern_proactive_i
 
-            for k,y in enumerate(sample_data_intern_proactive_i):
-                if(k % 2 == 1):
-                    sample_data_intern_proactive_i[k] = 6 - y
-
-            mean_sample_data_intern_proactive.append(np.mean(sample_data_intern_proactive_i))
+            if(q_type == 'SUS'):
+                mean_sample_data_intern_proactive.append(sus_score(sample_data_intern_proactive_i))
+            elif (q_type == 'NASA'):
+                mean_sample_data_intern_proactive.append(nasa_score(sample_data_intern_proactive_i))
+            else:
+                mean_sample_data_intern_proactive.append(np.mean(sample_data_intern_proactive_i))
 
         if(i+1 in reactive):
 
@@ -113,11 +114,12 @@ def kruskalWallisBehaviour(firstIndex, lastIndex):
             outliers_sample_data_intern_reactive_i = nan_outliers_sample_data_intern_reactive_i[~np.isnan(nan_outliers_sample_data_intern_reactive_i)]
             sample_data_intern_reactive_i = outliers_sample_data_intern_reactive_i
 
-            for k,y in enumerate(sample_data_intern_reactive_i):
-                if(k % 2 == 1):
-                    sample_data_intern_reactive_i[k] = 6 - y
-
-            mean_sample_data_intern_reactive.append(np.mean(sample_data_intern_reactive_i))
+            if(q_type == 'SUS'):
+                mean_sample_data_intern_reactive.append(sus_score(sample_data_intern_reactive_i))
+            elif (q_type == 'NASA'):
+                mean_sample_data_intern_reactive.append(nasa_score(sample_data_intern_reactive_i))
+            else:
+                mean_sample_data_intern_reactive.append(np.mean(sample_data_intern_reactive_i))
 
     for i in getScenarios(juniors):
 
@@ -127,11 +129,12 @@ def kruskalWallisBehaviour(firstIndex, lastIndex):
             outliers_sample_data_junior_proactive_i = nan_outliers_sample_data_junior_proactive_i[~np.isnan(nan_outliers_sample_data_junior_proactive_i)]
             sample_data_junior_proactive_i = outliers_sample_data_junior_proactive_i
 
-            for k,y in enumerate(sample_data_junior_proactive_i):
-                if(k % 2 == 1):
-                    sample_data_junior_proactive_i[k] = 6 - y
-
-            mean_sample_data_junior_proactive.append(np.mean(sample_data_junior_proactive_i))
+            if(q_type == 'SUS'):
+                mean_sample_data_junior_proactive.append(sus_score(sample_data_junior_proactive_i))
+            elif (q_type == 'NASA'):
+                mean_sample_data_junior_proactive.append(nasa_score(sample_data_junior_proactive_i))
+            else:
+                mean_sample_data_junior_proactive.append(np.mean(sample_data_junior_proactive_i))
 
         if(i+1 in reactive):
 
@@ -139,11 +142,12 @@ def kruskalWallisBehaviour(firstIndex, lastIndex):
             outliers_sample_data_junior_reactive_i = nan_outliers_sample_data_junior_reactive_i[~np.isnan(nan_outliers_sample_data_junior_reactive_i)]
             sample_data_junior_reactive_i = outliers_sample_data_junior_reactive_i
 
-            for k,y in enumerate(sample_data_junior_reactive_i):
-                if(k % 2 == 1):
-                    sample_data_junior_reactive_i[k] = 6 - y
-
-            mean_sample_data_junior_reactive.append(np.mean(sample_data_junior_reactive_i))
+            if(q_type == 'SUS'):
+                mean_sample_data_junior_reactive.append(sus_score(sample_data_junior_reactive_i))
+            elif (q_type == 'NASA'):
+                mean_sample_data_junior_reactive.append(nasa_score(sample_data_junior_reactive_i))
+            else:
+                mean_sample_data_junior_reactive.append(np.mean(sample_data_junior_reactive_i))
 
     for i in getScenarios(seniors):
 
@@ -153,11 +157,12 @@ def kruskalWallisBehaviour(firstIndex, lastIndex):
             outliers_sample_data_senior_proactive_i = nan_outliers_sample_data_senior_proactive_i[~np.isnan(nan_outliers_sample_data_senior_proactive_i)]
             sample_data_senior_proactive_i = outliers_sample_data_senior_proactive_i
 
-            for k,y in enumerate(sample_data_senior_proactive_i):
-                if(k % 2 == 1):
-                    sample_data_senior_proactive_i[k] = 6 - y
-
-            mean_sample_data_senior_proactive.append(np.mean(sample_data_senior_proactive_i))
+            if(q_type == 'SUS'):
+                mean_sample_data_senior_proactive.append(sus_score(sample_data_senior_proactive_i))
+            elif (q_type == 'NASA'):
+                mean_sample_data_senior_proactive.append(nasa_score(sample_data_senior_proactive_i))
+            else:
+                mean_sample_data_senior_proactive.append(np.mean(sample_data_senior_proactive_i))
 
         if(i+1 in reactive):
 
@@ -165,19 +170,18 @@ def kruskalWallisBehaviour(firstIndex, lastIndex):
             outliers_sample_data_senior_reactive_i = nan_outliers_sample_data_senior_reactive_i[~np.isnan(nan_outliers_sample_data_senior_reactive_i)]
             sample_data_senior_reactive_i = outliers_sample_data_senior_reactive_i
 
-            for k,y in enumerate(sample_data_senior_reactive_i):
-                if(k % 2 == 1):
-                    sample_data_senior_reactive_i[k] = 6 - y
-
-            mean_sample_data_senior_reactive.append(np.mean(sample_data_senior_reactive_i))
+            if(q_type == 'SUS'):
+                mean_sample_data_senior_reactive.append(sus_score(sample_data_senior_reactive_i))
+            elif (q_type == 'NASA'):
+                mean_sample_data_senior_reactive.append(nasa_score(sample_data_senior_reactive_i))
+            else:
+                mean_sample_data_senior_reactive.append(np.mean(sample_data_senior_reactive_i))
     
     mean_sample_data_novice_proactive = np.append(mean_sample_data_intern_proactive, mean_sample_data_junior_proactive)
     mean_sample_data_novice_reactive = np.append(mean_sample_data_intern_reactive, mean_sample_data_junior_reactive)
 
-    print(mean_sample_data_intern_proactive)
-    print(mean_sample_data_intern_reactive)
-    print(mean_sample_data_junior_proactive)
-    print(mean_sample_data_junior_reactive)
+    print(mean_sample_data_novice_proactive)
+    print(mean_sample_data_novice_reactive)
     print(mean_sample_data_senior_proactive)
     print(mean_sample_data_senior_reactive)
 
@@ -201,7 +205,27 @@ def kruskalWallisBehaviour(firstIndex, lastIndex):
     # print("---Intern Reactive vs Junior Reactive vs Senior Reactive---")
     # print(sp.stats.kruskal(mean_sample_data_intern_reactive, mean_sample_data_junior_reactive, mean_sample_data_senior_reactive))
 
-def kruskalWallisAssertiveness(firstIndex, lastIndex):
+
+def nasa_score(data):
+    total = 0
+    for q in data:
+        total += q
+
+    return total
+
+def sus_score(data):
+    X = 0
+    Y = 0
+    for q in range(data.size):
+        if(q % 2 == 0):
+            X += data[q]
+        else:
+            Y += data[q]
+    sus_scores = ((X - 5) + (25 - Y)) * 2.5
+
+    return sus_scores
+
+def kruskalWallisAssertiveness(firstIndex, lastIndex, q_type):
     lastIndex += 1
 
     mean_sample_data_intern_assertive = []
@@ -219,11 +243,12 @@ def kruskalWallisAssertiveness(firstIndex, lastIndex):
             outliers_sample_data_intern_assertive_i = nan_outliers_sample_data_intern_assertive_i[~np.isnan(nan_outliers_sample_data_intern_assertive_i)]
             sample_data_intern_assertive_i = outliers_sample_data_intern_assertive_i
 
-            for k,y in enumerate(sample_data_intern_assertive_i):
-                if(k % 2 == 1):
-                    sample_data_intern_assertive_i[k] = 6 - y
-
-            mean_sample_data_intern_assertive.append(np.mean(sample_data_intern_assertive_i))
+            if (q_type == 'SUS'):
+                mean_sample_data_intern_assertive.append(sus_score(sample_data_intern_assertive_i))
+            elif (q_type == 'NASA'):
+                mean_sample_data_intern_assertive.append(nasa_score(sample_data_intern_assertive_i))
+            else:
+                mean_sample_data_intern_assertive.append(np.mean(sample_data_intern_assertive_i))
 
         if(i+1 in non_assertive):
 
@@ -231,11 +256,12 @@ def kruskalWallisAssertiveness(firstIndex, lastIndex):
             outliers_sample_data_intern_non_assertive_i = nan_outliers_sample_data_intern_non_assertive_i[~np.isnan(nan_outliers_sample_data_intern_non_assertive_i)]
             sample_data_intern_non_assertive_i = outliers_sample_data_intern_non_assertive_i
 
-            for k,y in enumerate(sample_data_intern_non_assertive_i):
-                if(k % 2 == 1):
-                    sample_data_intern_non_assertive_i[k] = 6 - y
-
-            mean_sample_data_intern_non_assertive.append(np.mean(sample_data_intern_non_assertive_i))
+            if(q_type == 'SUS'):
+                mean_sample_data_intern_non_assertive.append(sus_score(sample_data_intern_non_assertive_i))
+            elif (q_type == 'NASA'):
+                mean_sample_data_intern_non_assertive.append(nasa_score(sample_data_intern_non_assertive_i))
+            else:
+                mean_sample_data_intern_non_assertive.append(np.mean(sample_data_intern_non_assertive_i))
 
     for i in getScenarios(juniors):
 
@@ -245,11 +271,12 @@ def kruskalWallisAssertiveness(firstIndex, lastIndex):
             outliers_sample_data_junior_assertive_i = nan_outliers_sample_data_junior_assertive_i[~np.isnan(nan_outliers_sample_data_junior_assertive_i)]
             sample_data_junior_assertive_i = outliers_sample_data_junior_assertive_i
 
-            for k,y in enumerate(sample_data_junior_assertive_i):
-                if(k % 2 == 1):
-                    sample_data_junior_assertive_i[k] = 6 - y
-        
-            mean_sample_data_junior_assertive.append(np.mean(sample_data_junior_assertive_i))
+            if(q_type == 'SUS'):
+                mean_sample_data_junior_assertive.append(sus_score(sample_data_junior_assertive_i))
+            elif (q_type == 'NASA'):
+                mean_sample_data_junior_assertive.append(nasa_score(sample_data_junior_assertive_i))
+            else:
+                mean_sample_data_junior_assertive.append(np.mean(sample_data_junior_assertive_i))
 
         if(i+1 in non_assertive):
 
@@ -257,11 +284,12 @@ def kruskalWallisAssertiveness(firstIndex, lastIndex):
             outliers_sample_data_junior_non_assertive_i = nan_outliers_sample_data_junior_non_assertive_i[~np.isnan(nan_outliers_sample_data_junior_non_assertive_i)]
             sample_data_junior_non_assertive_i = outliers_sample_data_junior_non_assertive_i
 
-            for k,y in enumerate(sample_data_junior_non_assertive_i):
-                if(k % 2 == 1):
-                    sample_data_junior_non_assertive_i[k] = 6 - y
-
-            mean_sample_data_junior_non_assertive.append(np.mean(sample_data_junior_non_assertive_i))
+            if(q_type == 'SUS'):
+                mean_sample_data_junior_non_assertive.append(sus_score(sample_data_junior_non_assertive_i))
+            elif (q_type == 'NASA'):
+                mean_sample_data_junior_non_assertive.append(nasa_score(sample_data_junior_non_assertive_i))
+            else:
+                mean_sample_data_junior_non_assertive.append(np.mean(sample_data_junior_non_assertive_i))
 
     for i in getScenarios(seniors):
 
@@ -271,11 +299,12 @@ def kruskalWallisAssertiveness(firstIndex, lastIndex):
             outliers_sample_data_senior_assertive_i = nan_outliers_sample_data_senior_assertive_i[~np.isnan(nan_outliers_sample_data_senior_assertive_i)]
             sample_data_senior_assertive_i = outliers_sample_data_senior_assertive_i
 
-            for k,y in enumerate(sample_data_senior_assertive_i):
-                if(k % 2 == 1):
-                    sample_data_senior_assertive_i[k] = 6 - y
-
-            mean_sample_data_senior_assertive.append(np.mean(sample_data_senior_assertive_i))
+            if(q_type == 'SUS'):
+                mean_sample_data_senior_assertive.append(sus_score(sample_data_senior_assertive_i))
+            elif (q_type == 'NASA'):
+                mean_sample_data_senior_assertive.append(nasa_score(sample_data_senior_assertive_i))
+            else:
+                mean_sample_data_senior_assertive.append(np.mean(sample_data_senior_assertive_i))
 
         if(i+1 in non_assertive):
 
@@ -283,19 +312,18 @@ def kruskalWallisAssertiveness(firstIndex, lastIndex):
             outliers_sample_data_senior_non_assertive_i = nan_outliers_sample_data_senior_non_assertive_i[~np.isnan(nan_outliers_sample_data_senior_non_assertive_i)]
             sample_data_senior_non_assertive_i = outliers_sample_data_senior_non_assertive_i
 
-            for k,y in enumerate(sample_data_senior_non_assertive_i):
-                if(k % 2 == 1):
-                    sample_data_senior_non_assertive_i[k] = 6 - y
-
-            mean_sample_data_senior_non_assertive.append(np.mean(sample_data_senior_non_assertive_i))
+            if(q_type == 'SUS'):
+                mean_sample_data_senior_non_assertive.append(sus_score(sample_data_senior_non_assertive_i))
+            elif (q_type == 'NASA'):
+                mean_sample_data_senior_non_assertive.append(nasa_score(sample_data_senior_non_assertive_i))
+            else:
+                mean_sample_data_senior_non_assertive.append(np.mean(sample_data_senior_non_assertive_i))
     
     mean_sample_data_novice_assertive = np.append(mean_sample_data_intern_assertive, mean_sample_data_junior_assertive)
     mean_sample_data_novice_non_assertive = np.append(mean_sample_data_intern_non_assertive, mean_sample_data_junior_non_assertive)
 
-    print(mean_sample_data_intern_assertive)
-    print(mean_sample_data_intern_non_assertive)
-    print(mean_sample_data_junior_assertive)
-    print(mean_sample_data_junior_non_assertive)
+    print(mean_sample_data_novice_assertive)
+    print(mean_sample_data_novice_non_assertive)
     print(mean_sample_data_senior_assertive)
     print(mean_sample_data_senior_non_assertive)
 
@@ -386,9 +414,9 @@ def main():
     # #Time
     # print("-------------- TIME ---------------")
     # print("-------------- ASSERTIVENESS ---------------")
-    kruskalWallisAssertiveness(4,4)
+    # kruskalWallisAssertiveness(4,4)
     # print("-------------- BEHAVIOUR ---------------")
-    kruskalWallisBehaviour(4,4)
+    # kruskalWallisBehaviour(4,4)
 
 
     # print("-------------- UX ---------------")
@@ -397,24 +425,24 @@ def main():
 
     # #DOTS
     # print("-------------- DOTS ---------------")
-    # kruskalWallisAssertiveness(5,5)
-    # kruskalWallisAssertiveness(6,6)
-    # kruskalWallisAssertiveness(7,7)
-    # kruskalWallisAssertiveness(5,7)
+    # kruskalWallisAssertiveness(5,5,'DOTS')
+    # kruskalWallisAssertiveness(6,6,'DOTS')
+    # kruskalWallisAssertiveness(7,7,'DOTS')
+    # kruskalWallisAssertiveness(5,7,'DOTS')
 
     # #SUS
     # print("-------------- SUS ---------------")
-    # kruskalWallisAssertiveness(8,8)
-    # kruskalWallisAssertiveness(9,9)
-    # kruskalWallisAssertiveness(10,10)
-    # kruskalWallisAssertiveness(11,11)
-    # kruskalWallisAssertiveness(12,12)
-    # kruskalWallisAssertiveness(13,13)
-    # kruskalWallisAssertiveness(14,14)
-    # kruskalWallisAssertiveness(15,15)
-    # kruskalWallisAssertiveness(16,16)
-    # kruskalWallisAssertiveness(17,17)
-    # kruskalWallisAssertiveness(8,17)
+    # kruskalWallisAssertiveness(8,8, np.NaN)
+    # kruskalWallisAssertiveness(9,9, np.NaN)
+    # kruskalWallisAssertiveness(10,10, np.NaN)
+    # kruskalWallisAssertiveness(11,11, np.NaN)
+    # kruskalWallisAssertiveness(12,12, np.NaN)
+    # kruskalWallisAssertiveness(13,13, np.NaN)
+    # kruskalWallisAssertiveness(14,14, np.NaN)
+    # kruskalWallisAssertiveness(15,15, np.NaN)
+    # kruskalWallisAssertiveness(16,16, np.NaN)
+    # kruskalWallisAssertiveness(17,17, np.NaN)
+    # kruskalWallisAssertiveness(8,17, 'SUS')
 
     # #NASA-TLX
     # print("-------------- NASA-TLX ---------------")
@@ -424,29 +452,29 @@ def main():
     # kruskalWallisAssertiveness(21,21)
     # kruskalWallisAssertiveness(22,22)
     # kruskalWallisAssertiveness(23,23)
-    # kruskalWallisAssertiveness(18,23)
+    kruskalWallisAssertiveness(18,23,'NASA')
 
     # print("-------------- BEHAVIOUR ---------------")
     # #DOTS
     # print("-------------- DOTS ---------------")
-    # kruskalWallisBehaviour(5,5)
-    # kruskalWallisBehaviour(6,6)
-    # kruskalWallisBehaviour(7,7)
-    # kruskalWallisBehaviour(5,7)
+    # kruskalWallisBehaviour(5,5,'DOTS')
+    # kruskalWallisBehaviour(6,6,'DOTS')
+    # kruskalWallisBehaviour(7,7,'DOTS')
+    # kruskalWallisBehaviour(5,7,'DOTS')
 
     # #SUS
     # print("-------------- SUS ---------------")
-    # kruskalWallisBehaviour(8,8)
-    # kruskalWallisBehaviour(9,9)
-    # kruskalWallisBehaviour(10,10)
-    # kruskalWallisBehaviour(11,11)
-    # kruskalWallisBehaviour(12,12)
-    # kruskalWallisBehaviour(13,13)
-    # kruskalWallisBehaviour(14,14)
-    # kruskalWallisBehaviour(15,15)
-    # kruskalWallisBehaviour(16,16)
-    # kruskalWallisBehaviour(17,17)
-    # kruskalWallisBehaviour(8,17)
+    # kruskalWallisBehaviour(8,8, np.NaN)
+    # kruskalWallisBehaviour(9,9, np.NaN)
+    # kruskalWallisBehaviour(10,10, np.NaN)
+    # kruskalWallisBehaviour(11,11, np.NaN)
+    # kruskalWallisBehaviour(12,12, np.NaN)
+    # kruskalWallisBehaviour(13,13, np.NaN)
+    # kruskalWallisBehaviour(14,14, np.NaN)
+    # kruskalWallisBehaviour(15,15, np.NaN)
+    # kruskalWallisBehaviour(16,16, np.NaN)
+    # kruskalWallisBehaviour(17,17, np.NaN)
+    # kruskalWallisBehaviour(8,17, 'SUS')
 
     # #NASA-TLX
     # print("-------------- NASA-TLX ---------------")
@@ -456,7 +484,7 @@ def main():
     # kruskalWallisBehaviour(21,21)
     # kruskalWallisBehaviour(22,22)
     # kruskalWallisBehaviour(23,23)
-    # kruskalWallisBehaviour(18,23)
+    kruskalWallisBehaviour(18,23,'NASA')
     
 
     # #Q3

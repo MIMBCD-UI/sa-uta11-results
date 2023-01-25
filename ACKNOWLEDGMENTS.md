@@ -6,3 +6,7 @@ Moreover, we would like to provide our acknowledgements to Dr. Em\'{i}lia Vieira
 We also want to thank all teams of the radiology department of HB for participation, as well as from all other clinical institutions.
 A great thank to Dr. Cristina Ribeiro da Fonseca who, among others, is giving us crucial directions.
 Finally, we would like to thank Catarina Barata, Hugo Lencastre, N\'{a}dia Mour\~{a}o, Jo\~{a}o Bernardo, Madalena Pedreira, Pedro Diogo, Mauro Machado, and Miguel Bastos for their development, support, feedback, and opinions.
+
+Additionally, we are grateful for the invaluable assistance provided by our colleagues at Carnegie Mellon University.
+Specifically, from the Human-Computer Interaction Institute.
+We are indebted to those who gave their time and expertise to evaluate our work.

@@ -7,3 +7,10 @@ During this UTA11 study, we used several repositories to store the source code o
 ## Related Repositories
 
 - [`sa-uta8-utaut`](https://github.com/mida-project/sa-uta8-utaut)
+
+
+## Citation
+
+```
+Francisco Maria Calisto, Nuno Nunes, Jacinto C. Nascimento, Modeling adoption of intelligent agents in medical imaging, International Journal of Human-Computer Studies, Volume 168, 2022, 102922, ISSN 1071-5819, https://doi.org/10.1016/j.ijhcs.2022.102922.
+```

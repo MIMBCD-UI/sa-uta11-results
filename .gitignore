@@ -129,6 +129,6 @@ dmypy.json
 .pyre/
 
 # Data
-mimbcdui_uta7_uta11_results_curated_abimid_severities.csv
-mimbcdui_uta7_uta11_results_curated_abimid_times.csv
-mimbcdui_uta7_uta11_results_curated_abimid_preferences.csv
+# mimbcdui_uta7_uta11_results_curated_abimid_severities.csv
+# mimbcdui_uta7_uta11_results_curated_abimid_times.csv
+# mimbcdui_uta7_uta11_results_curated_abimid_preferences.csv

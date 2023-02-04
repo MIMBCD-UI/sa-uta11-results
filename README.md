@@ -97,7 +97,7 @@ This project exists thanks to all the people who [contribute](CONTRIBUTING.md). 
 
 ### Issuer
 
-Either as something that seems missing or any need for support, just open a [new issue](https://github.com/MIMBCD-UI/dataset-uta4-classifications/issues/new). Regardless of being a simple request or a fully-structured feature, we will do our best to understand them and, eventually, solve them.
+Either as something that seems missing or any need for support, just open a [new issue](https://github.com/MIMBCD-UI/sa-uta11-results/issues/new). Regardless of being a simple request or a fully-structured feature, we will do our best to understand them and, eventually, solve them.
 
 ### Developer
 
@@ -107,6 +107,20 @@ We like to develop, but we also like collaboration. You could ask us to add some
 
 The current information will summarize important items of this repository. In this section, we address all fundamental items that were crucial to the current information.
 
-## Related Repositories
+### Related Repositories
 
 - [`sa-uta8-utaut`](https://github.com/mida-project/sa-uta8-utaut)
+
+### Dataset Resources
+
+To publish our [datasets](https://www.kaggle.com/MIMBCD-UI) we used a well known platform called [Kaggle](https://www.kaggle.com). To access our project's [Profile Page](https://www.kaggle.com/MIMBCD-UI) just follow the [link](https://www.kaggle.com/MIMBCD-UI). Here, you will find all of our published datasets and any associated information, such as descriptions and download links.
+
+### License & Copyright
+
+Copyright &copy; 2023 [Instituto Superior Técnico](http://tecnico.ulisboa.pt/)
+
+[![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/)
+
+The [`sa-uta11-results`](https://github.com/MIMBCD-UI/sa-uta11-results) repository is distributed under the terms of both [Academic License](https://github.com/MIMBCD-UI/prototype-breast-screening/blob/master/ACADEMIC.md) for academic purpose and [Commercial License](https://github.com/MIMBCD-UI/prototype-breast-screening/blob/master/COMMERCIAL.md) for commercial purpose, as well as under the [CC-BY-SA-4.0](COPYING.md) copyright. The content of the present repository has obtained the patent right of [World Intellectual Property Organization (WIPO)](https://www.wipo.int) invention. Moreover, the hereby invention for this repository is under protection of the patent number **[WO2022071818A1](https://patents.google.com/patent/WO2022071818A1)** with the application number **PCT/PT2021/050029**. The title of the invention is "*Computational Method and System for Improved Identification of Breast Lesions*", registered under the WO patent office.
+
+See [ACADEMIC](https://github.com/MIMBCD-UI/prototype-breast-screening/blob/master/ACADEMIC.md) and [COMMERCIAL](https://github.com/MIMBCD-UI/prototype-breast-screening/blob/master/COMMERCIAL.md) for details. For more information about the [MIMBCD-UI](https://mimbcd-ui.github.io/) Project just follow the [link](https://github.com/MIMBCD-UI/meta).

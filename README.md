@@ -44,13 +44,68 @@ series = {CHI '23}
 * [Team](#Team)
 * [Acknowledgements](#Acknowledgements)
 
+## Prerequisites
 
+The following list is showing the required dependencies for this project to run locally:
 
+* [Git](https://git-scm.com/) or any other Git or GitHub version control tool
+* [Python](https://www.python.org/) (v3.5 or newer)
+* [NodeJS](https://nodejs.org) (v16.14.1 or newer)
 
+Here are some tutorials and documentation, if needed, to feel more comfortable about using and playing around with this repository:
 
+* [Introduction to Node.js](https://nodejs.dev/en/learn)
+* [Python Tutorial](https://docs.python.org/3/tutorial/index.html)
+* [Git Tutorial](https://git-scm.com/docs/gittutorial)
+* [GitHub Quick Tutorial](https://guides.github.com/activities/hello-world/)
 
+## Usage
 
+Usage follow the instructions here to setup the current repository and extract the present data. To understand how the hereby repository is used for, read the following steps.
 
+### Installation
+
+At this point, the only way to install this repository is manual. Eventually, this will be accessible through [pip](https://pypi.org/project/pip/) and [npm](https://www.npmjs.com/) or any other package managers, as mentioned on the [roadmap](#Roadmap).
+
+Nonetheless, this kind of installation is as simple as cloning this repository. Virtually all Git and GitHub version control tools are capable of doing that. Through the console, we can use the command below, but other ways are also fine.
+
+```bash
+git clone https://github.com/MIMBCD-UI/sa-uta11-results.git
+```
+
+### Demonstration
+
+Please, feel free to try out our demo. It is a script called `demo.py` at the `src/` directory. It can be used as follows:
+
+```bash
+python src/demo.py
+```
+
+Just keep in mind this is just a demo, so it does nothing more than downloading data to an arbitrary destination directory if the directory does not exist or does not have any content. Also, we did our best to make the demo as user-friendly as possible, so, above everything else, have fun! 😁
+
+## Roadmap
+
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3819/badge)](https://bestpractices.coreinfrastructure.org/projects/3819)
+
+We need to follow the repository goal, by addressing the thereby information. Therefore, it is of chief importance to scale this solution supported by the repository. The repository solution follows the best practices, achieving the [Core Infrastructure Initiative (CII)](https://bestpractices.coreinfrastructure.org/en/projects/3172) specifications.
+
+Besides that, one of our goals involves creating a configuration file to automatically test and publish our code to pip or any other package manager. It will be most likely prepared for the [GitHub Actions](https://github.com/features/actions). Other goals may be written here in the future.
+
+## Contributing
+
+This project exists thanks to all the people who [contribute](CONTRIBUTING.md). We welcome everyone who wants to help us improve this downloader. As follows, we present some suggestions.
+
+### Issuer
+
+Either as something that seems missing or any need for support, just open a [new issue](https://github.com/MIMBCD-UI/dataset-uta4-classifications/issues/new). Regardless of being a simple request or a fully-structured feature, we will do our best to understand them and, eventually, solve them.
+
+### Developer
+
+We like to develop, but we also like collaboration. You could ask us to add some features... Or you could want to do it yourself and fork this repository. Maybe even do some side-project of your own. If the latter ones, please let us share some insights about what we currently have.
+
+## Information
+
+The current information will summarize important items of this repository. In this section, we address all fundamental items that were crucial to the current information.
 
 ## Related Repositories
 

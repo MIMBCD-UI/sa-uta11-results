@@ -6,7 +6,7 @@
 
 TODO
 
-During this UTA11 study, we used several repositories to store the source code of our prototypes, later tested as *proof-of-concepts* under this research work. The prototypes are available in the [`prototype-assertive-proactive`](https://github.com/MIMBCD-UI/prototype-assertive-proactive), [`prototype-assertive-reactive`](https://github.com/MIMBCD-UI/prototype-assertive-reactive), [`prototype-non-assertive-proactive`](https://github.com/MIMBCD-UI/prototype-non-assertive-proactive), and [`prototype-non-assertive-reactive`](https://github.com/MIMBCD-UI/prototype-non-assertive-reactive) repositories. We deployed each prototype in a remote server. You can find the [deployed prototypes](https://github.com/MIMBCD-UI/meta-private/blob/master/wiki/Technical.md#deployment-prototypes) on the [`Technical.md`](https://github.com/MIMBCD-UI/meta-private/blob/master/wiki/Technical.md#deployment-prototypes) file of the [`meta-private`](https://github.com/MIMBCD-UI/meta-private) repository. More information about the study is also available on the [`User-Research.md`](https://github.com/MIMBCD-UI/meta-private/blob/master/wiki/User-Research.md#test-11-assertive-and-non-assertive-introduction-) file of this [`meta-private`](https://github.com/MIMBCD-UI/meta-private) repository. Unfortunately, you need to be a member of our team to access the restricted information.
+During this UTA11 study, we used several repositories to store the source code of our prototypes, later tested as *proof-of-concepts* under this research work. The prototypes are available in the [`prototype-assertive-proactive`](https://github.com/MIMBCD-UI/prototype-assertive-proactive), [`prototype-assertive-reactive`](https://github.com/MIMBCD-UI/prototype-assertive-reactive), [`prototype-non-assertive-proactive`](https://github.com/MIMBCD-UI/prototype-non-assertive-proactive), and [`prototype-non-assertive-reactive`](https://github.com/MIMBCD-UI/prototype-non-assertive-reactive) repositories. We deployed each prototype in a remote server. On the same hand, the hereby *results* represent the pieces of information of both [BreastScreening](https://BreastScreening.github.io) and [MIDA](https://mida-project.github.io) projects. These projects are research projects that deal with the use of a recently proposed technique in literature: [Deep Convolutional Neural Networks (CNNs)](https://en.wikipedia.org/wiki/Convolutional_neural_network). From a developed User Interface (UI) and *framework*, these deep networks will incorporate [several datasets](https://github.com/MIMBCD-UI/meta/wiki/Datasets) in different modes. You can find the [deployed prototypes](https://github.com/MIMBCD-UI/meta-private/blob/master/wiki/Technical.md#deployment-prototypes) on the [`Technical.md`](https://github.com/MIMBCD-UI/meta-private/blob/master/wiki/Technical.md#deployment-prototypes) file of the [`meta-private`](https://github.com/MIMBCD-UI/meta-private) repository. More information about the study is also available on the [`User-Research.md`](https://github.com/MIMBCD-UI/meta-private/blob/master/wiki/User-Research.md#test-11-assertive-and-non-assertive-introduction-) file of this [`meta-private`](https://github.com/MIMBCD-UI/meta-private) repository. Unfortunately, you need to be a member of our team to access the restricted information. We also have several demos to see in our [YouTube Channel](https://www.youtube.com/channel/UCPz4aTIVHekHXTxHTUOLmXw), please follow us.
 
 ## Citing
 
@@ -33,6 +33,24 @@ location = {Hamburg, Germany},
 series = {CHI '23}
 }
 ```
+
+## Table of contents
+
+* [Prerequisites](#Prerequisites)
+* [Usage](#Usage)
+* [Roadmap](#Roadmap)
+* [Contributing](#Contributing)
+* [License & Copyright](#License--Copyright)
+* [Team](#Team)
+* [Acknowledgements](#Acknowledgements)
+
+
+
+
+
+
+
+
 
 ## Related Repositories
 

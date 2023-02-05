@@ -131,7 +131,7 @@ Our team brings everything together sharing ideas and the same purpose, developi
 
 #### Authors
 
-* Francisco Maria Calisto [ [Website](https://web.tecnico.ulisboa.pt/francisco.calisto) | [ResearchGate](https://www.researchgate.net/profile/Francisco_Maria_Calisto) | [GitHub](https://github.com/FMCalisto) | [Twitter](https://twitter.com/FMCalisto) | [LinkedIn](https://www.linkedin.com/in/fmcalisto/) ]
+* Francisco Maria Calisto [ [Academic Website](https://web.tecnico.ulisboa.pt/francisco.calisto) | [ResearchGate](https://www.researchgate.net/profile/Francisco_Maria_Calisto) | [GitHub](https://github.com/FMCalisto) | [Twitter](https://twitter.com/FMCalisto) | [LinkedIn](https://www.linkedin.com/in/fmcalisto/) ]
 
 * João Fernandes [ [ResearchGate](https://www.researchgate.net/profile/Joao-Fernandes-102) ]
 
@@ -155,7 +155,7 @@ Our team brings everything together sharing ideas and the same purpose, developi
 * Madalena Pedreira
 * Mauro Machado
 
-#### Promoters
+#### Companions
 
 * Bruno Dias
 * Bruno Oliveira

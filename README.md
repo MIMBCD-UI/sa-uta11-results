@@ -124,3 +124,167 @@ Copyright &copy; 2023 [Instituto Superior Técnico](http://tecnico.ulisboa.pt/)
 The [`sa-uta11-results`](https://github.com/MIMBCD-UI/sa-uta11-results) repository is distributed under the terms of both [Academic License](https://github.com/MIMBCD-UI/sa-uta11-results/blob/master/ACADEMIC.md) for academic purpose and [Commercial License](https://github.com/MIMBCD-UI/sa-uta11-results/blob/master/COMMERCIAL.md) for commercial purpose, as well as under the [CC-BY-SA-4.0](COPYING.md) copyright. The content of the present repository has obtained the patent right of [World Intellectual Property Organization (WIPO)](https://www.wipo.int) invention. Moreover, the hereby invention for this repository is under protection of the patent number **[WO2022071818A1](https://patents.google.com/patent/WO2022071818A1)** with the application number **PCT/PT2021/050029**. The title of the invention is "*Computational Method and System for Improved Identification of Breast Lesions*", registered under the WO patent office.
 
 See [ACADEMIC](https://github.com/MIMBCD-UI/sa-uta11-results/blob/master/ACADEMIC.md) and [COMMERCIAL](https://github.com/MIMBCD-UI/sa-uta11-results/blob/master/COMMERCIAL.md) for details. For more information about the [MIMBCD-UI](https://mimbcd-ui.github.io/) Project just follow the [link](https://github.com/MIMBCD-UI/meta).
+
+### Team
+
+Our team brings everything together sharing ideas and the same purpose, developing even better work. In this section, we will nominate the full list of important people for this repository, as well as respective links.
+
+#### Authors
+
+* Francisco Maria Calisto [ [Website](https://web.tecnico.ulisboa.pt/francisco.calisto) | [ResearchGate](https://www.researchgate.net/profile/Francisco_Maria_Calisto) | [GitHub](https://github.com/FMCalisto) | [Twitter](https://twitter.com/FMCalisto) | [LinkedIn](https://www.linkedin.com/in/fmcalisto/) ]
+
+* João Fernandes [ [ResearchGate](https://www.researchgate.net/profile/Joao-Fernandes-102) ]
+
+* Margarida Morais [ [ResearchGate](https://www.researchgate.net/profile/Margarida_Morais2) ]
+
+* Carlos Santiago [ [ResearchGate](https://www.researchgate.net/profile/Carlos-Santiago-4) ]
+
+* João Maria Abrantes [ [ResearchGate](https://www.researchgate.net/profile/Joao-Abrantes-2) ]
+
+* Nuno Nunes [ [ResearchGate](https://www.researchgate.net/profile/Nuno_Nunes2) ]
+
+* Jacinto C. Nascimento [ [ResearchGate](https://www.researchgate.net/profile/Jacinto_Nascimento) ]
+
+#### Promoters
+
+* Hugo Lencastre
+* Nádia Mourão
+* Miguel Bastos
+* Pedro Diogo
+* João Bernardo
+* Madalena Pedreira
+* Mauro Machado
+
+#### Promoters
+
+* Bruno Dias
+* Bruno Oliveira
+* Luís Ribeiro Gomes
+* Carlos Santiago
+* Pedro Miraldo
+
+#### Acknowledgements
+
+This work was partially supported by national funds through [FCT](http://fct.pt/) and [IST](http://tecnico.ulisboa.pt/) through the [UID/EEA/50009/2013](https://www.fct.pt/apoios/projectos/consulta/vglobal_projecto.phtml.en?idProjecto=147329&idElemConcurso=8999) project, [BL89/2017-IST-ID](http://ist-id.pt/en/) grant. We thank [Dr. Clara Aleluia](https://www.researchgate.net/profile/Clara_Aleluia) and her [radiology team](https://repositorio.hff.min-saude.pt/handle/10400.10/4?locale=en) of [HFF](https://hff.min-saude.pt/) for valuable insights and helping using the *assistants* on their daily basis. Further acknowledgments are provided inside the [`ACKNOWLEDGMENTS.md`](https://github.com/MIMBCD-UI/sa-uta11-results/blob/main/ACKNOWLEDGMENTS.md) file of the [`sa-uta11-results`](https://github.com/MIMBCD-UI/sa-uta11-results) repository for the purpose. Additionally, we are grateful for the invaluable assistance provided by our colleagues of the [HCII](https://hcii.cmu.edu/) @ [CMU](https://cmu.edu/). We are indebted to those who gave their time and expertise to evaluate our work, who among others are giving us crucial information for the [BreastScreening](https://github.com/BreastScreening) project.
+
+### Supporting
+
+Our organization is a non-profit organization. However, we have many needs across our activity. From infrastructure to service needs, we need some time and contribution, as well as help, to support our team and projects.
+
+<span>
+  <a href="https://opencollective.com/oppr" target="_blank">
+    <img src="https://opencollective.com/oppr/tiers/backer.svg" width="220">
+  </a>
+</span>
+
+#### Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+
+<span class="image">
+  <a href="graphs/contributors">
+    <img src="https://opencollective.com/oppr/contributors.svg?width=890" />
+  </a>
+</span>
+
+#### Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/oppr#backer)]
+
+<span>
+  <a href="https://opencollective.com/oppr#backers" target="_blank">
+    <img src="https://opencollective.com/oppr/backers.svg?width=890">
+  </a>
+</span>
+
+#### Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/oppr#sponsor)]
+
+<span>
+  <a href="https://opencollective.com/oppr/sponsor/0/website" target="_blank">
+    <img src="https://opencollective.com/oppr/sponsor/0/avatar.svg">
+  </a>
+</span>
+
+<br />
+
+<span>
+  <a href="http://www.fct.pt/" title="FCT" target="_blank">
+    <img src="https://github.com/mida-project/meta/blob/master/brands/fct_footer.png?raw=true" alt="fct" width="20%" />
+  </a>
+</span>
+<span>
+  <a href="https://www.fccn.pt/en/" title="FCCN" target="_blank">
+    <img src="https://github.com/mida-project/meta/blob/master/brands/fccn_footer.png?raw=true" alt="fccn" width="20%" />
+  </a>
+</span>
+<span>
+  <a href="https://www.ulisboa.pt/en/" title="ULisboa" target="_blank">
+    <img src="https://github.com/mida-project/meta/blob/master/brands/ulisboa_footer.png?raw=true" alt="ulisboa" width="20%" />
+  </a>
+</span>
+<span>
+  <a href="http://tecnico.ulisboa.pt/" title="IST" target="_blank">
+    <img src="https://github.com/mida-project/meta/blob/master/brands/ist_footer.png?raw=true" alt="ist" width="20%" />
+  </a>
+</span>
+<span>
+  <a href="http://hff.min-saude.pt/" title="HFF" target="_blank">
+    <img src="https://github.com/mida-project/meta/blob/master/brands/hff_footer.png?raw=true" alt="hff" width="20%" />
+  </a>
+</span>
+
+##### Departments
+
+<span>
+  <a href="http://dei.tecnico.ulisboa.pt" title="DEI" target="_blank">
+    <img src="https://github.com/mida-project/meta/blob/master/brands/dei_footer.png?raw=true" alt="dei" width="20%" />
+  </a>
+</span>
+<span>
+  <a href="http://deec.tecnico.ulisboa.pt" title="DEEC" target="_blank">
+    <img src="https://github.com/mida-project/meta/blob/master/brands/deec_footer.png?raw=true" alt="dei" width="20%" />
+  </a>
+</span>
+
+##### Laboratories
+
+<span>
+  <a href="http://sipg.isr.tecnico.ulisboa.pt/" title="SIPG" target="_blank">
+    <img src="https://github.com/mida-project/meta/blob/master/brands/sipg_footer.png?raw=true" alt="sipg" width="20%" />
+  </a>
+</span>
+<span>
+  <a href="http://welcome.isr.tecnico.ulisboa.pt/" title="ISR" target="_blank">
+    <img src="https://github.com/mida-project/meta/blob/master/brands/isr-lisboa_footer.png?raw=true" alt="isr" width="20%" />
+  </a>
+</span>
+<span>
+  <a href="http://larsys.pt/" title="LARSys" target="_blank">
+    <img src="https://github.com/mida-project/meta/blob/master/brands/larsys_footer.png?raw=true" alt="larsys" width="20%" />
+  </a>
+</span>
+<span>
+  <a href="https://www.m-iti.org/" title="M-ITI" target="_blank">
+    <img src="https://github.com/mida-project/meta/blob/master/brands/iti_footer.png?raw=true" alt="iti" width="20%" />
+  </a>
+</span>
+<span>
+  <a href="http://www.inesc-id.pt/" title="INESC-ID" target="_blank">
+    <img src="https://github.com/mida-project/meta/blob/master/brands/inesc-id_footer.png?raw=true" alt="inesc-id" width="20%" />
+  </a>
+</span>
+
+##### Domain
+
+<span>
+  <a href="https://europa.eu/" title="EU" target="_blank">
+    <img src="https://github.com/mida-project/meta/blob/master/brands/eu_footer.png?raw=true" alt="eu" width="20%" />
+  </a>
+</span>
+<span>
+  <a href="https://www.portugal.gov.pt/" title="Portugal" target="_blank">
+    <img src="https://github.com/mida-project/meta/blob/master/brands/pt_footer.png?raw=true" alt="pt" width="20%" />
+  </a>
+</span>

@@ -4,7 +4,14 @@
 
 <img src="https://github.com/mida-project/meta/blob/master/banners/statistical-analysis.png?raw=true" width="100%" />
 
-TODO
+[![License](https://img.shields.io/badge/License-Academic%20%2B%20Commercial-blue?style=flat-square)](https://github.com/MIMBCD-UI/sa-uta11-results/blob/master/LICENSE.md)
+[![Last commit](https://img.shields.io/github/last-commit/MIMBCD-UI/sa-uta11-results?style=flat-square)](https://github.com/MIMBCD-UI/sa-uta11-results/commits/master)
+[![OpenCollective](https://opencollective.com/oppr/backers/badge.svg?style=flat-square)](#backers)
+[![OpenCollective](https://opencollective.com/oppr/sponsors/badge.svg?style=flat-square)](#sponsors)
+[![Gitter](https://img.shields.io/gitter/room/gitterHQ/gitter.svg?style=flat-square)](https://gitter.im/opprTeam)
+[![Twitter](https://flat.badgen.net/badge/icon/twitter?icon=twitter&label)](https://twitter.com/opprGroup)
+
+In this repository, we explore how human-AI interactions are affected by the ability of an AI agent to not only incorporate granular patient information from the AI outputs but also exploring how to adapt the communication tone (*i.e.*, more assertive or suggestive) depending on the medical experience (*i.e.*, novice or expert) of the clinician. Specifically, we compare the AI outputs that explain to clinicians some clinical arguments with more granular information about the patient regarding the lesion details, to a conventional agent that only provides numeric estimates (*e.g.*, BIRADS and accuracy) of the classification.
 
 During this [11th User Tests and Analysis (UTA11)](https://github.com/MIMBCD-UI/meta/wiki/User-Research#user-test-evaluations-) study, we used several repositories to store the source code of our prototypes, later tested as *proof-of-concepts* under this research work. The prototypes are available in the [`prototype-assertive-proactive`](https://github.com/MIMBCD-UI/prototype-assertive-proactive), [`prototype-assertive-reactive`](https://github.com/MIMBCD-UI/prototype-assertive-reactive), [`prototype-non-assertive-proactive`](https://github.com/MIMBCD-UI/prototype-non-assertive-proactive), and [`prototype-non-assertive-reactive`](https://github.com/MIMBCD-UI/prototype-non-assertive-reactive) repositories. We deployed each prototype in a remote server.
 

@@ -4,6 +4,7 @@
 
 <img src="https://github.com/mida-project/meta/blob/master/banners/statistical-analysis.png?raw=true" width="100%" />
 
+
 [![License](https://img.shields.io/badge/License-Academic%20%2B%20Commercial-blue?style=flat-square)](https://github.com/MIMBCD-UI/sa-uta11-results/blob/master/LICENSE.md)
 [![Last commit](https://img.shields.io/github/last-commit/MIMBCD-UI/sa-uta11-results?style=flat-square)](https://github.com/MIMBCD-UI/sa-uta11-results/commits/master)
 [![OpenCollective](https://opencollective.com/oppr/backers/badge.svg?style=flat-square)](#backers)

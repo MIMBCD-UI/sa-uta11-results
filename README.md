@@ -109,7 +109,7 @@ Besides that, one of our goals involves creating a configuration file to automat
 
 ## Contributing
 
-This project exists thanks to all the people who [contribute](CONTRIBUTING.md). We welcome everyone who wants to help us improve this downloader. As follows, we present some suggestions.
+This project exists thanks to all the people who [contribute](CONTRIBUTING.md). We welcome everyone who wants to help us improve this repository. Any question, comment or feedback you have, you can always open a new [Discussion](https://github.com/MIMBCD-UI/sa-uta11-results/discussions) for that topic, or follow what we already have. For instance, we have a [CHI'23 Q&A Discussion](https://github.com/MIMBCD-UI/sa-uta11-results/discussions/8) for the [#CHI2023](https://chi2023.acm.org/) conference. As follows, we present some suggestions.
 
 ### Issuer
 

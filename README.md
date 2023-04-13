@@ -127,6 +127,20 @@ The current information will summarize important items of this repository. In th
 
 - [`sa-uta8-utaut`](https://github.com/mida-project/sa-uta8-utaut)
 
+- [`prototype-assertive-proactive`](https://github.com/MIMBCD-UI/prototype-assertive-proactive)
+
+- [`prototype-assertive-reactive`](https://github.com/MIMBCD-UI/prototype-assertive-reactive)
+
+- [`prototype-non-assertive-proactive`](https://github.com/MIMBCD-UI/prototype-non-assertive-proactive)
+
+- [`prototype-non-assertive-reactive`](https://github.com/MIMBCD-UI/prototype-non-assertive-reactive)
+
+- [`dataset-uta11-dicom`](https://github.com/MIMBCD-UI/dataset-uta11-dicom)
+
+- [`dataset-uta11-findings`](https://github.com/MIMBCD-UI/dataset-uta11-findings)
+
+- [`dataset-uta11-rates`](https://github.com/MIMBCD-UI/dataset-uta11-rates)
+
 ### Dataset Resources
 
 To publish our [datasets](https://www.kaggle.com/MIMBCD-UI) we used a well known platform called [Kaggle](https://www.kaggle.com). To access our project's [Profile Page](https://www.kaggle.com/MIMBCD-UI) just follow the [link](https://www.kaggle.com/MIMBCD-UI). Here, you will find all of our published datasets and any associated information, such as descriptions and download links.

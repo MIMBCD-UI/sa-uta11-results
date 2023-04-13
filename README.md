@@ -251,7 +251,7 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 </span>
 <span>
   <a href="https://www.chtmad.min-saude.pt/" title="CHTMAD" target="_blank">
-    <img src="https://raw.githubusercontent.com/MIMBCD-UI/meta/master/brands/chtmad_footer.png" alt="chtmad" width="2.50%" />
+    <img src="https://raw.githubusercontent.com/MIMBCD-UI/meta/master/brands/chtmad_footer.png" alt="chtmad" width="10%" />
   </a>
 </span>
 

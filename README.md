@@ -249,6 +249,11 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
     <img src="https://github.com/mida-project/meta/blob/master/brands/hff_footer.png?raw=true" alt="hff" width="20%" />
   </a>
 </span>
+<span>
+  <a href="https://www.chtmad.min-saude.pt/" title="HFF" target="_blank">
+    <img src="https://raw.githubusercontent.com/MIMBCD-UI/meta/master/brands/chtmad_footer.png" alt="chtmad" width="20%" />
+  </a>
+</span>
 
 ##### Departments
 

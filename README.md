@@ -81,7 +81,7 @@ Usage follow the instructions here to setup the current repository and extract t
 
 ### Installation
 
-At this point, the only way to install this repository is manual. Eventually, this will be accessible through [pip](https://pypi.org/project/pip/) and [npm](https://www.npmjs.com/) or any other package managers, as mentioned on the [roadmap](#Roadmap).
+At this point, the only way to install this repository is manual. Eventually, this will be accessible through [`pip`](https://pypi.org/project/pip/) and [`npm`](https://www.npmjs.com/) or any other package managers, as mentioned on the [roadmap](#Roadmap).
 
 Nonetheless, this kind of installation is as simple as cloning this repository. Virtually all Git and GitHub version control tools are capable of doing that. Through the console, we can use the command below, but other ways are also fine.
 
@@ -91,13 +91,13 @@ git clone https://github.com/MIMBCD-UI/sa-uta11-results.git
 
 ### Demonstration
 
-Please, feel free to try out our demo. It is a script called `demo.py` at the `src/` directory. It can be used as follows:
+Please, feel free to run one of our statistical method. It is a script called `basic_statistics.py` at the `src/methods/` directory. It can be used as follows:
 
 ```bash
-python src/demo.py
+python src/methods/basic_statistics.py
 ```
 
-Just keep in mind this is just a demo, so it does nothing more than downloading data to an arbitrary destination directory if the directory does not exist or does not have any content. Also, we did our best to make the demo as user-friendly as possible, so, above everything else, have fun! 😁
+Just keep in mind this are just basic statistics, so it does nothing more than computing basic statistics such as mean and standard deviation for various subsets of data. Also, we did our best to make the basic statistics as user-friendly as possible, so, above everything else, have fun! 😁
 
 ## Roadmap
 
@@ -105,7 +105,7 @@ Just keep in mind this is just a demo, so it does nothing more than downloading 
 
 We need to follow the repository goal, by addressing the thereby information. Therefore, it is of chief importance to scale this solution supported by the repository. The repository solution follows the best practices, achieving the [Core Infrastructure Initiative (CII)](https://bestpractices.coreinfrastructure.org/en/projects/3172) specifications.
 
-Besides that, one of our goals involves creating a configuration file to automatically test and publish our code to pip or any other package manager. It will be most likely prepared for the [GitHub Actions](https://github.com/features/actions). Other goals may be written here in the future.
+Besides that, one of our goals involves creating a configuration file to automatically test and publish our code to `pip` or any other package manager. It will be most likely prepared for the [GitHub Actions](https://github.com/features/actions). Other goals may be written here in the future.
 
 ## Contributing
 
@@ -159,9 +159,9 @@ Copyright &copy; 2023 [Instituto Superior Técnico](http://tecnico.ulisboa.pt/)
 
 [![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/)
 
-The [`sa-uta11-results`](https://github.com/MIMBCD-UI/sa-uta11-results) repository is distributed under the terms of both [Academic License](https://github.com/MIMBCD-UI/sa-uta11-results/blob/master/ACADEMIC.md) for academic purpose and [Commercial License](https://github.com/MIMBCD-UI/sa-uta11-results/blob/master/COMMERCIAL.md) for commercial purpose, as well as under the [CC-BY-SA-4.0](COPYING.md) copyright. The content of the present repository has obtained the patent right of [World Intellectual Property Organization (WIPO)](https://www.wipo.int) invention. Moreover, the hereby invention for this repository is under protection of the patent number **[WO2022071818A1](https://patents.google.com/patent/WO2022071818A1)** with the application number **PCT/PT2021/050029**. The title of the invention is "*Computational Method and System for Improved Identification of Breast Lesions*", registered under the WO patent office.
+The [`sa-uta11-results`](https://github.com/MIMBCD-UI/sa-uta11-results) repository is distributed under the terms of both [Academic License](ACADEMIC.md) for academic purpose and [Commercial License](COMMERCIAL.md) for commercial purpose, as well as under the [CC-BY-SA-4.0](COPYING.md) copyright. The content of the present repository has obtained the patent right of [World Intellectual Property Organization (WIPO)](https://www.wipo.int) invention. Moreover, the hereby invention for this repository is under protection of the patent number **[WO2022071818A1](https://patents.google.com/patent/WO2022071818A1)** with the application number **PCT/PT2021/050029**. The title of the invention is "*Computational Method and System for Improved Identification of Breast Lesions*", registered under the WO patent office.
 
-See [ACADEMIC](https://github.com/MIMBCD-UI/sa-uta11-results/blob/master/ACADEMIC.md) and [COMMERCIAL](https://github.com/MIMBCD-UI/sa-uta11-results/blob/master/COMMERCIAL.md) for details. For more information about the [MIMBCD-UI](https://mimbcd-ui.github.io/) Project just follow the [link](https://github.com/MIMBCD-UI/meta).
+See [ACADEMIC](ACADEMIC.md) and [COMMERCIAL](COMMERCIAL.md) for details. For more information about the [MIMBCD-UI](https://mimbcd-ui.github.io/) Project just follow the [link](https://github.com/MIMBCD-UI/meta).
 
 ### Team
 
@@ -202,7 +202,7 @@ Our team brings everything together sharing ideas and the same purpose, developi
 
 #### Acknowledgements
 
-This work was partially supported by national funds through [FCT](http://fct.pt/) and [IST](http://tecnico.ulisboa.pt/) through the [UID/EEA/50009/2013](https://www.fct.pt/apoios/projectos/consulta/vglobal_projecto.phtml.en?idProjecto=147329&idElemConcurso=8999) project, [BL89/2017-IST-ID](http://ist-id.pt/en/) grant. We thank [Dr. Clara Aleluia](https://www.researchgate.net/profile/Clara_Aleluia) and her [radiology team](https://repositorio.hff.min-saude.pt/handle/10400.10/4?locale=en) of [HFF](https://hff.min-saude.pt/) for valuable insights and helping using the *assistants* on their daily basis. Further acknowledgments are provided inside the [`ACKNOWLEDGMENTS.md`](https://github.com/MIMBCD-UI/sa-uta11-results/blob/main/ACKNOWLEDGMENTS.md) file of the [`sa-uta11-results`](https://github.com/MIMBCD-UI/sa-uta11-results) repository. Additionally, we are grateful for the invaluable assistance provided by our colleagues of the [HCII](https://hcii.cmu.edu/) @ [CMU](https://cmu.edu/). We are indebted to those who gave their time and expertise to evaluate our work, who among others are giving us crucial information for the [BreastScreening](https://github.com/BreastScreening) project.
+This work was partially supported by national funds through [FCT](http://fct.pt/) and [IST](http://tecnico.ulisboa.pt/) through the [UID/EEA/50009/2013](https://www.fct.pt/apoios/projectos/consulta/vglobal_projecto.phtml.en?idProjecto=147329&idElemConcurso=8999) project, [BL89/2017-IST-ID](http://ist-id.pt/en/) grant. We thank [Dr. Clara Aleluia](https://www.researchgate.net/profile/Clara_Aleluia) and her [radiology team](https://repositorio.hff.min-saude.pt/handle/10400.10/4?locale=en) of [HFF](https://hff.min-saude.pt/) for valuable insights and helping using the *assistants* on their daily basis. Further acknowledgments are provided inside the [`ACKNOWLEDGMENTS.md`](ACKNOWLEDGMENTS.md) file of the [`sa-uta11-results`](https://github.com/MIMBCD-UI/sa-uta11-results) repository. Additionally, we are grateful for the invaluable assistance provided by our colleagues of the [HCII](https://hcii.cmu.edu/) @ [CMU](https://cmu.edu/). We are indebted to those who gave their time and expertise to evaluate our work, who among others are giving us crucial information for the [BreastScreening](https://github.com/BreastScreening) project.
 
 ### Supporting
 

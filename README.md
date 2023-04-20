@@ -12,7 +12,7 @@
 [![Gitter](https://img.shields.io/gitter/room/gitterHQ/gitter.svg?style=flat-square)](https://gitter.im/opprTeam)
 [![Twitter](https://flat.badgen.net/badge/icon/twitter?icon=twitter&label)](https://twitter.com/opprGroup)
 
-In this repository, we explore how human-AI interactions are affected by the ability of an AI agent to not only incorporate granular patient information from the AI outputs but also exploring how to adapt the communication tone (*i.e.*, more assertive or suggestive) depending on the medical experience (*i.e.*, novice or expert) of the clinician. Specifically, we compare the AI outputs that explain to clinicians some clinical arguments with more granular information about the patient regarding the lesion details, to a conventional agent that only provides numeric estimates (*e.g.*, [BIRADS](https://radiopaedia.org/articles/breast-imaging-reporting-and-data-system-bi-rads) and [accuracy](https://radiopaedia.org/articles/validation-split-machine-learning?lang=us)) of the classification. The study was conducted using a dataset of medical images and patient information, where the AI agents were trained to classify the images based on various features. The data and source code used in this study are available in this repository, along with a detailed explanation of the methods and results. We hope that this work will contribute to the growing field of human-AI interactions in the medical field, and help to improve the communication between AI systems and clinicians.
+In this repository, we explore how human-AI interactions are affected by the ability of an AI agent to not only incorporate granular patient information from the AI outputs (*e.g.*, [`dataset-uta7-annotations`](https://github.com/MIMBCD-UI/dataset-uta7-annotations), [`dataset-uta11-rates`](https://github.com/MIMBCD-UI/dataset-uta11-rates), or [`dataset-uta11-findings`](https://github.com/MIMBCD-UI/dataset-uta11-findings) repositories) but also exploring how to adapt the communication tone (*i.e.*, more assertive or suggestive) depending on the medical experience (*i.e.*, novice or expert) of the clinician. Specifically, we compare the AI outputs that explain to clinicians some clinical arguments (*e.g.*, [`dataset-uta7-co-variables`](https://github.com/MIMBCD-UI/dataset-uta7-co-variables), or [`dataset-uta11-findings`](https://github.com/MIMBCD-UI/dataset-uta11-findings) repositories) with more granular information about the patient regarding the lesion details, to a conventional agent (*i.e.*, [`prototype-breast-screening`](https://github.com/MIMBCD-UI/prototype-breast-screening) repository) that only provides numeric estimates (*e.g.*, [BIRADS](https://radiopaedia.org/articles/breast-imaging-reporting-and-data-system-bi-rads) and [accuracy](https://radiopaedia.org/articles/validation-split-machine-learning?lang=us)) of the classification. The study was conducted using a dataset of medical images (*e.g.*, [`dataset-uta7-dicom`](https://github.com/MIMBCD-UI/dataset-uta7-dicom), or [`dataset-uta11-dicom`](https://github.com/MIMBCD-UI/dataset-uta11-dicom) repositories) and patient information, where the AI agents were trained to classify the images based on various features. The data and source code used in this study are available in this repository, along with a detailed explanation of the methods and results. We hope that this work will contribute to the growing field of human-AI interactions in the medical field, and help to improve the communication between AI systems and clinicians.
 
 We present our results for applying the *BreastScreening-AI* framework in two conditions, where clinicians will interact with **conventional** (*e.g.*, [`prototype-breast-screening`](https://github.com/MIMBCD-UI/prototype-breast-screening) repository) and **assertiveness-based** (*e.g.*, [`prototype-assertive-reactive`](https://github.com/MIMBCD-UI/prototype-assertive-reactive) and [`prototype-non-assertive-reactive`](https://github.com/MIMBCD-UI/prototype-non-assertive-reactive) repositories) intelligent agents. The assistant is acting as a second reader, where we compared both conventional and assertiveness-based agents in the context of assisting trained medical personnel for the task of a breast cancer diagnosis. To organize our user evaluations, we devide each study in a group of User Tests and Analysis (UTA) to guide us during these studies. For this repository, used data from the 7th (UTA7) guide and the 11th (UTA11) guide. As follows, some details are provided for more information about these guides.
 
@@ -125,7 +125,21 @@ The current information will summarize important items of this repository. In th
 
 ### Related Repositories
 
+- [`dataset-uta7-dicom`](https://github.com/MIMBCD-UI/dataset-uta7-dicom)
+
+- [`dataset-uta7-annotations`](https://github.com/MIMBCD-UI/dataset-uta7-annotations)
+
+- [`dataset-uta7-co-variables`](https://github.com/MIMBCD-UI/dataset-uta7-co-variables)
+
 - [`sa-uta8-utaut`](https://github.com/mida-project/sa-uta8-utaut)
+
+- [`dataset-uta11-dicom`](https://github.com/MIMBCD-UI/dataset-uta11-dicom)
+
+- [`dataset-uta11-findings`](https://github.com/MIMBCD-UI/dataset-uta11-findings)
+
+- [`dataset-uta11-rates`](https://github.com/MIMBCD-UI/dataset-uta11-rates)
+
+- [`prototype-breast-screening`](https://github.com/MIMBCD-UI/prototype-breast-screening)
 
 - [`prototype-assertive-proactive`](https://github.com/MIMBCD-UI/prototype-assertive-proactive)
 
@@ -134,12 +148,6 @@ The current information will summarize important items of this repository. In th
 - [`prototype-non-assertive-proactive`](https://github.com/MIMBCD-UI/prototype-non-assertive-proactive)
 
 - [`prototype-non-assertive-reactive`](https://github.com/MIMBCD-UI/prototype-non-assertive-reactive)
-
-- [`dataset-uta11-dicom`](https://github.com/MIMBCD-UI/dataset-uta11-dicom)
-
-- [`dataset-uta11-findings`](https://github.com/MIMBCD-UI/dataset-uta11-findings)
-
-- [`dataset-uta11-rates`](https://github.com/MIMBCD-UI/dataset-uta11-rates)
 
 ### Dataset Resources
 

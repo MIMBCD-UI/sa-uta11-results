@@ -151,7 +151,7 @@ The current information will summarize important items of this repository. In th
 
 ### Dataset Resources
 
-To publish our [datasets](https://www.kaggle.com/MIMBCD-UI) we used a well known platform called [Kaggle](https://www.kaggle.com). To access our project's [Profile Page](https://www.kaggle.com/MIMBCD-UI) just follow the [link](https://www.kaggle.com/MIMBCD-UI). Here, you will find all of our published datasets and any associated information, such as descriptions and download links.
+To publish our datasets we used a well known platform called [Kaggle](https://www.kaggle.com). To access these datasets just follow the [`uta4-sm-vs-mm-sheets`](https://www.kaggle.com/datasets/MIMBCD-UI/uta4-sm-vs-mm-sheets) dataset, as an example. Here, you will find all of our published datasets and any associated information, such as descriptions and download links.
 
 ### License & Copyright
 

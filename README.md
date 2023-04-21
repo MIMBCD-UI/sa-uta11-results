@@ -308,7 +308,7 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
   </a>
 </span>
 <span>
-  <a href="https://www.m-iti.org/" title="M-ITI" target="_blank">
+  <a href="https://iti.larsys.pt/" title="ITI" target="_blank">
     <img src="https://github.com/mida-project/meta/blob/master/brands/iti_footer.png?raw=true" alt="iti" width="20%" />
   </a>
 </span>

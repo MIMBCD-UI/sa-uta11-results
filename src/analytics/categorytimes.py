@@ -107,59 +107,52 @@ if not os.path.isfile(file_path):
 
 data = pd.read_csv(file_path)
 
-# Calculate means and standard deviations for each category and assistance type
-summary = data.groupby(['category_level']).agg(
-    mean_uta4=('uta4_time_on_task_no_ai', 'mean'),
-    std_uta4=('uta4_time_on_task_no_ai', 'std'),
-    mean_uta7=('uta7_time_on_task_physician_assistant', 'mean'),
-    std_uta7=('uta7_time_on_task_physician_assistant', 'std'),
-    mean_uta11=('uta11_time_on_task_pysician_assistant_personalized', 'mean'),
-    std_uta11=('uta11_time_on_task_pysician_assistant_personalized', 'std')
-).reset_index()
-
-# Plotting the data
+# Create a combined category for plotting
+data['category_assistance'] = data['category_level'].astype(str) + ' - No AI'
 fig = go.Figure()
 
-fig.add_trace(go.Bar(
+# Plotting the data
+fig.add_trace(go.Box(
     name='No AI',
-    x=summary['category_level'],
-    y=summary['mean_uta4'],
-    error_y=dict(type='data', array=summary['std_uta4']),
+    y=data['uta4_time_on_task_no_ai'],
+    x=data['category_level'],
     marker_color='rgb(158,202,225)',
     marker_line_color='rgb(8,48,107)',
     marker_line_width=1.5,
-    opacity=0.6
+    opacity=0.6,
+    boxpoints='all',
+    jitter=0.3
 ))
 
-fig.add_trace(go.Bar(
+fig.add_trace(go.Box(
     name='Physician Assistant',
-    x=summary['category_level'],
-    y=summary['mean_uta7'],
-    error_y=dict(type='data', array=summary['std_uta7']),
+    y=data['uta7_time_on_task_physician_assistant'],
+    x=data['category_level'],
     marker_color='rgb(255,127,14)',
     marker_line_color='rgb(8,48,107)',
     marker_line_width=1.5,
-    opacity=0.6
+    opacity=0.6,
+    boxpoints='all',
+    jitter=0.3
 ))
 
-fig.add_trace(go.Bar(
+fig.add_trace(go.Box(
     name='Personalized Physician Assistant',
-    x=summary['category_level'],
-    y=summary['mean_uta11'],
-    error_y=dict(type='data', array=summary['std_uta11']),
+    y=data['uta11_time_on_task_pysician_assistant_personalized'],
+    x=data['category_level'],
     marker_color='rgb(44,160,44)',
     marker_line_color='rgb(8,48,107)',
     marker_line_width=1.5,
-    opacity=0.6
+    opacity=0.6,
+    boxpoints='all',
+    jitter=0.3
 ))
 
 fig.update_layout(
     title='Time on Task by Category Level and Assistance Type',
-    xaxis=dict(title='Category Level'),
+    xaxis=dict(title='Category Level', tickangle=-45),
     yaxis=dict(title='Time on Task (seconds)'),
-    barmode='group',
-    bargap=0.15,
-    bargroupgap=0.1,
+    boxmode='group',
     paper_bgcolor='rgb(243, 243, 243)',
     plot_bgcolor='rgb(243, 243, 243)'
 )

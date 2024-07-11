@@ -120,7 +120,7 @@ fig.add_trace(go.Box(
     marker_line_color='rgb(8,48,107)',
     marker_line_width=1.5,
     opacity=0.6,
-    boxpoints='all',
+    boxpoints='outliers',
     jitter=0.3
 ))
 
@@ -132,7 +132,7 @@ fig.add_trace(go.Box(
     marker_line_color='rgb(8,48,107)',
     marker_line_width=1.5,
     opacity=0.6,
-    boxpoints='all',
+    boxpoints='outliers',
     jitter=0.3
 ))
 
@@ -144,24 +144,39 @@ fig.add_trace(go.Box(
     marker_line_color='rgb(8,48,107)',
     marker_line_width=1.5,
     opacity=0.6,
-    boxpoints='all',
+    boxpoints='outliers',
     jitter=0.3
 ))
 
+# Define the category order
+category_order = ['Intern', 'Junior', 'Middle', 'Senior']
+
 fig.update_layout(
-    title='Time on Task by Category Level and Assistance Type',
-    xaxis=dict(title='Category Level', tickangle=-45),
-    yaxis=dict(title='Time on Task (seconds)'),
+    title=dict(text='Time on Task by Category Level and Assistance Type', font=dict(size=24)),
+    xaxis=dict(title='Category Level', tickangle=-45, categoryorder='array', categoryarray=category_order, titlefont=dict(size=20), tickfont=dict(size=16)),
+    yaxis=dict(title='Time on Task (seconds)', gridcolor='grey', titlefont=dict(size=20), tickfont=dict(size=16)),
     boxmode='group',
-    paper_bgcolor='rgb(243, 243, 243)',
-    plot_bgcolor='rgb(243, 243, 243)'
+    paper_bgcolor='rgba(0,0,0,0)',
+    plot_bgcolor='rgba(0,0,0,0)',
+    legend=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=-0.3,
+        xanchor="center",
+        x=0.5,
+        font=dict(size=16)
+    )
 )
 
 # Save the plot
 fn_to_save_html = os.path.join(plotsAbsPath, file_name_category_times + '.html')
 fn_to_save_png = os.path.join(visAbsPath, file_name_category_times + '.png')
+fn_to_save_svg = os.path.join(visAbsPath, file_name_category_times + '.svg')
+fn_to_save_pdf = os.path.join(visAbsPath, file_name_category_times + '.pdf')
 pyo.plot(fig, filename=fn_to_save_html, auto_open=False)
 pio.write_image(fig, fn_to_save_png)
+pio.write_image(fig, fn_to_save_svg)
+pio.write_image(fig, fn_to_save_pdf)
 
 # ============================== #
 # ============================== #
